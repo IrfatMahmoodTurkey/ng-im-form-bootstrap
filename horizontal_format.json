@@ -14,6 +14,7 @@
   },
   "forms": [
     {
+      "id": "timestamp",
       "title": "Section 1",
       "subTitle": "Section Subtitle",
       "class": "card",
@@ -21,6 +22,7 @@
       "bodyClass": "card-body",
       "elements": [
         {
+          "id": "timestamp",
           "order": 1,
           "label": "First Name",
           "elementType": "textbox", // textbox, textfield, select, checkbox, radiobutton, input file
