@@ -1,0 +1,55 @@
+{
+  "checkValidations": true,
+  "resetButton": false,
+  "apiUrl": "https://",
+  "method": "POST",
+  "sendBodyAs": "json", // x-www-form-urlencoded when used file
+  "authorize": {
+    "willAuthorize": false,
+    "bearerTokenStorageKey": ""
+  },
+  "responseMessages": {
+    "onSuccess": "",
+    "onFailed": ""
+  },
+  "forms": [
+    {
+      "title": "Section 1",
+      "subTitle": "Section Subtitle",
+      "class": "card",
+      "headerClass": "card-header",
+      "bodyClass": "card-body",
+      "elements": [
+        {
+          "order": 1,
+          "label": "First Name",
+          "elementType": "textbox", // textbox, textfield, select, checkbox, radiobutton, input file
+          "type": "text", // text, date, number, email etc
+          "class": "form-control",
+          "id": "first-name",
+          "value": "Irfat",
+          "isReadonly": false,
+          "isDisabled": false,
+          "isHidden": false,
+          "isRequired": true,
+          "requiredMessage": "First Name is required!",
+          "validations": [
+            {
+              "type": "email",
+              "message": "Email is invalid"
+            },
+            {
+              "type": "min",
+              "minValue": 0,
+              "message": "Minimum value will be 0"
+            }
+          ],
+          "regexValidations": {
+            "expression": "",
+            "message": ""
+          }
+        }
+      ]
+    }
+  ]
+}
