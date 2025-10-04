@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  IElementModel,
   IHorizonatalFormSectionModel,
   IHorizontalFormModel,
-  ISelectBoxModel,
-  ITextBoxModel,
 } from '../../models/horizontal-form.model';
 import { APIMethodsEnum } from '../../enums/api-methods.enum';
 import { SendBodyTypesEnum } from '../../enums/send-body-types.enum';
 import { FIELDS } from '../../constants/field-types.constant';
+import { sectionHelpers } from '../../helpers/section.helper';
+import { textboxHelpers } from '../../helpers/textbox.helper';
 
 @Component({
   selector: 'app-form-builder',
@@ -38,38 +37,24 @@ export class FormBuilderComponent implements OnInit {
   isFieldSelectionSidePanelOpen: boolean = false;
   selectedSectionId: string | undefined;
 
+  isSectionPropertiesSidePanelOpen: boolean = false;
+  selectedForSectionPropertiesUpdate: IHorizonatalFormSectionModel | undefined;
+
   constructor() {}
 
   ngOnInit() {}
 
   addSection(): void {
-    const generatedId: string = String(Date.now());
-
-    this.horizontalForm.sections.push({
-      id: generatedId,
-      title: 'Section Title',
-      subTitle: 'Section Subtitle',
-      class: 'section-class',
-      headerClass: 'section-header-class',
-      bodyClass: 'section-body-class',
-      elements: [],
-    });
+    this.horizontalForm = sectionHelpers.addSection(this.horizontalForm);
   }
 
   removeSection(id: string): void {
-    if (this.horizontalForm.sections.length <= 0) {
-      return;
+    let horizontalForm: IHorizontalFormModel | null =
+      sectionHelpers.removeSection(id, this.horizontalForm);
+
+    if (horizontalForm) {
+      this.horizontalForm = horizontalForm;
     }
-
-    const indexOf: number = this.horizontalForm.sections.findIndex(
-      (value: IHorizonatalFormSectionModel) => value.id === id
-    );
-
-    if (indexOf < 0) {
-      return;
-    }
-
-    this.horizontalForm.sections.splice(indexOf, 1);
   }
 
   viewFieldSelectionSidePanel(sectionId: string): void {
@@ -83,80 +68,23 @@ export class FormBuilderComponent implements OnInit {
 
   addField(type: string): void {
     if (type === this.fields[0]) {
-      this.addTextbox();
+      let horizontalForm: IHorizontalFormModel | null =
+        textboxHelpers.addTextbox(this.selectedSectionId, this.horizontalForm);
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
     }
   }
 
   removeField(type: string, sectionId: string, id: string): void {
     if (type === this.fields[0]) {
-      this.removeTextBox(sectionId, id);
+      let horizontalForm: IHorizontalFormModel | null =
+        textboxHelpers.removeTextbox(sectionId, id, this.horizontalForm);
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
     }
-  }
-
-  private addTextbox(): void {
-    if (!this.selectedSectionId) {
-      return;
-    }
-
-    let toModifySection: IHorizonatalFormSectionModel | undefined =
-      this.horizontalForm.sections.find(
-        (value: IHorizonatalFormSectionModel) =>
-          value.id === this.selectedSectionId
-      );
-
-    if (!toModifySection) {
-      return;
-    }
-
-    const generatedId: string = String(Date.now());
-
-    const order: number = toModifySection.elements.length;
-
-    const toAddTextBox: ITextBoxModel = {
-      id: generatedId,
-      order: order + 1,
-      name: generatedId,
-      label: `Input Field ${order + 1}`,
-      type: 'text',
-      class: 'form-control',
-      placeholder: `Input Field ${order + 1}`,
-      userDefinedId: generatedId,
-      value: '',
-      isReadOnly: false,
-      isHidden: false,
-      isRequired: false,
-      requiredMessage: null,
-      validations: null,
-      regexValidation: null,
-    };
-
-    toModifySection.elements.push({
-      type: this.fields[0],
-      textBoxComponent: toAddTextBox,
-    });
-  }
-
-  private removeTextBox(sectionId: string, id: string): void {
-    let toModifySection: IHorizonatalFormSectionModel | undefined =
-      this.horizontalForm.sections.find(
-        (value: IHorizonatalFormSectionModel) => value.id === sectionId
-      );
-
-    if (!toModifySection) {
-      return;
-    }
-
-    let elements: IElementModel[] = toModifySection.elements;
-
-    const indexOf: number = elements.findIndex(
-      (value: IElementModel) =>
-        value.type === this.fields[0] && value.textBoxComponent?.id === id
-    );
-
-    if (indexOf < 0) {
-      return;
-    }
-
-    elements.splice(indexOf, 1);
   }
 }
