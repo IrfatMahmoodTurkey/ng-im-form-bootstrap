@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  IElementModel,
   IHorizonatalFormSectionModel,
   IHorizontalFormModel,
   ISelectBoxModel,
@@ -86,7 +87,13 @@ export class FormBuilderComponent implements OnInit {
     }
   }
 
-  addTextbox(): void {
+  removeField(type: string, sectionId: string, id: string): void {
+    if (type === this.fields[0]) {
+      this.removeTextBox(sectionId, id);
+    }
+  }
+
+  private addTextbox(): void {
     if (!this.selectedSectionId) {
       return;
     }
@@ -108,11 +115,12 @@ export class FormBuilderComponent implements OnInit {
     const toAddTextBox: ITextBoxModel = {
       id: generatedId,
       order: order + 1,
+      name: generatedId,
       label: `Input Field ${order + 1}`,
       type: 'text',
       class: 'form-control',
       placeholder: `Input Field ${order + 1}`,
-      userDefinedId: `field-${order + 1}`,
+      userDefinedId: generatedId,
       value: '',
       isReadOnly: false,
       isHidden: false,
@@ -126,5 +134,29 @@ export class FormBuilderComponent implements OnInit {
       type: this.fields[0],
       textBoxComponent: toAddTextBox,
     });
+  }
+
+  private removeTextBox(sectionId: string, id: string): void {
+    let toModifySection: IHorizonatalFormSectionModel | undefined =
+      this.horizontalForm.sections.find(
+        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+      );
+
+    if (!toModifySection) {
+      return;
+    }
+
+    let elements: IElementModel[] = toModifySection.elements;
+
+    const indexOf: number = elements.findIndex(
+      (value: IElementModel) =>
+        value.type === this.fields[0] && value.textBoxComponent?.id === id
+    );
+
+    if (indexOf < 0) {
+      return;
+    }
+
+    elements.splice(indexOf, 1);
   }
 }

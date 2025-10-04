@@ -37,6 +37,7 @@ export interface IElementModel {
 export interface ITextBoxModel {
   id: string;
   order: number;
+  name: string;
   label: string;
   type: string;
   placeholder: string;
