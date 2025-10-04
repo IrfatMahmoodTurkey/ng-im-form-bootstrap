@@ -29,6 +29,8 @@ export class FormBuilderComponent implements OnInit {
     sections: [],
   };
 
+  isFieldSelectionSidePanelOpen: boolean = false;
+
   constructor() {}
 
   ngOnInit() {}
@@ -61,5 +63,13 @@ export class FormBuilderComponent implements OnInit {
     }
 
     this.horizontalForm.sections.splice(indexOf, 1);
+  }
+
+  viewFieldSelectionSidePanel(): void {
+    this.isFieldSelectionSidePanelOpen = true;
+  }
+
+  hideFieldSelectionSidePanel(): void {
+    this.isFieldSelectionSidePanelOpen = false;
   }
 }
