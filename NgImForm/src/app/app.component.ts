@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `<app-form-builder></app-form-builder>`,
 })
-export class AppComponent {
-  title = 'NgImForm';
-}
+export class AppComponent {}
