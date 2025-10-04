@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FIELDS } from '../../../constants/field-types.constant';
 
 @Component({
   selector: 'app-field-selection-sidepanel',
@@ -6,17 +7,11 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class FieldSelectionSidePanelComponent implements OnInit {
   @Output() hidePanelEvent: EventEmitter<null> = new EventEmitter();
+  @Output() selectedTypeEvent: EventEmitter<string> = new EventEmitter();
 
-  fields: string[] = [
-    'Textbox',
-    'Textarea',
-    'File Upload',
-    'Dropdown Select Box',
-    'Check Box',
-    'Radio Button',
-    'Radio Button Group',
-    'Image View Box',
-  ];
+  selectedIndex: number | undefined;
+
+  fields: string[] = FIELDS;
 
   constructor() {}
 
@@ -24,5 +19,29 @@ export class FieldSelectionSidePanelComponent implements OnInit {
 
   hide(): void {
     this.hidePanelEvent.emit();
+  }
+
+  select(index: number): void {
+    if (this.selectedIndex === undefined) {
+      this.selectedIndex = index;
+      return;
+    }
+
+    if (this.selectedIndex === index) {
+      this.selectedIndex = undefined;
+      return;
+    }
+
+    this.selectedIndex = index;
+  }
+
+  add(): void {
+    if (this.selectedIndex === undefined) {
+      return;
+    }
+
+    const type: string = this.fields[this.selectedIndex];
+    this.selectedTypeEvent.emit(type);
+    this.hide();
   }
 }

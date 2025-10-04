@@ -30,28 +30,33 @@
               </div>
             </div>
             <div class="card-body">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-8">
-                      <div class="form-group">
-                        <label class="mb-1"><b>Input One*</b></label>
-                        <input type="text" class="form-control" placeholder="Input One" style="width: 100%;">
-                      </div>
-                    </div>
+              <ng-container *ngFor="let element of section.elements">
+                <ng-container *ngIf="element.type === fields[0] && element.textBoxComponent">
+                  <div class="card m-1">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-8">
+                          <div class="form-group">
+                            <label class="mb-1"><b>{{element.textBoxComponent.label}}</b></label>
+                            <input type="{{element.textBoxComponent.type}}" class="{{element.textBoxComponent.class}}"
+                              placeholder="{{element.textBoxComponent.placeholder}}" style="width: 100%;">
+                          </div>
+                        </div>
 
-                    <div class="col-4">
-                      <div class="d-flex align-items-end" style="height: 100%;">
-                        <button class="btn btn-success btn-sm me-1"><i class="fas fa-edit"></i> Properties</button>
-                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Remove</button>
+                        <div class="col-4">
+                          <div class="d-flex align-items-end" style="height: 100%;">
+                            <button class="btn btn-success btn-sm me-1"><i class="fas fa-edit"></i> Properties</button>
+                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Remove</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                </ng-container>
+              </ng-container>
 
               <div class="mt-2 d-flex justify-content-end">
-                <button class="btn btn-primary btn-sm" (click)="viewFieldSelectionSidePanel()"><i
+                <button class="btn btn-primary btn-sm" (click)="viewFieldSelectionSidePanel(section.id)"><i
                     class="fas fa-plus-circle"></i> Add Fields</button>
               </div>
             </div>
@@ -67,5 +72,5 @@
   </div>
 </div>
 
-<app-field-selection-sidepanel *ngIf="isFieldSelectionSidePanelOpen"
-  (hidePanelEvent)="hideFieldSelectionSidePanel()"></app-field-selection-sidepanel>
+<app-field-selection-sidepanel *ngIf="isFieldSelectionSidePanelOpen" (hidePanelEvent)="hideFieldSelectionSidePanel()"
+  (selectedTypeEvent)="addField($event)"></app-field-selection-sidepanel>

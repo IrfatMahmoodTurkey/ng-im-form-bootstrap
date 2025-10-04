@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {
   IHorizonatalFormSectionModel,
   IHorizontalFormModel,
+  ISelectBoxModel,
+  ITextBoxModel,
 } from '../../models/horizontal-form.model';
 import { APIMethodsEnum } from '../../enums/api-methods.enum';
 import { SendBodyTypesEnum } from '../../enums/send-body-types.enum';
+import { FIELDS } from '../../constants/field-types.constant';
 
 @Component({
   selector: 'app-form-builder',
@@ -12,6 +15,8 @@ import { SendBodyTypesEnum } from '../../enums/send-body-types.enum';
   styleUrls: ['./form-builder.component.scss'],
 })
 export class FormBuilderComponent implements OnInit {
+  fields: string[] = FIELDS;
+
   horizontalForm: IHorizontalFormModel = {
     checkValidations: true,
     isResetButtonAvailable: true,
@@ -30,6 +35,7 @@ export class FormBuilderComponent implements OnInit {
   };
 
   isFieldSelectionSidePanelOpen: boolean = false;
+  selectedSectionId: string | undefined;
 
   constructor() {}
 
@@ -65,11 +71,60 @@ export class FormBuilderComponent implements OnInit {
     this.horizontalForm.sections.splice(indexOf, 1);
   }
 
-  viewFieldSelectionSidePanel(): void {
+  viewFieldSelectionSidePanel(sectionId: string): void {
+    this.selectedSectionId = sectionId;
     this.isFieldSelectionSidePanelOpen = true;
   }
 
   hideFieldSelectionSidePanel(): void {
     this.isFieldSelectionSidePanelOpen = false;
+  }
+
+  addField(type: string): void {
+    if (type === this.fields[0]) {
+      this.addTextbox();
+    }
+  }
+
+  addTextbox(): void {
+    if (!this.selectedSectionId) {
+      return;
+    }
+
+    let toModifySection: IHorizonatalFormSectionModel | undefined =
+      this.horizontalForm.sections.find(
+        (value: IHorizonatalFormSectionModel) =>
+          value.id === this.selectedSectionId
+      );
+
+    if (!toModifySection) {
+      return;
+    }
+
+    const generatedId: string = String(Date.now());
+
+    const order: number = toModifySection.elements.length;
+
+    const toAddTextBox: ITextBoxModel = {
+      id: generatedId,
+      order: order + 1,
+      label: `Input Field ${order + 1}`,
+      type: 'text',
+      class: 'form-control',
+      placeholder: `Input Field ${order + 1}`,
+      userDefinedId: `field-${order + 1}`,
+      value: '',
+      isReadOnly: false,
+      isHidden: false,
+      isRequired: false,
+      requiredMessage: null,
+      validations: null,
+      regexValidation: null,
+    };
+
+    toModifySection.elements.push({
+      type: this.fields[0],
+      textBoxComponent: toAddTextBox,
+    });
   }
 }

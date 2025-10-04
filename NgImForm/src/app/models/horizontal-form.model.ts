@@ -25,7 +25,13 @@ export interface IHorizonatalFormSectionModel {
   class: string;
   headerClass: string;
   bodyClass: string;
-  elements: ITextBoxModel[] | ISelectBoxModel[];
+  elements: IElementModel[];
+}
+
+export interface IElementModel {
+  type: string;
+  textBoxComponent?: ITextBoxModel | null;
+  selectComponent?: ISelectBoxModel | null;
 }
 
 export interface ITextBoxModel {
@@ -33,6 +39,7 @@ export interface ITextBoxModel {
   order: number;
   label: string;
   type: string;
+  placeholder: string;
   class: string;
   userDefinedId: string;
   value: string;
