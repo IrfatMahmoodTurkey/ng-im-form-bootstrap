@@ -7,6 +7,17 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class FieldSelectionSidePanelComponent implements OnInit {
   @Output() hidePanelEvent: EventEmitter<null> = new EventEmitter();
 
+  fields: string[] = [
+    'Textbox',
+    'Textarea',
+    'File Upload',
+    'Dropdown Select Box',
+    'Check Box',
+    'Radio Button',
+    'Radio Button Group',
+    'Image View Box',
+  ];
+
   constructor() {}
 
   ngOnInit() {}

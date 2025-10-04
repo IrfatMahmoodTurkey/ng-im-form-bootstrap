@@ -12,5 +12,14 @@
     </div>
   </div>
   <div class="card-body sidebar-card-body">
+    <ng-container *ngFor="let field of fields">
+      <button type="button" class="m-1 btn btn-outline-success">{{field}}</button>
+    </ng-container>
+
+    <hr>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add</button>
+    </div>
   </div>
 </aside>
