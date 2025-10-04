@@ -66,6 +66,18 @@ export class FormBuilderComponent implements OnInit {
     this.isFieldSelectionSidePanelOpen = false;
   }
 
+  viewSectionPropertiesSidePanel(id: string): void {
+    this.selectedForSectionPropertiesUpdate = this.horizontalForm.sections.find(
+      (value: IHorizonatalFormSectionModel) => value.id === id
+    );
+
+    this.isSectionPropertiesSidePanelOpen = true;
+  }
+
+  hideSectionPropertiesSidePanel(): void {
+    this.isSectionPropertiesSidePanelOpen = false;
+  }
+
   addField(type: string): void {
     if (type === this.fields[0]) {
       let horizontalForm: IHorizontalFormModel | null =

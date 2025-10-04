@@ -22,7 +22,8 @@
                   <small>{{section.subTitle}}</small>
                 </div>
                 <div>
-                  <button class="btn btn-success btn-sm me-1"><i class="fas fa-edit"></i> Section Properties</button>
+                  <button class="btn btn-success btn-sm me-1" (click)="viewSectionPropertiesSidePanel(section.id)"><i
+                      class="fas fa-edit"></i> Section Properties</button>
                   <button class="btn btn-danger btn-sm" (click)="removeSection(section.id)"><i class="fas fa-trash"></i>
                     Remove
                     Section</button>
@@ -76,3 +77,6 @@
 
 <app-field-selection-sidepanel *ngIf="isFieldSelectionSidePanelOpen" (hidePanelEvent)="hideFieldSelectionSidePanel()"
   (selectedTypeEvent)="addField($event)"></app-field-selection-sidepanel>
+
+<app-section-properties-sidepanel *ngIf="isSectionPropertiesSidePanelOpen"
+  (hidePanelEvent)="hideSectionPropertiesSidePanel()"></app-section-properties-sidepanel>

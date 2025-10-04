@@ -12,5 +12,33 @@
     </div>
   </div>
   <div class="card-body sidebar-card-body">
+    <form [formGroup]="form">
+      <div class="form-horizontal">
+        <div class="form-group mb-2">
+          <label class="mb-1"><b>Title*</b></label>
+          <input type="text" class="form-control" formControlName="title">
+        </div>
+
+        <div class="form-group mb-2">
+          <label class="mb-1"><b>Subtitle</b></label>
+          <input type="text" class="form-control" formControlName="subTitle">
+        </div>
+
+        <div class="form-group mb-2">
+          <label class="mb-1"><b>Class</b></label>
+          <input type="text" class="form-control" formControlName="class">
+        </div>
+
+        <div class="form-group mb-2">
+          <label class="mb-1"><b>Header Class</b></label>
+          <input type="text" class="form-control" formControlName="headerClass">
+        </div>
+
+        <div class="form-group mb-2">
+          <label class="mb-1"><b>Body Class</b></label>
+          <input type="text" class="form-control" formControlName="bodyClass">
+        </div>
+      </div>
+    </form>
   </div>
 </aside>

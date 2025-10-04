@@ -2,10 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilderComponent } from './form-builder.component';
 import { FieldSelectionSidePanelComponent } from './field-selection-sidepanel/field-selection-sidepanel.component';
+import { SectionPropertiesSidepanelComponent } from './section-properties-sidepanel/section-properties-sidepanel.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [FormBuilderComponent, FieldSelectionSidePanelComponent],
+  imports: [CommonModule, ReactiveFormsModule],
+  declarations: [
+    FormBuilderComponent,
+    FieldSelectionSidePanelComponent,
+    SectionPropertiesSidepanelComponent,
+  ],
   exports: [FormBuilderComponent],
 })
 export class FormBuilderModule {}
