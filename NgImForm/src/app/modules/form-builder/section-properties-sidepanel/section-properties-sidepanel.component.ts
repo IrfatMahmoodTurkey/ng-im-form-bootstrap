@@ -16,8 +16,6 @@ export class SectionPropertiesSidepanelComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    if (!this.sectionProperties) this.hide();
-
     this.initializeForm();
   }
 
