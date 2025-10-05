@@ -1,6 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ITextboxPropertiesInputEmitModel } from '../../../models/textbox-properties-input-emit.model';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { TEXTBOX_VALIDATIONS } from '../../../constants/build-in-validations.constant';
 import { ITextBoxModel } from '../../../models/horizontal-form.model';
 
@@ -28,31 +34,32 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
   }
 
   private initializeForm(): void {
-    this.form = this.formBuilder.group({
-      order: [1, [Validators.required]],
-      name: ['', [Validators.required]],
-      label: ['', [Validators.required]],
-      type: ['text'],
-      placeholder: [''],
-      class: [''],
-      userDefinedId: ['', [Validators.required]],
-      value: [''],
-      isReadOnly: [false],
-      isHidden: [false],
-      isRequired: [false],
-      requiredMessage: [''],
-      inputValidations: this.formBuilder.array([]),
-      regex: [''],
-      regexMessage: [''],
-    });
-
-    this.addInputValidation();
+    this.form.addControl(
+      'order',
+      new FormControl(1, [Validators.required, Validators.min(1)])
+    );
+    this.form.addControl('name', new FormControl('', [Validators.required]));
+    this.form.addControl('label', new FormControl('', [Validators.required]));
+    this.form.addControl(
+      'type',
+      new FormControl('text', [Validators.required])
+    );
+    this.form.addControl('placeholder', new FormControl(''));
+    this.form.addControl('class', new FormControl(''));
+    this.form.addControl(
+      'userDefinedId',
+      new FormControl('', [Validators.required])
+    );
+    this.form.addControl('isReadOnly', new FormControl(false));
+    this.form.addControl('isHidden', new FormControl(false));
+    this.form.addControl('isRequired', new FormControl(false));
+    this.form.addControl('requiredMessage', new FormControl(''));
+    this.form.addControl('regex', new FormControl(''));
+    this.form.addControl('regexMessage', new FormControl(''));
 
     if (!this.textboxProperties) {
       return;
     }
-
-    this.removeInputValidation(0);
 
     const properties: ITextBoxModel = this.textboxProperties.properties;
 
@@ -77,63 +84,5 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
         properties.regexValidation.message
       );
     }
-
-    if (properties.validations) {
-      for (const validation of properties.validations) {
-        const { type, min, max, minChar, maxChar, message } = validation;
-
-        this.addAndInitializeInputValidation({
-          type,
-          min,
-          max,
-          minChar,
-          maxChar,
-          message,
-        });
-      }
-    }
-  }
-
-  public addInputValidation(): void {
-    this.inputValidations.push(
-      this.formBuilder.group({
-        validationType: [''],
-        min: [],
-        max: [],
-        minLength: [],
-        maxLength: [],
-        message: [''],
-      })
-    );
-  }
-
-  public addAndInitializeInputValidation(validation: {
-    type: string;
-    min: number | null;
-    max: number | null;
-    minChar: number | null;
-    maxChar: number | null;
-    message: string | null;
-  }): void {
-    this.inputValidations.push(
-      this.formBuilder.group({
-        validationType: [validation.type],
-        min: [validation.min],
-        max: [validation.min],
-        minLength: [validation.minChar],
-        maxLength: [validation.maxChar],
-        message: [validation.message],
-      })
-    );
-  }
-
-  public removeInputValidation(index: number): void {
-    if (this.inputValidations.length <= 1) return;
-
-    this.inputValidations.removeAt(index);
-  }
-
-  get inputValidations(): FormArray {
-    return this.form.get('inputValidations') as FormArray;
   }
 }
