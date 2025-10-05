@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ISectionPropertyInputEmitModel } from '../../../models/section-property-input-emit.model';
+import { ISectionPropertiesInputEmitModel } from '../../../models/section-properties-input-emit.model';
 
 @Component({
   selector: 'app-section-properties-sidepanel',
   templateUrl: './section-properties-sidepanel.component.html',
 })
 export class SectionPropertiesSidepanelComponent implements OnInit {
-  @Input() sectionProperties: ISectionPropertyInputEmitModel | undefined;
+  @Input() sectionProperties: ISectionPropertiesInputEmitModel | undefined;
 
   @Output() hidePanelEvent: EventEmitter<null> = new EventEmitter();
-  @Output() saveChangesEvent: EventEmitter<ISectionPropertyInputEmitModel> =
+  @Output() saveChangesEvent: EventEmitter<ISectionPropertiesInputEmitModel> =
     new EventEmitter();
 
   form: FormGroup = new FormGroup({});

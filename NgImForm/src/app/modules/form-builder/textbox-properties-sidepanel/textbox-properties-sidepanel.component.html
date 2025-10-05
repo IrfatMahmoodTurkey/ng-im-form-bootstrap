@@ -1,0 +1,150 @@
+<aside class="details-sidebar card">
+  <div class="details-section">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <span>
+          <h4 class="modal-title">Textbox Properties</h4>
+        </span>
+        <span>
+          <button type="button" class="btn btn-outline-danger btn-sm" (click)="hide()">
+            <i class="fas fa-times"></i>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div class="card-body sidebar-card-body">
+      <form [formGroup]="form">
+        <div class="form-horizontal">
+          <div class="form-group">
+            <span><b>Component ID:</b></span>
+            <span class="ms-1">{{textboxProperties?.properties?.id}}</span>
+          </div>
+          <hr>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Order*</b></label>
+            <input type="number" class="form-control" formControlName="order">
+            <!-- <small
+              *ngIf="isSubmitClicked && form.controls['title']?.errors && form.controls['title']?.errors?.['required']"
+              class="text-danger">Title is Required!</small> -->
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Name*</b></label>
+            <input type="text" class="form-control" formControlName="name">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Label*</b></label>
+            <input type="" class="form-control" formControlName="label">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Type</b></label>
+            <select class="form-control">
+              <option value="text">Text</option>
+              <option value="number">Number</option>
+              <option value="email">Email</option>
+              <option value="tel">Tel</option>
+              <option value="date">Date</option>
+              <option value="time">Time</option>
+              <option value="week">Week</option>
+              <option value="week">Week</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Placeholder</b></label>
+            <input type="text" class="form-control" formControlName="placeholder">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Class</b></label>
+            <input type="text" class="form-control" formControlName="class">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>User Defined Id</b></label>
+            <input type="text" class="form-control" formControlName="userDefinedId">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Value</b></label>
+            <input type="text" class="form-control" formControlName="value">
+          </div>
+
+          <div class="form-group mb-2">
+            <input type="checkbox" formControlName="isReadOnly"><span class="ms-1">Is Readonly</span>
+          </div>
+
+          <div class="form-group mb-2">
+            <input type="checkbox" formControlName="isHidden"><span class="ms-1">Is Hidden</span>
+          </div>
+
+          <div class="form-group mb-2">
+            <input type="checkbox" formControlName="isRequired"><span class="ms-1">Is Required</span>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Message</b></label>
+            <input type="text" class="form-control" formControlName="requiredMessage">
+          </div>
+
+          <hr>
+          <ng-container formArrayName="inputValidations">
+            <div *ngFor="let inputValidation of inputValidations.controls; let i = index" class="row">
+              <ng-container [formGroupName]="i">
+                <div class="card m-2">
+                  <div class="card-body">
+                    <div class="form-group mb-2">
+                      <select class="form-control" formControlName="validationType">
+                        <option value="">Select Type</option>
+                        <option *ngFor="let buildInValidation of textBoxValidations"
+                          value="{{buildInValidation.value}}">
+                          {{buildInValidation.title}}</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group mb-2">
+                      <input type="number" class="form-control" placeholder="Min">
+                    </div>
+
+                    <div class="form-group mb-2">
+                      <input type="number" class="form-control" placeholder="Max">
+                    </div>
+
+                    <div class="form-group mb-2">
+                      <input type="number" class="form-control" placeholder="Min Len">
+                    </div>
+
+                    <div class="form-group mb-2">
+                      <input type="number" class="form-control" placeholder="Max Len">
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+          <hr>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Regex Validation</b></label>
+            <input type="text" class="form-control" formControlName="regex">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Regex Validation Message</b></label>
+            <input type="text" class="form-control" formControlName="regexMessage">
+          </div>
+          <hr>
+
+          <div class="form-group">
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</aside>

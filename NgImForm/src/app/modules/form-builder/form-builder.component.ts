@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  IElementModel,
   IHorizonatalFormSectionModel,
   IHorizontalFormModel,
+  ITextBoxModel,
 } from '../../models/horizontal-form.model';
 import { APIMethodsEnum } from '../../enums/api-methods.enum';
 import { SendBodyTypesEnum } from '../../enums/send-body-types.enum';
 import { FIELDS } from '../../constants/field-types.constant';
 import { sectionHelpers } from '../../helpers/section.helper';
 import { textboxHelpers } from '../../helpers/textbox.helper';
-import { ISectionPropertyInputEmitModel } from '../../models/section-property-input-emit.model';
+import { ISectionPropertiesInputEmitModel } from '../../models/section-properties-input-emit.model';
+import { ITextboxPropertiesInputEmitModel } from '../../models/textbox-properties-input-emit.model';
 
 @Component({
   selector: 'app-form-builder',
@@ -40,7 +43,12 @@ export class FormBuilderComponent implements OnInit {
 
   isSectionPropertiesSidePanelOpen: boolean = false;
   selectedForSectionPropertiesUpdate:
-    | ISectionPropertyInputEmitModel
+    | ISectionPropertiesInputEmitModel
+    | undefined;
+
+  isTextBoxPropertiesSidePanelOpen: boolean = false;
+  selectedForTextboxPropertiesUpdate:
+    | ITextboxPropertiesInputEmitModel
     | undefined;
 
   constructor() {}
@@ -113,7 +121,7 @@ export class FormBuilderComponent implements OnInit {
     }
   }
 
-  saveSectionProperties(emitted: ISectionPropertyInputEmitModel): void {
+  saveSectionProperties(emitted: ISectionPropertiesInputEmitModel): void {
     const indexOf: number = this.horizontalForm.sections.findIndex(
       (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
     );
@@ -123,5 +131,39 @@ export class FormBuilderComponent implements OnInit {
     }
 
     this.horizontalForm.sections[indexOf] = emitted.properties;
+  }
+
+  viewTextBoxPropertiesSidePanel(sectionId: string, textboxId: string): void {
+    let properties: IHorizonatalFormSectionModel | undefined =
+      this.horizontalForm.sections.find(
+        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+      );
+
+    if (!properties) {
+      return;
+    }
+
+    let element: IElementModel | undefined = properties.elements.find(
+      (value: IElementModel) =>
+        value.type === FIELDS[0] &&
+        value.textBoxComponent &&
+        value.textBoxComponent.id
+    );
+
+    if (!element || !element.textBoxComponent) {
+      return;
+    }
+
+    this.selectedForTextboxPropertiesUpdate = {
+      sectionId,
+      textboxId,
+      properties: element.textBoxComponent,
+    };
+
+    this.isTextBoxPropertiesSidePanelOpen = true;
+  }
+
+  hideTextBoxPropertiesSidePanel(): void {
+    this.isTextBoxPropertiesSidePanelOpen = false;
   }
 }
