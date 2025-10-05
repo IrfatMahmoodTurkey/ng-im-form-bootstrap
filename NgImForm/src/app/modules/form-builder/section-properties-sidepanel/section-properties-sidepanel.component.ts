@@ -1,17 +1,20 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IHorizonatalFormSectionModel } from '../../../models/horizontal-form.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ISectionPropertyInputEmitModel } from '../../../models/section-property-input-emit.model';
 
 @Component({
   selector: 'app-section-properties-sidepanel',
   templateUrl: './section-properties-sidepanel.component.html',
 })
 export class SectionPropertiesSidepanelComponent implements OnInit {
-  @Input() sectionProperties: IHorizonatalFormSectionModel | undefined;
+  @Input() sectionProperties: ISectionPropertyInputEmitModel | undefined;
 
   @Output() hidePanelEvent: EventEmitter<null> = new EventEmitter();
+  @Output() saveChangesEvent: EventEmitter<ISectionPropertyInputEmitModel> =
+    new EventEmitter();
 
   form: FormGroup = new FormGroup({});
+  isSubmitClicked: boolean = false;
 
   constructor() {}
 
@@ -26,24 +29,61 @@ export class SectionPropertiesSidepanelComponent implements OnInit {
     this.form.addControl('headerClass', new FormControl(''));
     this.form.addControl('bodyClass', new FormControl(''));
 
-    if (this.sectionProperties) {
-      const {
+    if (!this.sectionProperties) {
+      return;
+    }
+
+    const {
+      title,
+      subTitle,
+      class: className,
+      headerClass,
+      bodyClass,
+    } = this.sectionProperties.properties;
+
+    this.form.controls['title'].setValue(title);
+    this.form.controls['subTitle'].setValue(subTitle);
+    this.form.controls['class'].setValue(className);
+    this.form.controls['headerClass'].setValue(headerClass);
+    this.form.controls['bodyClass'].setValue(bodyClass);
+  }
+
+  hide(): void {
+    this.hidePanelEvent.emit();
+  }
+
+  saveChanges(): void {
+    this.isSubmitClicked = true;
+
+    if (!this.form.valid) {
+      return;
+    }
+
+    if (!this.sectionProperties) {
+      return;
+    }
+
+    const [title, subTitle, className, headerClass, bodyClass] = [
+      this.form.controls['title'].value,
+      this.form.controls['subTitle'].value,
+      this.form.controls['class'].value,
+      this.form.controls['headerClass'].value,
+      this.form.controls['bodyClass'].value,
+    ];
+
+    this.saveChangesEvent.emit({
+      sectionId: this.sectionProperties.sectionId,
+      properties: {
+        id: this.sectionProperties.properties.id,
         title,
         subTitle,
         class: className,
         headerClass,
         bodyClass,
-      } = this.sectionProperties;
+        elements: this.sectionProperties.properties.elements,
+      },
+    });
 
-      this.form.controls['title'].setValue(title);
-      this.form.controls['subTitle'].setValue(subTitle);
-      this.form.controls['class'].setValue(className);
-      this.form.controls['headerClass'].setValue(headerClass);
-      this.form.controls['bodyClass'].setValue(bodyClass);
-    }
-  }
-
-  hide(): void {
-    this.hidePanelEvent.emit();
+    this.hide();
   }
 }

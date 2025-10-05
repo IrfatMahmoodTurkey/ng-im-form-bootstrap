@@ -8,6 +8,7 @@ import { SendBodyTypesEnum } from '../../enums/send-body-types.enum';
 import { FIELDS } from '../../constants/field-types.constant';
 import { sectionHelpers } from '../../helpers/section.helper';
 import { textboxHelpers } from '../../helpers/textbox.helper';
+import { ISectionPropertyInputEmitModel } from '../../models/section-property-input-emit.model';
 
 @Component({
   selector: 'app-form-builder',
@@ -38,7 +39,9 @@ export class FormBuilderComponent implements OnInit {
   selectedSectionId: string | undefined;
 
   isSectionPropertiesSidePanelOpen: boolean = false;
-  selectedForSectionPropertiesUpdate: IHorizonatalFormSectionModel | undefined;
+  selectedForSectionPropertiesUpdate:
+    | ISectionPropertyInputEmitModel
+    | undefined;
 
   constructor() {}
 
@@ -67,9 +70,19 @@ export class FormBuilderComponent implements OnInit {
   }
 
   viewSectionPropertiesSidePanel(id: string): void {
-    this.selectedForSectionPropertiesUpdate = this.horizontalForm.sections.find(
-      (value: IHorizonatalFormSectionModel) => value.id === id
-    );
+    let properties: IHorizonatalFormSectionModel | undefined =
+      this.horizontalForm.sections.find(
+        (value: IHorizonatalFormSectionModel) => value.id === id
+      );
+
+    if (!properties) {
+      return;
+    }
+
+    this.selectedForSectionPropertiesUpdate = {
+      sectionId: id,
+      properties: properties,
+    };
 
     this.isSectionPropertiesSidePanelOpen = true;
   }
@@ -98,5 +111,17 @@ export class FormBuilderComponent implements OnInit {
         this.horizontalForm = horizontalForm;
       }
     }
+  }
+
+  saveSectionProperties(emitted: ISectionPropertyInputEmitModel): void {
+    const indexOf: number = this.horizontalForm.sections.findIndex(
+      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+    );
+
+    if (indexOf < 0) {
+      return;
+    }
+
+    this.horizontalForm.sections[indexOf] = emitted.properties;
   }
 }

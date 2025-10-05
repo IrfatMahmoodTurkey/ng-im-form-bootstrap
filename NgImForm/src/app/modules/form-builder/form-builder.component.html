@@ -79,4 +79,5 @@
   (selectedTypeEvent)="addField($event)"></app-field-selection-sidepanel>
 
 <app-section-properties-sidepanel *ngIf="isSectionPropertiesSidePanelOpen"
-  (hidePanelEvent)="hideSectionPropertiesSidePanel()"></app-section-properties-sidepanel>
+  [sectionProperties]="selectedForSectionPropertiesUpdate" (hidePanelEvent)="hideSectionPropertiesSidePanel()"
+  (saveChangesEvent)="saveSectionProperties($event)"></app-section-properties-sidepanel>
