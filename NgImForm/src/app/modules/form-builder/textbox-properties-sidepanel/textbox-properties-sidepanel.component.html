@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="card-body sidebar-card-body">
-      <form [formGroup]="form">
+      <form [formGroup]="form" (ngSubmit)="saveChanges()">
         <div class="form-horizontal">
           <div class="form-group">
             <span><b>Component ID:</b></span>

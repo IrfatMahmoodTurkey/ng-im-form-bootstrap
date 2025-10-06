@@ -147,7 +147,7 @@ export class FormBuilderComponent implements OnInit {
       (value: IElementModel) =>
         value.type === FIELDS[0] &&
         value.textBoxComponent &&
-        value.textBoxComponent.id
+        value.textBoxComponent.id === textboxId
     );
 
     if (!element || !element.textBoxComponent) {
@@ -165,5 +165,32 @@ export class FormBuilderComponent implements OnInit {
 
   hideTextBoxPropertiesSidePanel(): void {
     this.isTextBoxPropertiesSidePanelOpen = false;
+  }
+
+  saveTextboxProperties(emitted: ITextboxPropertiesInputEmitModel): void {
+    let foundSectionIndex: number = this.horizontalForm.sections.findIndex(
+      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+    );
+
+    if (foundSectionIndex < 0) {
+      return;
+    }
+
+    const foundTextboxIndex: number = this.horizontalForm.sections[
+      foundSectionIndex
+    ].elements.findIndex(
+      (value: IElementModel) =>
+        value.type === FIELDS[0] &&
+        value.textBoxComponent &&
+        value.textBoxComponent.id === emitted.textboxId
+    );
+
+    if (foundTextboxIndex < 0) {
+      return;
+    }
+
+    this.horizontalForm.sections[foundSectionIndex].elements[
+      foundTextboxIndex
+    ].textBoxComponent = emitted.properties;
   }
 }

@@ -24,6 +24,8 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
   @Input() textboxProperties: ITextboxPropertiesInputEmitModel | undefined;
 
   @Output() hidePanelEvent: EventEmitter<null> = new EventEmitter();
+  @Output() saveChangesEvent: EventEmitter<ITextboxPropertiesInputEmitModel> =
+    new EventEmitter();
 
   form: FormGroup = new FormGroup({});
 
@@ -214,5 +216,160 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
         this.canUseMaxLenValidation = true;
       }
     }
+  }
+
+  saveChanges(): void {
+    this.isSubmitClicked = true;
+
+    if (!this.form.valid) {
+      return;
+    }
+
+    if (!this.textboxProperties) {
+      return;
+    }
+
+    const [
+      order,
+      name,
+      label,
+      type,
+      placeholder,
+      className,
+      userDefinedId,
+      value,
+      isReadOnly,
+      isHidden,
+      isRequired,
+      requiredMessage,
+      isEmailValidate,
+      emailValidationMessage,
+      minValidate,
+      minValidateMessage,
+      maxValidate,
+      maxValidateMessage,
+      minLenValidate,
+      minLenValidateMessage,
+      maxLenValidate,
+      maxLenValidateMessage,
+      regex,
+      regexMessage,
+    ] = [
+      this.form.controls['order'].value,
+      this.form.controls['name'].value,
+      this.form.controls['label'].value,
+      this.form.controls['type'].value,
+      this.form.controls['placeholder'].value,
+      this.form.controls['class'].value,
+      this.form.controls['userDefinedId'].value,
+      this.form.controls['value'].value,
+      this.form.controls['isReadOnly'].value,
+      this.form.controls['isHidden'].value,
+      this.form.controls['isRequired'].value,
+      this.form.controls['requiredMessage'].value,
+      this.form.controls['isEmailValidate'].value,
+      this.form.controls['emailValidationMessage'].value,
+      this.form.controls['minValidate'].value,
+      this.form.controls['minValidateMessage'].value,
+      this.form.controls['maxValidate'].value,
+      this.form.controls['maxValidateMessage'].value,
+      this.form.controls['minLenValidate'].value,
+      this.form.controls['minLenValidateMessage'].value,
+      this.form.controls['maxLenValidate'].value,
+      this.form.controls['maxLenValidateMessage'].value,
+      this.form.controls['regex'].value,
+      this.form.controls['regexMessage'].value,
+    ];
+
+    let validations: {
+      type: string;
+      min?: number | null | undefined;
+      max?: number | null | undefined;
+      minChar?: number | null | undefined;
+      maxChar?: number | null | undefined;
+      message: string;
+    }[] = [];
+
+    if (isEmailValidate) {
+      validations.push({
+        type: this.availableValidations[0],
+        min: null,
+        max: null,
+        minChar: null,
+        maxChar: null,
+        message: emailValidationMessage,
+      });
+    }
+
+    if (minValidate || minValidate === 0) {
+      validations.push({
+        type: this.availableValidations[1],
+        min: minValidate,
+        max: null,
+        minChar: null,
+        maxChar: null,
+        message: minValidateMessage,
+      });
+    }
+
+    if (maxValidate || maxValidate === 0) {
+      validations.push({
+        type: this.availableValidations[2],
+        max: maxValidate,
+        min: null,
+        minChar: null,
+        maxChar: null,
+        message: maxValidateMessage,
+      });
+    }
+
+    if (minLenValidate || minLenValidate === 0) {
+      validations.push({
+        type: this.availableValidations[3],
+        minChar: minLenValidate,
+        min: null,
+        max: null,
+        maxChar: null,
+        message: minLenValidateMessage,
+      });
+    }
+
+    if (maxLenValidate || maxLenValidate === 0) {
+      validations.push({
+        type: this.availableValidations[4],
+        maxChar: maxLenValidate,
+        min: null,
+        max: null,
+        minChar: null,
+        message: maxLenValidateMessage,
+      });
+    }
+
+    this.saveChangesEvent.emit({
+      sectionId: this.textboxProperties.sectionId,
+      textboxId: this.textboxProperties.textboxId,
+      properties: {
+        id: this.textboxProperties.textboxId,
+        order: order,
+        name,
+        label,
+        type,
+        placeholder,
+        class: className,
+        userDefinedId,
+        value,
+        isReadOnly,
+        isHidden,
+        isRequired,
+        requiredMessage,
+        validations: validations,
+        regexValidation: {
+          expression: regex,
+          message: regexMessage,
+        },
+      },
+    });
+
+    this.hide();
   }
 }

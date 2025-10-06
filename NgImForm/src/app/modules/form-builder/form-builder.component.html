@@ -85,4 +85,5 @@
   (saveChangesEvent)="saveSectionProperties($event)"></app-section-properties-sidepanel>
 
 <app-textbox-properties-sidepanel *ngIf="isTextBoxPropertiesSidePanelOpen"
-  (hidePanelEvent)="hideTextBoxPropertiesSidePanel()"></app-textbox-properties-sidepanel>
+  [textboxProperties]="selectedForTextboxPropertiesUpdate" (hidePanelEvent)="hideTextBoxPropertiesSidePanel()"
+  (saveChangesEvent)="saveTextboxProperties($event)"></app-textbox-properties-sidepanel>
