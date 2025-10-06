@@ -41,15 +41,10 @@
 
           <div class="form-group mb-2">
             <label class="mb-1"><b>Type</b></label>
-            <select class="form-control">
-              <option value="text">Text</option>
-              <option value="number">Number</option>
-              <option value="email">Email</option>
-              <option value="tel">Tel</option>
-              <option value="date">Date</option>
-              <option value="time">Time</option>
-              <option value="week">Week</option>
-              <option value="week">Week</option>
+            <select class="form-control" (change)="changeType()" formControlName="type">
+              <option value="">Select Type</option>
+              <option *ngFor="let textboxType of textboxTypes" value="{{textboxType.type}}">{{textboxType.type}}
+              </option>
             </select>
           </div>
 
@@ -89,6 +84,66 @@
             <label class="mb-1"><b>Required Message</b></label>
             <input type="text" class="form-control" formControlName="requiredMessage">
           </div>
+
+          <ng-container *ngIf="canUseEmailValidation">
+            <div class="form-group mb-2">
+              <input type="checkbox">
+              <span class="ms-1">Email Validation</span>
+            </div>
+
+            <div class="form-group mb-2">
+              <label class="mb-1"><b>Email Validation Message</b></label>
+              <input type="text" class="form-control">
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="canUseMinValidation">
+            <div class="form-group mb-2">
+              <label class="mb-1"><b>Min Validation</b></label>
+              <input type="number" class="form-control">
+            </div>
+
+            <div class="form-group mb-2">
+              <label class="mb-1"><b>Min Validation Message</b></label>
+              <input type="text" class="form-control">
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="canUseMaxValidation">
+            <div class="form-group mb-2">
+              <label class="mb-1"><b>Max Validation</b></label>
+              <input type="number" class="form-control">
+            </div>
+
+            <div class="form-group mb-2">
+              <label class="mb-1"><b>Max Validation Message</b></label>
+              <input type="text" class="form-control">
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="canUseMinLenValidation">
+            <div class="form-group mb-2">
+              <label class="mb-1"><b>Min Count Validation</b></label>
+              <input type="number" class="form-control">
+            </div>
+
+            <div class="form-group mb-2">
+              <label class="mb-1"><b>Min Count Validation Message</b></label>
+              <input type="text" class="form-control">
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="canUseMaxLenValidation">
+            <div class="form-group mb-2">
+              <label class="mb-1"><b>Max Count Validation</b></label>
+              <input type="number" class="form-control">
+            </div>
+
+            <div class="form-group mb-2">
+              <label class="mb-1"><b>Max Count Validation Message</b></label>
+              <input type="text" class="form-control">
+            </div>
+          </ng-container>
 
           <div class="form-group mb-2">
             <label class="mb-1"><b>Regex Validation</b></label>

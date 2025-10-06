@@ -51,10 +51,10 @@ export interface ITextBoxModel {
   validations:
     | {
         type: string;
-        min: number | null;
-        max: number | null;
-        minChar: number | null;
-        maxChar: number | null;
+        min?: number | null;
+        max?: number | null;
+        minChar?: number | null;
+        maxChar?: number | null;
         message: string;
       }[]
     | null;
