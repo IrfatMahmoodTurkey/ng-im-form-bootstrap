@@ -5,6 +5,7 @@ import { FieldSelectionSidePanelComponent } from './field-selection-sidepanel/fi
 import { SectionPropertiesSidepanelComponent } from './section-properties-sidepanel/section-properties-sidepanel.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TextboxPropertiesSidepanelComponent } from './textbox-properties-sidepanel/textbox-properties-sidepanel.component';
+import { TextareaPropertiesSidepanelComponent } from './textarea-properties-sidepanel/textarea-properties-sidepanel.component';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule],
@@ -13,6 +14,7 @@ import { TextboxPropertiesSidepanelComponent } from './textbox-properties-sidepa
     FieldSelectionSidePanelComponent,
     SectionPropertiesSidepanelComponent,
     TextboxPropertiesSidepanelComponent,
+    TextareaPropertiesSidepanelComponent,
   ],
   exports: [FormBuilderComponent],
 })

@@ -31,6 +31,7 @@ export interface IHorizonatalFormSectionModel {
 export interface IElementModel {
   type: string;
   textBoxComponent?: ITextBoxModel | null;
+  textAreaComponent?: ITextAreaModel | null;
   selectComponent?: ISelectBoxModel | null;
 }
 
@@ -53,6 +54,35 @@ export interface ITextBoxModel {
         type: string;
         min?: number | null;
         max?: number | null;
+        minChar?: number | null;
+        maxChar?: number | null;
+        message: string;
+      }[]
+    | null;
+  regexValidation: {
+    expression: string;
+    message: string;
+  } | null;
+}
+
+export interface ITextAreaModel {
+  id: string;
+  order: number;
+  name: string;
+  label: string;
+  placeholder: string;
+  class: string;
+  userDefinedId: string;
+  rows: number;
+  columns: number | null;
+  value: string;
+  isReadOnly: boolean;
+  isHidden: boolean;
+  isRequired: boolean;
+  requiredMessage: string | null;
+  validations:
+    | {
+        type: string;
         minChar?: number | null;
         maxChar?: number | null;
         message: string;

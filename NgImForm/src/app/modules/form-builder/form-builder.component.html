@@ -58,6 +58,35 @@
                     </div>
                   </div>
                 </ng-container>
+
+                <ng-container *ngIf="element.type === fields[1] && element.textAreaComponent">
+                  <div class="card m-1">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-8">
+                          <div class="form-group">
+                            <label class="mb-1"><b>{{element.textAreaComponent.label}}</b></label>
+                            <textarea class="{{element.textAreaComponent.class}}"
+                              placeholder="{{element.textAreaComponent.placeholder}}"
+                              rows="{{element.textAreaComponent.rows}}" cols="{{element.textAreaComponent.columns}}"
+                              style="width: 100%;"></textarea>
+                          </div>
+                        </div>
+
+                        <div class="col-4">
+                          <div class="d-flex align-items-end" style="height: 100%;">
+                            <button class="btn btn-success btn-sm me-1"
+                              (click)="viewTextAreaPropertiesSidePanel(section.id, element.textAreaComponent.id)"><i
+                                class="fas fa-edit"></i> Properties</button>
+                            <button class="btn btn-danger btn-sm"
+                              (click)="removeField(element.type, section.id, element.textAreaComponent.id)"><i
+                                class="fas fa-trash"></i> Remove</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
               </ng-container>
 
               <div class="mt-2 d-flex justify-content-end">
@@ -87,3 +116,7 @@
 <app-textbox-properties-sidepanel *ngIf="isTextBoxPropertiesSidePanelOpen"
   [textboxProperties]="selectedForTextboxPropertiesUpdate" (hidePanelEvent)="hideTextBoxPropertiesSidePanel()"
   (saveChangesEvent)="saveTextboxProperties($event)"></app-textbox-properties-sidepanel>
+
+<app-textarea-properties-sidepanel *ngIf="isTextAreaPropertiesSidePanelOpen"
+  [textareaProperties]="selectedForTextareaPropertiesUpdate" (hidePanelEvent)="hideTextAreaPropertiesSidePanel()"
+  (saveChangesEvent)="saveTextareaProperties($event)"></app-textarea-properties-sidepanel>

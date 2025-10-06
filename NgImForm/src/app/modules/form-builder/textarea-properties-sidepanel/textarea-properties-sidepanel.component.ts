@@ -1,43 +1,29 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ITextboxPropertiesInputEmitModel } from '../../../models/textbox-properties-input-emit.model';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { ITextBoxModel } from '../../../models/horizontal-form.model';
-import { TEXTBOX_UTILITIES } from '../../../constants/textbox-utilities.constant';
+import { ITextareaPropertiesInputEmitModel } from '../../../models/textarea-properties-input-emit.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TEXTAREA_UTILITIES } from '../../../constants/textarea-utilities.constant';
+import { ITextAreaModel } from '../../../models/horizontal-form.model';
 
 @Component({
-  selector: 'app-textbox-properties-sidepanel',
-  templateUrl: './textbox-properties-sidepanel.component.html',
+  selector: 'app-textarea-properties-sidepanel',
+  templateUrl: './textarea-properties-sidepanel.component.html',
 })
-export class TextboxPropertiesSidepanelComponent implements OnInit {
-  textboxTypes: { type: string; validations: string[] }[] =
-    TEXTBOX_UTILITIES.TEXTBOX_TYPES;
-
-  @Input() textboxProperties: ITextboxPropertiesInputEmitModel | undefined;
+export class TextareaPropertiesSidepanelComponent implements OnInit {
+  @Input() textareaProperties: ITextareaPropertiesInputEmitModel | undefined;
 
   @Output() hidePanelEvent: EventEmitter<null> = new EventEmitter();
-  @Output() saveChangesEvent: EventEmitter<ITextboxPropertiesInputEmitModel> =
+  @Output() saveChangesEvent: EventEmitter<ITextareaPropertiesInputEmitModel> =
     new EventEmitter();
 
   form: FormGroup = new FormGroup({});
 
   availableValidations: string[] = [
-    TEXTBOX_UTILITIES.TextboxValidationsEnum.EMAIL,
-    TEXTBOX_UTILITIES.TextboxValidationsEnum.MIN,
-    TEXTBOX_UTILITIES.TextboxValidationsEnum.MAX,
-    TEXTBOX_UTILITIES.TextboxValidationsEnum.MIN_LEN,
-    TEXTBOX_UTILITIES.TextboxValidationsEnum.MAX_LEN,
+    TEXTAREA_UTILITIES.TextareaValidationsEnum.MIN_LEN,
+    TEXTAREA_UTILITIES.TextareaValidationsEnum.MAX_LEN,
   ];
 
   toUseValidations: string[] = [];
 
-  canUseEmailValidation: boolean = false;
-  canUseMinValidation: boolean = false;
-  canUseMaxValidation: boolean = false;
   canUseMinLenValidation: boolean = false;
   canUseMaxLenValidation: boolean = false;
 
@@ -60,7 +46,8 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
     );
     this.form.addControl('name', new FormControl('', [Validators.required]));
     this.form.addControl('label', new FormControl('', [Validators.required]));
-    this.form.addControl('type', new FormControl('', [Validators.required]));
+    this.form.addControl('rows', new FormControl(10, [Validators.required]));
+    this.form.addControl('columns', new FormControl());
     this.form.addControl('placeholder', new FormControl(''));
     this.form.addControl('class', new FormControl(''));
     this.form.addControl(
@@ -75,32 +62,23 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
     this.form.addControl('regex', new FormControl(''));
     this.form.addControl('regexMessage', new FormControl(''));
 
-    this.form.addControl('isEmailValidate', new FormControl(false));
-    this.form.addControl('emailValidationMessage', new FormControl(''));
-
-    this.form.addControl('minValidate', new FormControl());
-    this.form.addControl('minValidateMessage', new FormControl(''));
-
-    this.form.addControl('maxValidate', new FormControl());
-    this.form.addControl('maxValidateMessage', new FormControl(''));
-
     this.form.addControl('minLenValidate', new FormControl());
     this.form.addControl('minLenValidateMessage', new FormControl(''));
 
     this.form.addControl('maxLenValidate', new FormControl());
     this.form.addControl('maxLenValidateMessage', new FormControl(''));
 
-    if (!this.textboxProperties) {
-      this.changeType();
+    if (!this.textareaProperties) {
       return;
     }
 
-    const properties: ITextBoxModel = this.textboxProperties.properties;
+    const properties: ITextAreaModel = this.textareaProperties.properties;
 
     this.form.controls['order'].setValue(properties.order);
     this.form.controls['name'].setValue(properties.name);
     this.form.controls['label'].setValue(properties.label);
-    this.form.controls['type'].setValue(properties.type);
+    this.form.controls['rows'].setValue(properties.rows);
+    this.form.controls['columns'].setValue(properties.columns);
     this.form.controls['placeholder'].setValue(properties.placeholder);
     this.form.controls['class'].setValue(properties.class);
     this.form.controls['userDefinedId'].setValue(properties.userDefinedId);
@@ -122,8 +100,6 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
     if (properties.validations) {
       this.initializeBuiltInValidationFields(properties.validations);
     }
-
-    this.changeType();
   }
 
   private initializeBuiltInValidationFields(
@@ -137,79 +113,14 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
     }[]
   ): void {
     for (const element of validations) {
-      const { type, min, max, minChar, maxChar, message } = element;
+      const { type, minChar, maxChar, message } = element;
 
       if (type === this.availableValidations[0]) {
-        this.form.controls['isEmailValidate'].setValue(true);
-        this.form.controls['emailValidationMessage'].setValue(message);
-      } else if (type === this.availableValidations[1]) {
-        this.form.controls['minValidate'].setValue(min);
-        this.form.controls['minValidateMessage'].setValue(message);
-      } else if (type === this.availableValidations[2]) {
-        this.form.controls['maxValidate'].setValue(max);
-        this.form.controls['maxValidateMessage'].setValue(message);
-      } else if (type === this.availableValidations[3]) {
         this.form.controls['minLenValidate'].setValue(minChar);
         this.form.controls['minLenValidateMessage'].setValue(message);
-      } else if (type === this.availableValidations[4]) {
+      } else if (type === this.availableValidations[1]) {
         this.form.controls['maxLenValidate'].setValue(maxChar);
         this.form.controls['maxLenValidateMessage'].setValue(message);
-      }
-    }
-  }
-
-  changeType(): void {
-    const type: string = this.form.controls['type'].value;
-
-    if (type === '') {
-      this.checkValidationCanUse();
-      return;
-    }
-
-    this.toUseValidations = this.getToUseValidations(type);
-    this.checkValidationCanUse();
-  }
-
-  private getToUseValidations(selectedType: string): string[] {
-    const found: { type: string; validations: string[] } | undefined =
-      TEXTBOX_UTILITIES.TEXTBOX_TYPES.find(
-        (value: { type: string; validations: string[] }) =>
-          selectedType === value.type
-      );
-
-    if (!found) {
-      return [];
-    }
-
-    return found.validations;
-  }
-
-  private checkValidationCanUse(): void {
-    this.canUseEmailValidation = false;
-    this.canUseMinValidation = false;
-    this.canUseMaxValidation = false;
-    this.canUseMinLenValidation = false;
-    this.canUseMaxLenValidation = false;
-
-    for (const element of this.toUseValidations) {
-      if (element === this.availableValidations[0]) {
-        this.canUseEmailValidation = true;
-      }
-
-      if (element === this.availableValidations[1]) {
-        this.canUseMinValidation = true;
-      }
-
-      if (element === this.availableValidations[2]) {
-        this.canUseMaxValidation = true;
-      }
-
-      if (element === this.availableValidations[3]) {
-        this.canUseMinLenValidation = true;
-      }
-
-      if (element === this.availableValidations[4]) {
-        this.canUseMaxLenValidation = true;
       }
     }
   }
@@ -221,7 +132,7 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
       return;
     }
 
-    if (!this.textboxProperties) {
+    if (!this.textareaProperties) {
       return;
     }
 
@@ -229,7 +140,8 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
       order,
       name,
       label,
-      type,
+      rows,
+      columns,
       placeholder,
       className,
       userDefinedId,
@@ -238,12 +150,6 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
       isHidden,
       isRequired,
       requiredMessage,
-      isEmailValidate,
-      emailValidationMessage,
-      minValidate,
-      minValidateMessage,
-      maxValidate,
-      maxValidateMessage,
       minLenValidate,
       minLenValidateMessage,
       maxLenValidate,
@@ -254,7 +160,8 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
       this.form.controls['order'].value,
       this.form.controls['name'].value,
       this.form.controls['label'].value,
-      this.form.controls['type'].value,
+      this.form.controls['rows'].value,
+      this.form.controls['columns'].value,
       this.form.controls['placeholder'].value,
       this.form.controls['class'].value,
       this.form.controls['userDefinedId'].value,
@@ -263,12 +170,6 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
       this.form.controls['isHidden'].value,
       this.form.controls['isRequired'].value,
       this.form.controls['requiredMessage'].value,
-      this.form.controls['isEmailValidate'].value,
-      this.form.controls['emailValidationMessage'].value,
-      this.form.controls['minValidate'].value,
-      this.form.controls['minValidateMessage'].value,
-      this.form.controls['maxValidate'].value,
-      this.form.controls['maxValidateMessage'].value,
       this.form.controls['minLenValidate'].value,
       this.form.controls['minLenValidateMessage'].value,
       this.form.controls['maxLenValidate'].value,
@@ -286,42 +187,9 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
       message: string;
     }[] = [];
 
-    if (isEmailValidate) {
-      validations.push({
-        type: this.availableValidations[0],
-        min: null,
-        max: null,
-        minChar: null,
-        maxChar: null,
-        message: emailValidationMessage,
-      });
-    }
-
-    if (minValidate || minValidate === 0) {
-      validations.push({
-        type: this.availableValidations[1],
-        min: minValidate,
-        max: null,
-        minChar: null,
-        maxChar: null,
-        message: minValidateMessage,
-      });
-    }
-
-    if (maxValidate || maxValidate === 0) {
-      validations.push({
-        type: this.availableValidations[2],
-        max: maxValidate,
-        min: null,
-        minChar: null,
-        maxChar: null,
-        message: maxValidateMessage,
-      });
-    }
-
     if (minLenValidate || minLenValidate === 0) {
       validations.push({
-        type: this.availableValidations[3],
+        type: this.availableValidations[0],
         minChar: minLenValidate,
         min: null,
         max: null,
@@ -332,7 +200,7 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
 
     if (maxLenValidate || maxLenValidate === 0) {
       validations.push({
-        type: this.availableValidations[4],
+        type: this.availableValidations[1],
         maxChar: maxLenValidate,
         min: null,
         max: null,
@@ -342,14 +210,15 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
     }
 
     this.saveChangesEvent.emit({
-      sectionId: this.textboxProperties.sectionId,
-      textboxId: this.textboxProperties.textboxId,
+      sectionId: this.textareaProperties.sectionId,
+      textareaId: this.textareaProperties.textareaId,
       properties: {
-        id: this.textboxProperties.textboxId,
+        id: this.textareaProperties.textareaId,
         order: order,
         name,
         label,
-        type,
+        rows,
+        columns,
         placeholder,
         class: className,
         userDefinedId,

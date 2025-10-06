@@ -10,8 +10,10 @@ import { SendBodyTypesEnum } from '../../enums/send-body-types.enum';
 import { FIELDS } from '../../constants/field-types.constant';
 import { sectionHelpers } from '../../helpers/section.helper';
 import { textboxHelpers } from '../../helpers/textbox.helper';
+import { textareaHelpers } from '../../helpers/textarea.helper';
 import { ISectionPropertiesInputEmitModel } from '../../models/section-properties-input-emit.model';
 import { ITextboxPropertiesInputEmitModel } from '../../models/textbox-properties-input-emit.model';
+import { ITextareaPropertiesInputEmitModel } from '../../models/textarea-properties-input-emit.model';
 
 @Component({
   selector: 'app-form-builder',
@@ -49,6 +51,11 @@ export class FormBuilderComponent implements OnInit {
   isTextBoxPropertiesSidePanelOpen: boolean = false;
   selectedForTextboxPropertiesUpdate:
     | ITextboxPropertiesInputEmitModel
+    | undefined;
+
+  isTextAreaPropertiesSidePanelOpen: boolean = false;
+  selectedForTextareaPropertiesUpdate:
+    | ITextareaPropertiesInputEmitModel
     | undefined;
 
   constructor() {}
@@ -107,6 +114,16 @@ export class FormBuilderComponent implements OnInit {
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
       }
+    } else if (type === this.fields[1]) {
+      let horizontalForm: IHorizontalFormModel | null =
+        textareaHelpers.addTextArea(
+          this.selectedSectionId,
+          this.horizontalForm
+        );
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
     }
   }
 
@@ -114,6 +131,13 @@ export class FormBuilderComponent implements OnInit {
     if (type === this.fields[0]) {
       let horizontalForm: IHorizontalFormModel | null =
         textboxHelpers.removeTextbox(sectionId, id, this.horizontalForm);
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
+    } else if (type === this.fields[1]) {
+      let horizontalForm: IHorizontalFormModel | null =
+        textareaHelpers.removeTextArea(sectionId, id, this.horizontalForm);
 
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
@@ -192,5 +216,66 @@ export class FormBuilderComponent implements OnInit {
     this.horizontalForm.sections[foundSectionIndex].elements[
       foundTextboxIndex
     ].textBoxComponent = emitted.properties;
+  }
+
+  viewTextAreaPropertiesSidePanel(sectionId: string, textareaId: string): void {
+    let properties: IHorizonatalFormSectionModel | undefined =
+      this.horizontalForm.sections.find(
+        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+      );
+
+    if (!properties) {
+      return;
+    }
+
+    let element: IElementModel | undefined = properties.elements.find(
+      (value: IElementModel) =>
+        value.type === FIELDS[1] &&
+        value.textAreaComponent &&
+        value.textAreaComponent.id === textareaId
+    );
+
+    if (!element || !element.textAreaComponent) {
+      return;
+    }
+
+    this.selectedForTextareaPropertiesUpdate = {
+      sectionId,
+      textareaId,
+      properties: element.textAreaComponent,
+    };
+
+    this.isTextAreaPropertiesSidePanelOpen = true;
+  }
+
+  hideTextAreaPropertiesSidePanel(): void {
+    this.isTextAreaPropertiesSidePanelOpen = false;
+  }
+
+  saveTextareaProperties(emitted: ITextareaPropertiesInputEmitModel): void {
+    let foundSectionIndex: number = this.horizontalForm.sections.findIndex(
+      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+    );
+
+    if (foundSectionIndex < 0) {
+      return;
+    }
+
+    const foundTextboxIndex: number = this.horizontalForm.sections[
+      foundSectionIndex
+    ].elements.findIndex(
+      (value: IElementModel) =>
+        value.type === FIELDS[1] &&
+        value.textAreaComponent &&
+        value.textAreaComponent.id === emitted.textareaId
+    );
+
+    if (foundTextboxIndex < 0) {
+      return;
+    }
+
+    this.horizontalForm.sections[foundSectionIndex].elements[
+      foundTextboxIndex
+    ].textAreaComponent = emitted.properties;
   }
 }
