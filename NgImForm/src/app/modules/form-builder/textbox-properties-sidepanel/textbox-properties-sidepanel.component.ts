@@ -43,6 +43,8 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
   canUseMinLenValidation: boolean = false;
   canUseMaxLenValidation: boolean = false;
 
+  isSubmitClicked: boolean = false;
+
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
@@ -75,7 +77,23 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
     this.form.addControl('regex', new FormControl(''));
     this.form.addControl('regexMessage', new FormControl(''));
 
+    this.form.addControl('isEmailValidate', new FormControl(false));
+    this.form.addControl('emailValidationMessage', new FormControl(''));
+
+    this.form.addControl('minValidate', new FormControl());
+    this.form.addControl('minValidateMessage', new FormControl(''));
+
+    this.form.addControl('maxValidate', new FormControl());
+    this.form.addControl('maxValidateMessage', new FormControl(''));
+
+    this.form.addControl('minLenValidate', new FormControl());
+    this.form.addControl('minLenValidateMessage', new FormControl(''));
+
+    this.form.addControl('maxLenValidate', new FormControl());
+    this.form.addControl('maxLenValidateMessage', new FormControl(''));
+
     if (!this.textboxProperties) {
+      this.changeType();
       return;
     }
 
@@ -103,7 +121,43 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
       );
     }
 
+    if (properties.validations) {
+      this.initializeBuiltInValidationFields(properties.validations);
+    }
+
     this.changeType();
+  }
+
+  private initializeBuiltInValidationFields(
+    validations: {
+      type: string;
+      min?: number | null | undefined;
+      max?: number | null | undefined;
+      minChar?: number | null | undefined;
+      maxChar?: number | null | undefined;
+      message: string;
+    }[]
+  ): void {
+    for (const element of validations) {
+      const { type, min, max, minChar, maxChar, message } = element;
+
+      if (type === this.availableValidations[0]) {
+        this.form.controls['isEmailValidate'].setValue(true);
+        this.form.controls['emailValidationMessage'].setValue(message);
+      } else if (type === this.availableValidations[1]) {
+        this.form.controls['minValidate'].setValue(min);
+        this.form.controls['minValidateMessage'].setValue(message);
+      } else if (type === this.availableValidations[2]) {
+        this.form.controls['maxValidate'].setValue(max);
+        this.form.controls['maxValidateMessage'].setValue(message);
+      } else if (type === this.availableValidations[3]) {
+        this.form.controls['minLenValidate'].setValue(minChar);
+        this.form.controls['minLenValidateMessage'].setValue(message);
+      } else if (type === this.availableValidations[4]) {
+        this.form.controls['maxLenValidate'].setValue(maxChar);
+        this.form.controls['maxLenValidateMessage'].setValue(message);
+      }
+    }
   }
 
   changeType(): void {

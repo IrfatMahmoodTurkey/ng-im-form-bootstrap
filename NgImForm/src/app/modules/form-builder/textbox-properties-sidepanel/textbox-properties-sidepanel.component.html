@@ -24,19 +24,25 @@
           <div class="form-group mb-2">
             <label class="mb-1"><b>Order*</b></label>
             <input type="number" class="form-control" formControlName="order">
-            <!-- <small
-              *ngIf="isSubmitClicked && form.controls['title']?.errors && form.controls['title']?.errors?.['required']"
-              class="text-danger">Title is Required!</small> -->
+            <small
+              *ngIf="isSubmitClicked && form.controls['order']?.errors && form.controls['order']?.errors?.['required']"
+              class="text-danger">Order is Required!</small>
           </div>
 
           <div class="form-group mb-2">
             <label class="mb-1"><b>Name*</b></label>
             <input type="text" class="form-control" formControlName="name">
+            <small
+              *ngIf="isSubmitClicked && form.controls['name']?.errors && form.controls['name']?.errors?.['required']"
+              class="text-danger">Name is Required!</small>
           </div>
 
           <div class="form-group mb-2">
             <label class="mb-1"><b>Label*</b></label>
             <input type="" class="form-control" formControlName="label">
+            <small
+              *ngIf="isSubmitClicked && form.controls['label']?.errors && form.controls['label']?.errors?.['required']"
+              class="text-danger">Label is Required!</small>
           </div>
 
           <div class="form-group mb-2">
@@ -46,6 +52,9 @@
               <option *ngFor="let textboxType of textboxTypes" value="{{textboxType.type}}">{{textboxType.type}}
               </option>
             </select>
+            <small
+              *ngIf="isSubmitClicked && form.controls['type']?.errors && form.controls['type']?.errors?.['required']"
+              class="text-danger">Type is Required!</small>
           </div>
 
           <div class="form-group mb-2">
@@ -61,6 +70,9 @@
           <div class="form-group mb-2">
             <label class="mb-1"><b>User Defined Id</b></label>
             <input type="text" class="form-control" formControlName="userDefinedId">
+            <small
+              *ngIf="isSubmitClicked && form.controls['userDefinedId']?.errors && form.controls['userDefinedId']?.errors?.['required']"
+              class="text-danger">User Defined ID is Required!</small>
           </div>
 
           <div class="form-group mb-2">
@@ -87,61 +99,61 @@
 
           <ng-container *ngIf="canUseEmailValidation">
             <div class="form-group mb-2">
-              <input type="checkbox">
+              <input type="checkbox" formControlName="isEmailValidate">
               <span class="ms-1">Email Validation</span>
             </div>
 
             <div class="form-group mb-2">
               <label class="mb-1"><b>Email Validation Message</b></label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" formControlName="emailValidationMessage">
             </div>
           </ng-container>
 
           <ng-container *ngIf="canUseMinValidation">
             <div class="form-group mb-2">
               <label class="mb-1"><b>Min Validation</b></label>
-              <input type="number" class="form-control">
+              <input type="number" class="form-control" formControlName="minValidate">
             </div>
 
             <div class="form-group mb-2">
               <label class="mb-1"><b>Min Validation Message</b></label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" formControlName="minValidateMessage">
             </div>
           </ng-container>
 
           <ng-container *ngIf="canUseMaxValidation">
             <div class="form-group mb-2">
               <label class="mb-1"><b>Max Validation</b></label>
-              <input type="number" class="form-control">
+              <input type="number" class="form-control" formControlName="maxValidate">
             </div>
 
             <div class="form-group mb-2">
               <label class="mb-1"><b>Max Validation Message</b></label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" formControlName="maxValidateMessage">
             </div>
           </ng-container>
 
           <ng-container *ngIf="canUseMinLenValidation">
             <div class="form-group mb-2">
               <label class="mb-1"><b>Min Count Validation</b></label>
-              <input type="number" class="form-control">
+              <input type="number" class="form-control" formControlName="minLenValidate">
             </div>
 
             <div class="form-group mb-2">
               <label class="mb-1"><b>Min Count Validation Message</b></label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" formControlName="minLenValidateMessage">
             </div>
           </ng-container>
 
           <ng-container *ngIf="canUseMaxLenValidation">
             <div class="form-group mb-2">
               <label class="mb-1"><b>Max Count Validation</b></label>
-              <input type="number" class="form-control">
+              <input type="number" class="form-control" formControlName="maxLenValidate">
             </div>
 
             <div class="form-group mb-2">
               <label class="mb-1"><b>Max Count Validation Message</b></label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" formControlName="maxLenValidateMessage">
             </div>
           </ng-container>
 
