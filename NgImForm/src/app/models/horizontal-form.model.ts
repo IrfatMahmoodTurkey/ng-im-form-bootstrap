@@ -33,6 +33,7 @@ export interface IElementModel {
   textBoxComponent?: ITextBoxModel | null;
   textAreaComponent?: ITextAreaModel | null;
   selectComponent?: ISelectBoxModel | null;
+  fileFieldComponent?: IFileFieldModel | null;
 }
 
 export interface ITextBoxModel {
@@ -92,6 +93,31 @@ export interface ITextAreaModel {
     expression: string;
     message: string;
   } | null;
+}
+
+export interface IFileFieldModel {
+  id: string;
+  order: number;
+  name: string;
+  label: string;
+  class: string;
+  userDefinedId: string;
+  accept: string;
+  isMultiple: boolean;
+  isReadOnly: boolean;
+  isHidden: boolean;
+  isRequired: boolean;
+  requiredMessage: string | null;
+  sizeValidation: {
+    size: number;
+    message: string;
+  } | null;
+  extensionValidations:
+    | {
+        extension: string;
+        message: string;
+      }[]
+    | null;
 }
 
 export interface ISelectBoxModel {

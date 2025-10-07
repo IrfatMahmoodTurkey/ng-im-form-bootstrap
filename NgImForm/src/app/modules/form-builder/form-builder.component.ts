@@ -11,6 +11,7 @@ import { FIELDS } from '../../constants/field-types.constant';
 import { sectionHelpers } from '../../helpers/section.helper';
 import { textboxHelpers } from '../../helpers/textbox.helper';
 import { textareaHelpers } from '../../helpers/textarea.helper';
+import { filefieldHelpers } from '../../helpers/filefield.helper';
 import { ISectionPropertiesInputEmitModel } from '../../models/section-properties-input-emit.model';
 import { ITextboxPropertiesInputEmitModel } from '../../models/textbox-properties-input-emit.model';
 import { ITextareaPropertiesInputEmitModel } from '../../models/textarea-properties-input-emit.model';
@@ -124,6 +125,16 @@ export class FormBuilderComponent implements OnInit {
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
       }
+    } else if (type === this.fields[2]) {
+      let horizontalForm: IHorizontalFormModel | null =
+        filefieldHelpers.addFilefield(
+          this.selectedSectionId,
+          this.horizontalForm
+        );
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
     }
   }
 
@@ -138,6 +149,13 @@ export class FormBuilderComponent implements OnInit {
     } else if (type === this.fields[1]) {
       let horizontalForm: IHorizontalFormModel | null =
         textareaHelpers.removeTextArea(sectionId, id, this.horizontalForm);
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
+    } else if (type === this.fields[2]) {
+      let horizontalForm: IHorizontalFormModel | null =
+        filefieldHelpers.removeFilefield(sectionId, id, this.horizontalForm);
 
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
