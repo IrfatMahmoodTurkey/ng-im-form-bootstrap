@@ -32,7 +32,7 @@ export interface IElementModel {
   type: string;
   textBoxComponent?: ITextBoxModel | null;
   textAreaComponent?: ITextAreaModel | null;
-  selectComponent?: ISelectBoxModel | null;
+  selectBoxComponent?: ISelectBoxModel | null;
   fileFieldComponent?: IFileFieldModel | null;
 }
 
@@ -123,4 +123,21 @@ export interface IFileFieldModel {
 export interface ISelectBoxModel {
   id: string;
   order: number;
+  name: string;
+  label: string;
+  placeholder: string;
+  class: string;
+  userDefinedId: string;
+  isMultiple: boolean;
+  isReadOnly: boolean;
+  isHidden: boolean;
+  isRequired: boolean;
+  requiredMessage: string | null;
+  options:
+    | {
+        selected: boolean;
+        value: string;
+        text: string;
+      }[]
+    | null;
 }

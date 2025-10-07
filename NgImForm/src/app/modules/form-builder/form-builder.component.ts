@@ -12,6 +12,7 @@ import { sectionHelpers } from '../../helpers/section.helper';
 import { textboxHelpers } from '../../helpers/textbox.helper';
 import { textareaHelpers } from '../../helpers/textarea.helper';
 import { filefieldHelpers } from '../../helpers/filefield.helper';
+import { selectboxHelpers } from '../../helpers/selectbox.helper';
 import { ISectionPropertiesInputEmitModel } from '../../models/section-properties-input-emit.model';
 import { ITextboxPropertiesInputEmitModel } from '../../models/textbox-properties-input-emit.model';
 import { ITextareaPropertiesInputEmitModel } from '../../models/textarea-properties-input-emit.model';
@@ -141,6 +142,16 @@ export class FormBuilderComponent implements OnInit {
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
       }
+    } else if (type === this.fields[3]) {
+      let horizontalForm: IHorizontalFormModel | null =
+        selectboxHelpers.addSelectbox(
+          this.selectedSectionId,
+          this.horizontalForm
+        );
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
     }
   }
 
@@ -162,6 +173,13 @@ export class FormBuilderComponent implements OnInit {
     } else if (type === this.fields[2]) {
       let horizontalForm: IHorizontalFormModel | null =
         filefieldHelpers.removeFilefield(sectionId, id, this.horizontalForm);
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
+    } else if (type === this.fields[3]) {
+      let horizontalForm: IHorizontalFormModel | null =
+        selectboxHelpers.removeSelectBox(sectionId, id, this.horizontalForm);
 
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
