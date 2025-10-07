@@ -1,3 +1,139 @@
-<p>
-  filefield-properties-sidepanel works!
-</p>
+<aside class="details-sidebar card">
+  <div class="details-section">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <span>
+          <h4 class="modal-title">File Field Properties</h4>
+        </span>
+        <span>
+          <button type="button" class="btn btn-outline-danger btn-sm" (click)="hide()">
+            <i class="fas fa-times"></i>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div class="card-body sidebar-card-body">
+      <form [formGroup]="form" (ngSubmit)="saveChanges()">
+        <div class="form-horizontal">
+          <div class="form-group">
+            <span><b>Component ID:</b></span>
+            <span class="ms-1">{{fileFieldProperties?.properties?.id}}</span>
+          </div>
+          <hr>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Order*</b></label>
+            <input type="number" class="form-control" formControlName="order">
+            <small
+              *ngIf="isSubmitClicked && form.controls['order']?.errors && form.controls['order']?.errors?.['required']"
+              class="text-danger">Order is Required!</small>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Name*</b></label>
+            <input type="text" class="form-control" formControlName="name">
+            <small
+              *ngIf="isSubmitClicked && form.controls['name']?.errors && form.controls['name']?.errors?.['required']"
+              class="text-danger">Name is Required!</small>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Label*</b></label>
+            <input type="text" class="form-control" formControlName="label">
+            <small
+              *ngIf="isSubmitClicked && form.controls['label']?.errors && form.controls['label']?.errors?.['required']"
+              class="text-danger">Label is Required!</small>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Class</b></label>
+            <input type="text" class="form-control" formControlName="class">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>User Defined Id</b></label>
+            <input type="text" class="form-control" formControlName="userDefinedId">
+            <small
+              *ngIf="isSubmitClicked && form.controls['userDefinedId']?.errors && form.controls['userDefinedId']?.errors?.['required']"
+              class="text-danger">User Defined ID is Required!</small>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Accept</b></label>
+            <input type="text" class="form-control" formControlName="accept">
+          </div>
+
+          <div class="form-group mb-2">
+            <input type="checkbox" formControlName="isMultiple"><span class="ms-1">Is Multiple</span>
+          </div>
+
+          <div class="form-group mb-2">
+            <input type="checkbox" formControlName="isReadOnly"><span class="ms-1">Is Readonly</span>
+          </div>
+
+          <div class="form-group mb-2">
+            <input type="checkbox" formControlName="isHidden"><span class="ms-1">Is Hidden</span>
+          </div>
+
+          <div class="form-group mb-2">
+            <input type="checkbox" formControlName="isRequired"><span class="ms-1">Is Required</span>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Required Message</b></label>
+            <input type="text" class="form-control" formControlName="requiredMessage">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Size Validation</b></label>
+            <input type="number" class="form-control" formControlName="sizeValidation">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Size Validation Message</b></label>
+            <input type="text" class="form-control" formControlName="sizeValidationMessage">
+          </div>
+
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Extension Validation</th>
+                <th>Message</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container formArrayName="extensionValidations">
+                <tr *ngFor="let extensionValidation of extensionValidations.controls; let i = index">
+                  <ng-container [formGroupName]="i">
+                    <td>
+                      <input type="text" class="form-control" formControlName="extension">
+                    </td>
+                    <td>
+                      <input type="text" class="form-control" formControlName="message">
+                    </td>
+                    <td>
+                      <button class="btn btn-danger btn-sm" type="button" (click)="removeItem(i)"><i
+                          class="fas fa-times"></i></button>
+                    </td>
+                  </ng-container>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-info btn-sm" type="button" (click)="addExtensionValidation(null)">Add Extension
+              Validation</button>
+          </div>
+          <hr>
+
+          <div class="form-group">
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</aside>

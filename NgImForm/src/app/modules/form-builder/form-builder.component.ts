@@ -15,6 +15,7 @@ import { filefieldHelpers } from '../../helpers/filefield.helper';
 import { ISectionPropertiesInputEmitModel } from '../../models/section-properties-input-emit.model';
 import { ITextboxPropertiesInputEmitModel } from '../../models/textbox-properties-input-emit.model';
 import { ITextareaPropertiesInputEmitModel } from '../../models/textarea-properties-input-emit.model';
+import { IFileFieldPropertiesInputEmitModel } from '../../models/filefield-properties-input-emit.model';
 
 @Component({
   selector: 'app-form-builder',
@@ -57,6 +58,11 @@ export class FormBuilderComponent implements OnInit {
   isTextAreaPropertiesSidePanelOpen: boolean = false;
   selectedForTextareaPropertiesUpdate:
     | ITextareaPropertiesInputEmitModel
+    | undefined;
+
+  isFileFieldPropertiesSidePanelOpen: boolean = false;
+  selectedForFileFieldPropertiesUpdate:
+    | IFileFieldPropertiesInputEmitModel
     | undefined;
 
   constructor() {}
@@ -295,5 +301,69 @@ export class FormBuilderComponent implements OnInit {
     this.horizontalForm.sections[foundSectionIndex].elements[
       foundTextboxIndex
     ].textAreaComponent = emitted.properties;
+  }
+
+  viewFileFieldPropertiesSidePanel(
+    sectionId: string,
+    fileFieldId: string
+  ): void {
+    let properties: IHorizonatalFormSectionModel | undefined =
+      this.horizontalForm.sections.find(
+        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+      );
+
+    if (!properties) {
+      return;
+    }
+
+    let element: IElementModel | undefined = properties.elements.find(
+      (value: IElementModel) =>
+        value.type === FIELDS[2] &&
+        value.fileFieldComponent &&
+        value.fileFieldComponent.id === fileFieldId
+    );
+
+    if (!element || !element.fileFieldComponent) {
+      return;
+    }
+
+    this.selectedForFileFieldPropertiesUpdate = {
+      sectionId,
+      fileFieldId,
+      properties: element.fileFieldComponent,
+    };
+
+    this.isFileFieldPropertiesSidePanelOpen = true;
+  }
+
+  hideFileFieldPropertiesSidePanel(): void {
+    this.isFileFieldPropertiesSidePanelOpen = false;
+  }
+
+  saveFileFieldProperties(emitted: IFileFieldPropertiesInputEmitModel): void {
+    let foundSectionIndex: number = this.horizontalForm.sections.findIndex(
+      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+    );
+
+    if (foundSectionIndex < 0) {
+      return;
+    }
+
+    const foundFileFieldIndex: number = this.horizontalForm.sections[
+      foundSectionIndex
+    ].elements.findIndex(
+      (value: IElementModel) =>
+        value.type === FIELDS[2] &&
+        value.fileFieldComponent &&
+        value.fileFieldComponent.id === emitted.fileFieldId
+    );
+
+    if (foundFileFieldIndex < 0) {
+      return;
+    }
+
+    this.horizontalForm.sections[foundSectionIndex].elements[
+      foundFileFieldIndex
+    ].fileFieldComponent = emitted.properties;
   }
 }

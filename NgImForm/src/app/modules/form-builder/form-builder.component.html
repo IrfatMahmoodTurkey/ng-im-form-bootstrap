@@ -99,10 +99,11 @@
                           </div>
                         </div>
 
-                        <!-- (click)="viewTextAreaPropertiesSidePanel(section.id, element.textAreaComponent.id)" -->
                         <div class="col-4">
                           <div class="d-flex align-items-end" style="height: 100%;">
-                            <button class="btn btn-success btn-sm me-1"><i class="fas fa-edit"></i> Properties</button>
+                            <button class="btn btn-success btn-sm me-1"
+                              (click)="viewFileFieldPropertiesSidePanel(section.id, element.fileFieldComponent.id)"><i
+                                class="fas fa-edit"></i> Properties</button>
                             <button class="btn btn-danger btn-sm"
                               (click)="removeField(element.type, section.id, element.fileFieldComponent.id)"><i
                                 class="fas fa-trash"></i> Remove</button>
@@ -145,3 +146,7 @@
 <app-textarea-properties-sidepanel *ngIf="isTextAreaPropertiesSidePanelOpen"
   [textareaProperties]="selectedForTextareaPropertiesUpdate" (hidePanelEvent)="hideTextAreaPropertiesSidePanel()"
   (saveChangesEvent)="saveTextareaProperties($event)"></app-textarea-properties-sidepanel>
+
+<app-filefield-properties-sidepanel *ngIf="isFileFieldPropertiesSidePanelOpen"
+  [fileFieldProperties]="selectedForFileFieldPropertiesUpdate" (hidePanelEvent)="hideFileFieldPropertiesSidePanel()"
+  (saveChangesEvent)="saveFileFieldProperties($event)"></app-filefield-properties-sidepanel>
