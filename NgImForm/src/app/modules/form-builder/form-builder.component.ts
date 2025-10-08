@@ -13,11 +13,13 @@ import { textboxHelpers } from '../../helpers/textbox.helper';
 import { textareaHelpers } from '../../helpers/textarea.helper';
 import { filefieldHelpers } from '../../helpers/filefield.helper';
 import { selectboxHelpers } from '../../helpers/selectbox.helper';
+import { checkboxHelpers } from '../../helpers/checkbox.helper';
 import { ISectionPropertiesInputEmitModel } from '../../models/section-properties-input-emit.model';
 import { ITextboxPropertiesInputEmitModel } from '../../models/textbox-properties-input-emit.model';
 import { ITextareaPropertiesInputEmitModel } from '../../models/textarea-properties-input-emit.model';
 import { IFileFieldPropertiesInputEmitModel } from '../../models/filefield-properties-input-emit.model';
 import { ISelectboxPropertiesInputEmitModel } from '../../models/selectbox-properties-input-emit.model';
+import { ICheckboxPropertiesInputEmitModel } from '../../models/checkbox-properties-input-emit.model';
 
 @Component({
   selector: 'app-form-builder',
@@ -70,6 +72,11 @@ export class FormBuilderComponent implements OnInit {
   isSelectboxPropertiesSidePanelOpen: boolean = false;
   selectedForSelectboxPropertiesUpdate:
     | ISelectboxPropertiesInputEmitModel
+    | undefined;
+
+  isCheckboxPropertiesSidePanelOpen: boolean = false;
+  selectedForCheckboxPropertiesUpdate:
+    | ICheckboxPropertiesInputEmitModel
     | undefined;
 
   constructor() {}
@@ -158,6 +165,16 @@ export class FormBuilderComponent implements OnInit {
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
       }
+    } else if (type === this.fields[4]) {
+      let horizontalForm: IHorizontalFormModel | null =
+        checkboxHelpers.addCheckbox(
+          this.selectedSectionId,
+          this.horizontalForm
+        );
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
     }
   }
 
@@ -186,6 +203,13 @@ export class FormBuilderComponent implements OnInit {
     } else if (type === this.fields[3]) {
       let horizontalForm: IHorizontalFormModel | null =
         selectboxHelpers.removeSelectBox(sectionId, id, this.horizontalForm);
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
+    } else if (type === this.fields[4]) {
+      let horizontalForm: IHorizontalFormModel | null =
+        checkboxHelpers.removeCheckBox(sectionId, id, this.horizontalForm);
 
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
@@ -453,5 +477,66 @@ export class FormBuilderComponent implements OnInit {
     this.horizontalForm.sections[foundSectionIndex].elements[
       foundSelectboxIndex
     ].selectBoxComponent = emitted.properties;
+  }
+
+  viewCheckboxPropertiesSidePanel(sectionId: string, checkboxId: string): void {
+    let properties: IHorizonatalFormSectionModel | undefined =
+      this.horizontalForm.sections.find(
+        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+      );
+
+    if (!properties) {
+      return;
+    }
+
+    let element: IElementModel | undefined = properties.elements.find(
+      (value: IElementModel) =>
+        value.type === FIELDS[4] &&
+        value.checkBoxComponent &&
+        value.checkBoxComponent.id === checkboxId
+    );
+
+    if (!element || !element.checkBoxComponent) {
+      return;
+    }
+
+    this.selectedForCheckboxPropertiesUpdate = {
+      sectionId,
+      checkboxId: checkboxId,
+      properties: element.checkBoxComponent,
+    };
+
+    this.isCheckboxPropertiesSidePanelOpen = true;
+  }
+
+  hideCheckboxPropertiesSidePanel(): void {
+    this.isCheckboxPropertiesSidePanelOpen = false;
+  }
+
+  saveCheckboxProperties(emitted: ICheckboxPropertiesInputEmitModel): void {
+    let foundSectionIndex: number = this.horizontalForm.sections.findIndex(
+      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+    );
+
+    if (foundSectionIndex < 0) {
+      return;
+    }
+
+    const foundCheckboxIndex: number = this.horizontalForm.sections[
+      foundSectionIndex
+    ].elements.findIndex(
+      (value: IElementModel) =>
+        value.type === FIELDS[4] &&
+        value.checkBoxComponent &&
+        value.checkBoxComponent.id === emitted.checkboxId
+    );
+
+    if (foundCheckboxIndex < 0) {
+      return;
+    }
+
+    this.horizontalForm.sections[foundSectionIndex].elements[
+      foundCheckboxIndex
+    ].checkBoxComponent = emitted.properties;
   }
 }

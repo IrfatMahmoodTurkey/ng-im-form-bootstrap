@@ -146,6 +146,36 @@
                     </div>
                   </div>
                 </ng-container>
+
+                <ng-container *ngIf="element.type === fields[4] && element.checkBoxComponent">
+                  <div class="card m-1">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-8">
+                          <div class="form-group">
+                            <input type="checkbox" class="{{element.checkBoxComponent.class}}"
+                              [checked]="element.checkBoxComponent.checked">
+
+                            <ng-container *ngIf="element.checkBoxComponent.label">
+                              <span class="ms-1"><b>{{element.checkBoxComponent.label}}</b></span>
+                            </ng-container>
+                          </div>
+                        </div>
+
+                        <div class="col-4">
+                          <div class="d-flex align-items-end" style="height: 100%;">
+                            <button class="btn btn-success btn-sm me-1"
+                              (click)="viewCheckboxPropertiesSidePanel(section.id, element.checkBoxComponent.id)"><i
+                                class="fas fa-edit"></i> Properties</button>
+                            <button class="btn btn-danger btn-sm"
+                              (click)="removeField(element.type, section.id, element.checkBoxComponent.id)"><i
+                                class="fas fa-trash"></i> Remove</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
               </ng-container>
 
               <div class="mt-2 d-flex justify-content-end">
@@ -187,3 +217,7 @@
 <app-selectbox-properties-sidepanel *ngIf="isSelectboxPropertiesSidePanelOpen"
   [selectBoxProperties]="selectedForSelectboxPropertiesUpdate" (hidePanelEvent)="hideSelectboxPropertiesSidePanel()"
   (saveChangesEvent)="saveSelectboxProperties($event)"></app-selectbox-properties-sidepanel>
+
+<app-checkbox-properties-sidepanel *ngIf="isCheckboxPropertiesSidePanelOpen"
+  [checkboxProperties]="selectedForCheckboxPropertiesUpdate" (hidePanelEvent)="hideCheckboxPropertiesSidePanel()"
+  (saveChangesEvent)="saveCheckboxProperties($event)"></app-checkbox-properties-sidepanel>

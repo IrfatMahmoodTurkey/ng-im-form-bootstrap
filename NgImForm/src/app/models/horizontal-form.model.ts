@@ -34,6 +34,7 @@ export interface IElementModel {
   textAreaComponent?: ITextAreaModel | null;
   selectBoxComponent?: ISelectBoxModel | null;
   fileFieldComponent?: IFileFieldModel | null;
+  checkBoxComponent?: ICheckBoxModel | null;
 }
 
 export interface ITextBoxModel {
@@ -140,4 +141,18 @@ export interface ISelectBoxModel {
         text: string;
       }[]
     | null;
+}
+
+export interface ICheckBoxModel {
+  id: string;
+  order: number;
+  name: string;
+  label: string;
+  class: string;
+  userDefinedId: string;
+  checked: boolean;
+  isReadOnly: boolean;
+  isHidden: boolean;
+  isRequired: boolean;
+  requiredMessage: string | null;
 }
