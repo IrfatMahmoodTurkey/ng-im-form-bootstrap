@@ -35,6 +35,7 @@ export interface IElementModel {
   selectBoxComponent?: ISelectBoxModel | null;
   fileFieldComponent?: IFileFieldModel | null;
   checkBoxComponent?: ICheckBoxModel | null;
+  radioButtonGroup?: IRadioButtonGroupModel | null;
 }
 
 export interface ITextBoxModel {
@@ -155,4 +156,24 @@ export interface ICheckBoxModel {
   isHidden: boolean;
   isRequired: boolean;
   requiredMessage: string | null;
+}
+
+export interface IRadioButtonGroupModel {
+  id: string;
+  order: number;
+  name: string;
+  label: string;
+  class: string;
+  userDefinedId: string;
+  isReadOnly: boolean;
+  isHidden: boolean;
+  isRequired: boolean;
+  requiredMessage: string | null;
+  radioButtons:
+    | {
+        checked: boolean;
+        value: string;
+        text: string;
+      }[]
+    | null;
 }

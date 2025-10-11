@@ -14,6 +14,7 @@ import { textareaHelpers } from '../../helpers/textarea.helper';
 import { filefieldHelpers } from '../../helpers/filefield.helper';
 import { selectboxHelpers } from '../../helpers/selectbox.helper';
 import { checkboxHelpers } from '../../helpers/checkbox.helper';
+import { radioButtonGroupHelpers } from '../../helpers/radio-button-group.helper';
 import { ISectionPropertiesInputEmitModel } from '../../models/section-properties-input-emit.model';
 import { ITextboxPropertiesInputEmitModel } from '../../models/textbox-properties-input-emit.model';
 import { ITextareaPropertiesInputEmitModel } from '../../models/textarea-properties-input-emit.model';
@@ -175,6 +176,16 @@ export class FormBuilderComponent implements OnInit {
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
       }
+    } else if (type === this.fields[5]) {
+      let horizontalForm: IHorizontalFormModel | null =
+        radioButtonGroupHelpers.addRadioButtonGroup(
+          this.selectedSectionId,
+          this.horizontalForm
+        );
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
     }
   }
 
@@ -210,6 +221,17 @@ export class FormBuilderComponent implements OnInit {
     } else if (type === this.fields[4]) {
       let horizontalForm: IHorizontalFormModel | null =
         checkboxHelpers.removeCheckBox(sectionId, id, this.horizontalForm);
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
+    } else if (type === this.fields[5]) {
+      let horizontalForm: IHorizontalFormModel | null =
+        radioButtonGroupHelpers.removeRadioButtonGroup(
+          sectionId,
+          id,
+          this.horizontalForm
+        );
 
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
