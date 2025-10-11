@@ -35,7 +35,7 @@ export interface IElementModel {
   selectBoxComponent?: ISelectBoxModel | null;
   fileFieldComponent?: IFileFieldModel | null;
   checkBoxComponent?: ICheckBoxModel | null;
-  radioButtonGroup?: IRadioButtonGroupModel | null;
+  radioButtonGroupComponent?: IRadioButtonGroupModel | null;
 }
 
 export interface ITextBoxModel {

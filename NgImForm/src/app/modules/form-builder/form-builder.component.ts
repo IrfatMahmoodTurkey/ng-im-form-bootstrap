@@ -21,6 +21,7 @@ import { ITextareaPropertiesInputEmitModel } from '../../models/textarea-propert
 import { IFileFieldPropertiesInputEmitModel } from '../../models/filefield-properties-input-emit.model';
 import { ISelectboxPropertiesInputEmitModel } from '../../models/selectbox-properties-input-emit.model';
 import { ICheckboxPropertiesInputEmitModel } from '../../models/checkbox-properties-input-emit.model';
+import { IRadioButtonGroupPropertiesInputEmitModel } from '../../models/radio-button-group-properties-input-emit.model';
 
 @Component({
   selector: 'app-form-builder',
@@ -78,6 +79,11 @@ export class FormBuilderComponent implements OnInit {
   isCheckboxPropertiesSidePanelOpen: boolean = false;
   selectedForCheckboxPropertiesUpdate:
     | ICheckboxPropertiesInputEmitModel
+    | undefined;
+
+  isRadioButtonGroupPropertiesSidePanelOpen: boolean = false;
+  selectedForRadioButtonGroupPropertiesUpdate:
+    | IRadioButtonGroupPropertiesInputEmitModel
     | undefined;
 
   constructor() {}
@@ -560,5 +566,71 @@ export class FormBuilderComponent implements OnInit {
     this.horizontalForm.sections[foundSectionIndex].elements[
       foundCheckboxIndex
     ].checkBoxComponent = emitted.properties;
+  }
+
+  viewRadioButtonGroupPropertiesSidePanel(
+    sectionId: string,
+    radioButtonGroupId: string
+  ): void {
+    let properties: IHorizonatalFormSectionModel | undefined =
+      this.horizontalForm.sections.find(
+        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+      );
+
+    if (!properties) {
+      return;
+    }
+
+    let element: IElementModel | undefined = properties.elements.find(
+      (value: IElementModel) =>
+        value.type === FIELDS[5] &&
+        value.radioButtonGroupComponent &&
+        value.radioButtonGroupComponent.id === radioButtonGroupId
+    );
+
+    if (!element || !element.radioButtonGroupComponent) {
+      return;
+    }
+
+    this.selectedForRadioButtonGroupPropertiesUpdate = {
+      sectionId,
+      radioButtonGroupId: radioButtonGroupId,
+      properties: element.radioButtonGroupComponent,
+    };
+
+    this.isRadioButtonGroupPropertiesSidePanelOpen = true;
+  }
+
+  hideRadioButtonGroupPropertiesSidePanel(): void {
+    this.isRadioButtonGroupPropertiesSidePanelOpen = false;
+  }
+
+  saveRadioButtonGroupProperties(
+    emitted: IRadioButtonGroupPropertiesInputEmitModel
+  ): void {
+    let foundSectionIndex: number = this.horizontalForm.sections.findIndex(
+      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+    );
+
+    if (foundSectionIndex < 0) {
+      return;
+    }
+
+    const foundRadioButtonGroupIndex: number = this.horizontalForm.sections[
+      foundSectionIndex
+    ].elements.findIndex(
+      (value: IElementModel) =>
+        value.type === FIELDS[5] &&
+        value.radioButtonGroupComponent &&
+        value.radioButtonGroupComponent.id === emitted.radioButtonGroupId
+    );
+
+    if (foundRadioButtonGroupIndex < 0) {
+      return;
+    }
+
+    this.horizontalForm.sections[foundSectionIndex].elements[
+      foundRadioButtonGroupIndex
+    ].radioButtonGroupComponent = emitted.properties;
   }
 }

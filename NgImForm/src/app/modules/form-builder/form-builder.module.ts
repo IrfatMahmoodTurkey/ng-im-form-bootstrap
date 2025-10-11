@@ -9,6 +9,7 @@ import { TextareaPropertiesSidepanelComponent } from './textarea-properties-side
 import { FilefieldPropertiesSidepanelComponent } from './filefield-properties-sidepanel/filefield-properties-sidepanel.component';
 import { SelectboxPropertiesSidepanelComponent } from './selectbox-properties-sidepanel/selectbox-properties-sidepanel.component';
 import { CheckboxPropertiesSidepanelComponent } from './checkbox-properties-sidepanel/checkbox-properties-sidepanel.component';
+import { RadioButtonGroupPropertiesSidepanelComponent } from './radio-button-group-properties-sidepanel/radio-button-group-properties-sidepanel.component';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule],
@@ -21,6 +22,7 @@ import { CheckboxPropertiesSidepanelComponent } from './checkbox-properties-side
     FilefieldPropertiesSidepanelComponent,
     SelectboxPropertiesSidepanelComponent,
     CheckboxPropertiesSidepanelComponent,
+    RadioButtonGroupPropertiesSidepanelComponent,
   ],
   exports: [FormBuilderComponent],
 })

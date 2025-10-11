@@ -49,7 +49,7 @@ function addRadioButtonGroup(
 
   toModifySection.elements.push({
     type: FIELDS[5],
-    radioButtonGroup: toAddRadioButtonGroup,
+    radioButtonGroupComponent: toAddRadioButtonGroup,
   });
 
   return horizontalForm;
@@ -73,7 +73,7 @@ function removeRadioButtonGroup(
 
   const indexOf: number = elements.findIndex(
     (value: IElementModel) =>
-      value.type === FIELDS[5] && value.radioButtonGroup?.id === id
+      value.type === FIELDS[5] && value.radioButtonGroupComponent?.id === id
   );
 
   if (indexOf < 0) {
