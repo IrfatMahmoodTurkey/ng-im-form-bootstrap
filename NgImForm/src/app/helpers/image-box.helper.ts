@@ -5,6 +5,7 @@ import {
   IHorizontalFormModel,
   IImageBoxModel,
 } from '../models/horizontal-form.model';
+import { ALIGNMENTS } from '../constants/alignments.constant';
 
 function addImageBoxGroup(
   selectedSectionId: string | undefined,
@@ -31,13 +32,13 @@ function addImageBoxGroup(
     id: generatedId,
     order: order + 1,
     name: generatedId,
-    class: 'form-control',
+    class: '',
     userDefinedId: generatedId,
     url: '',
     alt: '',
     height: 200,
     width: 200,
-    alignment: 'left',
+    alignment: ALIGNMENTS[0],
   };
 
   toModifySection.elements.push({

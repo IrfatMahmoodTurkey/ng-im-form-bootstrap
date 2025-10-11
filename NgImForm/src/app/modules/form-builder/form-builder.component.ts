@@ -23,6 +23,8 @@ import { IFileFieldPropertiesInputEmitModel } from '../../models/filefield-prope
 import { ISelectboxPropertiesInputEmitModel } from '../../models/selectbox-properties-input-emit.model';
 import { ICheckboxPropertiesInputEmitModel } from '../../models/checkbox-properties-input-emit.model';
 import { IRadioButtonGroupPropertiesInputEmitModel } from '../../models/radio-button-group-properties-input-emit.model';
+import { ALIGNMENTS } from '../../constants/alignments.constant';
+import { IImageBoxPropertiesInputEmitModel } from '../../models/image-box-properties-input-emit.model';
 
 @Component({
   selector: 'app-form-builder',
@@ -30,6 +32,7 @@ import { IRadioButtonGroupPropertiesInputEmitModel } from '../../models/radio-bu
   styleUrls: ['./form-builder.component.scss'],
 })
 export class FormBuilderComponent implements OnInit {
+  alignments: string[] = ALIGNMENTS;
   fields: string[] = FIELDS;
 
   horizontalForm: IHorizontalFormModel = {
@@ -85,6 +88,11 @@ export class FormBuilderComponent implements OnInit {
   isRadioButtonGroupPropertiesSidePanelOpen: boolean = false;
   selectedForRadioButtonGroupPropertiesUpdate:
     | IRadioButtonGroupPropertiesInputEmitModel
+    | undefined;
+
+  isImageboxPropertiesSidePanelOpen: boolean = false;
+  selectedForImageboxPropertiesUpdate:
+    | IImageBoxPropertiesInputEmitModel
     | undefined;
 
   constructor() {}
@@ -650,5 +658,66 @@ export class FormBuilderComponent implements OnInit {
     this.horizontalForm.sections[foundSectionIndex].elements[
       foundRadioButtonGroupIndex
     ].radioButtonGroupComponent = emitted.properties;
+  }
+
+  viewImageboxPropertiesSidePanel(sectionId: string, imageBoxId: string): void {
+    let properties: IHorizonatalFormSectionModel | undefined =
+      this.horizontalForm.sections.find(
+        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+      );
+
+    if (!properties) {
+      return;
+    }
+
+    let element: IElementModel | undefined = properties.elements.find(
+      (value: IElementModel) =>
+        value.type === FIELDS[6] &&
+        value.imageBoxComponent &&
+        value.imageBoxComponent.id === imageBoxId
+    );
+
+    if (!element || !element.imageBoxComponent) {
+      return;
+    }
+
+    this.selectedForImageboxPropertiesUpdate = {
+      sectionId,
+      imageBoxId: imageBoxId,
+      properties: element.imageBoxComponent,
+    };
+
+    this.isImageboxPropertiesSidePanelOpen = true;
+  }
+
+  hideImageboxPropertiesSidePanel(): void {
+    this.isImageboxPropertiesSidePanelOpen = false;
+  }
+
+  saveImageboxProperties(emitted: IImageBoxPropertiesInputEmitModel): void {
+    let foundSectionIndex: number = this.horizontalForm.sections.findIndex(
+      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+    );
+
+    if (foundSectionIndex < 0) {
+      return;
+    }
+
+    const foundImageboxId: number = this.horizontalForm.sections[
+      foundSectionIndex
+    ].elements.findIndex(
+      (value: IElementModel) =>
+        value.type === FIELDS[6] &&
+        value.imageBoxComponent &&
+        value.imageBoxComponent.id === emitted.imageBoxId
+    );
+
+    if (foundImageboxId < 0) {
+      return;
+    }
+
+    this.horizontalForm.sections[foundSectionIndex].elements[
+      foundImageboxId
+    ].imageBoxComponent = emitted.properties;
   }
 }

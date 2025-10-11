@@ -10,6 +10,7 @@ import { FilefieldPropertiesSidepanelComponent } from './filefield-properties-si
 import { SelectboxPropertiesSidepanelComponent } from './selectbox-properties-sidepanel/selectbox-properties-sidepanel.component';
 import { CheckboxPropertiesSidepanelComponent } from './checkbox-properties-sidepanel/checkbox-properties-sidepanel.component';
 import { RadioButtonGroupPropertiesSidepanelComponent } from './radio-button-group-properties-sidepanel/radio-button-group-properties-sidepanel.component';
+import { ImageboxPropertiesSidepanelComponent } from './imagebox-properties-sidepanel/imagebox-properties-sidepanel.component';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule],
@@ -23,6 +24,7 @@ import { RadioButtonGroupPropertiesSidepanelComponent } from './radio-button-gro
     SelectboxPropertiesSidepanelComponent,
     CheckboxPropertiesSidepanelComponent,
     RadioButtonGroupPropertiesSidepanelComponent,
+    ImageboxPropertiesSidepanelComponent,
   ],
   exports: [FormBuilderComponent],
 })
