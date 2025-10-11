@@ -4,7 +4,7 @@ export const FIELDS: string[] = [
   'File Upload',
   'Dropdown Select Box',
   'Check Box',
-  'Radio Button',
   'Radio Button Group',
   'Image View Box',
+  'Text',
 ];
