@@ -212,6 +212,30 @@
                     </div>
                   </div>
                 </ng-container>
+
+                <ng-container *ngIf="element.type === fields[6] && element.imageBoxComponent">
+                  <div class="card m-1">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-8">
+                          <img src="{{element.imageBoxComponent.url}}" alt="{{element.imageBoxComponent.alt}}"
+                            height="{{element.imageBoxComponent.height}}" width="{{element.imageBoxComponent.width}}"
+                            class="{{element.imageBoxComponent.class}}">
+                        </div>
+
+                        <!-- (click)="viewRadioButtonGroupPropertiesSidePanel(section.id, element.radioButtonGroupComponent.id)" -->
+                        <div class="col-4">
+                          <div class="d-flex align-items-end" style="height: 100%;">
+                            <button class="btn btn-success btn-sm me-1"><i class="fas fa-edit"></i> Properties</button>
+                            <button class="btn btn-danger btn-sm"
+                              (click)="removeField(element.type, section.id, element.imageBoxComponent.id)"><i
+                                class="fas fa-trash"></i> Remove</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
               </ng-container>
 
               <div class="mt-2 d-flex justify-content-end">

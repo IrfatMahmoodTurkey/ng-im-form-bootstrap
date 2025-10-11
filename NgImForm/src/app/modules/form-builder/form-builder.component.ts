@@ -15,6 +15,7 @@ import { filefieldHelpers } from '../../helpers/filefield.helper';
 import { selectboxHelpers } from '../../helpers/selectbox.helper';
 import { checkboxHelpers } from '../../helpers/checkbox.helper';
 import { radioButtonGroupHelpers } from '../../helpers/radio-button-group.helper';
+import { imageBoxHelpers } from '../../helpers/image-box.helper';
 import { ISectionPropertiesInputEmitModel } from '../../models/section-properties-input-emit.model';
 import { ITextboxPropertiesInputEmitModel } from '../../models/textbox-properties-input-emit.model';
 import { ITextareaPropertiesInputEmitModel } from '../../models/textarea-properties-input-emit.model';
@@ -192,6 +193,16 @@ export class FormBuilderComponent implements OnInit {
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
       }
+    } else if (type === this.fields[6]) {
+      let horizontalForm: IHorizontalFormModel | null =
+        imageBoxHelpers.addImageBoxGroup(
+          this.selectedSectionId,
+          this.horizontalForm
+        );
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
     }
   }
 
@@ -238,6 +249,13 @@ export class FormBuilderComponent implements OnInit {
           id,
           this.horizontalForm
         );
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
+    } else if (type === this.fields[6]) {
+      let horizontalForm: IHorizontalFormModel | null =
+        imageBoxHelpers.removeImageBox(sectionId, id, this.horizontalForm);
 
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;

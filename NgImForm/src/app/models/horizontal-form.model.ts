@@ -36,6 +36,7 @@ export interface IElementModel {
   fileFieldComponent?: IFileFieldModel | null;
   checkBoxComponent?: ICheckBoxModel | null;
   radioButtonGroupComponent?: IRadioButtonGroupModel | null;
+  imageBoxComponent?: IImageBoxModel | null;
 }
 
 export interface ITextBoxModel {
@@ -176,4 +177,17 @@ export interface IRadioButtonGroupModel {
         text: string;
       }[]
     | null;
+}
+
+export interface IImageBoxModel {
+  id: string;
+  order: number;
+  name: string;
+  class: string;
+  userDefinedId: string;
+  url: string;
+  alt: string;
+  height: number;
+  width: number;
+  alignment: string;
 }
