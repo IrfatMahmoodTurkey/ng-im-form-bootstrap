@@ -12,9 +12,10 @@ import { CheckboxPropertiesSidepanelComponent } from './checkbox-properties-side
 import { RadioButtonGroupPropertiesSidepanelComponent } from './radio-button-group-properties-sidepanel/radio-button-group-properties-sidepanel.component';
 import { ImageboxPropertiesSidepanelComponent } from './imagebox-properties-sidepanel/imagebox-properties-sidepanel.component';
 import { TextPropertiesSidepanelComponent } from './text-properties-sidepanel/text-properties-sidepanel.component';
+import { UIModule } from '../shared-modules/ui-module/ui.module';
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, UIModule],
   declarations: [
     FormBuilderComponent,
     FieldSelectionSidePanelComponent,

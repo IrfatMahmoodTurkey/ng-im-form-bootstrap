@@ -1,9 +1,14 @@
 <div class="m-3">
   <div class="mb-2">
     <div class="d-flex justify-content-end">
-      <button class="btn btn-primary">
-        <i class="fas fa-check"></i>
-        Publish Form</button>
+      <ng-container *ngIf="isPublishing; else publishButtonSection">
+        <app-spinner-disabled-button></app-spinner-disabled-button>
+      </ng-container>
+      <ng-template #publishButtonSection>
+        <button class="btn btn-primary" type="button" (click)="publishForm()">
+          <i class="fas fa-check"></i>
+          Publish Form</button>
+      </ng-template>
     </div>
   </div>
 

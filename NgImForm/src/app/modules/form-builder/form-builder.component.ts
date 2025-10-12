@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   IElementModel,
   IHorizonatalFormSectionModel,
@@ -34,6 +34,12 @@ import { ITextPropertiesInputEmitModel } from '../../models/text-properties-inpu
   styleUrls: ['./form-builder.component.scss'],
 })
 export class FormBuilderComponent implements OnInit {
+  @Input() preset: IHorizontalFormModel | undefined | null;
+  @Output() publishFormEvent: EventEmitter<IHorizontalFormModel> =
+    new EventEmitter();
+
+  @Input() isPublishing: boolean = false;
+
   alignments: string[] = ALIGNMENTS;
   fields: string[] = FIELDS;
 
@@ -102,7 +108,11 @@ export class FormBuilderComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.preset) {
+      this.horizontalForm = this.preset;
+    }
+  }
 
   addSection(): void {
     this.horizontalForm = sectionHelpers.addSection(this.horizontalForm);
@@ -804,5 +814,9 @@ export class FormBuilderComponent implements OnInit {
     this.horizontalForm.sections[foundSectionIndex].elements[
       foundTextId
     ].textComponent = emitted.properties;
+  }
+
+  publishForm(): void {
+    this.publishFormEvent.emit(this.horizontalForm);
   }
 }
