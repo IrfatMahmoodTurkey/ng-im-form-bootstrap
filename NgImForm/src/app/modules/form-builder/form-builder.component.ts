@@ -16,6 +16,7 @@ import { selectboxHelpers } from '../../helpers/selectbox.helper';
 import { checkboxHelpers } from '../../helpers/checkbox.helper';
 import { radioButtonGroupHelpers } from '../../helpers/radio-button-group.helper';
 import { imageBoxHelpers } from '../../helpers/image-box.helper';
+import { textHelpers } from '../../helpers/text.helper';
 import { ISectionPropertiesInputEmitModel } from '../../models/section-properties-input-emit.model';
 import { ITextboxPropertiesInputEmitModel } from '../../models/textbox-properties-input-emit.model';
 import { ITextareaPropertiesInputEmitModel } from '../../models/textarea-properties-input-emit.model';
@@ -25,6 +26,7 @@ import { ICheckboxPropertiesInputEmitModel } from '../../models/checkbox-propert
 import { IRadioButtonGroupPropertiesInputEmitModel } from '../../models/radio-button-group-properties-input-emit.model';
 import { ALIGNMENTS } from '../../constants/alignments.constant';
 import { IImageBoxPropertiesInputEmitModel } from '../../models/image-box-properties-input-emit.model';
+import { JUSTIFY } from '../../constants/justify.constant';
 
 @Component({
   selector: 'app-form-builder',
@@ -33,6 +35,7 @@ import { IImageBoxPropertiesInputEmitModel } from '../../models/image-box-proper
 })
 export class FormBuilderComponent implements OnInit {
   alignments: string[] = ALIGNMENTS;
+  justifies: string[] = JUSTIFY;
   fields: string[] = FIELDS;
 
   horizontalForm: IHorizontalFormModel = {
@@ -211,6 +214,15 @@ export class FormBuilderComponent implements OnInit {
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
       }
+    } else if (type === this.fields[7]) {
+      let horizontalForm: IHorizontalFormModel | null = textHelpers.addText(
+        this.selectedSectionId,
+        this.horizontalForm
+      );
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
     }
   }
 
@@ -264,6 +276,16 @@ export class FormBuilderComponent implements OnInit {
     } else if (type === this.fields[6]) {
       let horizontalForm: IHorizontalFormModel | null =
         imageBoxHelpers.removeImageBox(sectionId, id, this.horizontalForm);
+
+      if (horizontalForm) {
+        this.horizontalForm = horizontalForm;
+      }
+    } else if (type === this.fields[7]) {
+      let horizontalForm: IHorizontalFormModel | null = textHelpers.removeText(
+        sectionId,
+        id,
+        this.horizontalForm
+      );
 
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;

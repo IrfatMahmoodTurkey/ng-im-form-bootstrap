@@ -257,6 +257,91 @@
                     </div>
                   </div>
                 </ng-container>
+
+                <ng-container *ngIf="element.type === fields[7] && element.textComponent">
+                  <div class="card m-1">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-8">
+                          <ng-container *ngIf="element.textComponent.alignment === alignments[0]">
+                            <div class="text-left">
+                              <ng-container *ngIf="element.textComponent.justify === justifies[0]">
+                                <p class="{{element.textComponent.class}} justify-center">
+                                  {{element.textComponent.text}}
+                                </p>
+                              </ng-container>
+
+                              <ng-container *ngIf="element.textComponent.justify === justifies[1]">
+                                <p class="{{element.textComponent.class}} justify-left">
+                                  {{element.textComponent.text}}
+                                </p>
+                              </ng-container>
+
+                              <ng-container *ngIf="element.textComponent.justify === justifies[2]">
+                                <p class="{{element.textComponent.class}} justify-right">
+                                  {{element.textComponent.text}}
+                                </p>
+                              </ng-container>
+                            </div>
+                          </ng-container>
+
+                          <ng-container *ngIf="element.textComponent.alignment === alignments[1]">
+                            <div class="text-end">
+                              <ng-container *ngIf="element.textComponent.justify === justifies[0]">
+                                <p class="{{element.textComponent.class}} justify-center">
+                                  {{element.textComponent.text}}
+                                </p>
+                              </ng-container>
+
+                              <ng-container *ngIf="element.textComponent.justify === justifies[1]">
+                                <p class="{{element.textComponent.class}} justify-left">
+                                  {{element.textComponent.text}}
+                                </p>
+                              </ng-container>
+
+                              <ng-container *ngIf="element.textComponent.justify === justifies[2]">
+                                <p class="{{element.textComponent.class}} justify-right">
+                                  {{element.textComponent.text}}
+                                </p>
+                              </ng-container>
+                            </div>
+                          </ng-container>
+
+                          <ng-container *ngIf="element.textComponent.alignment === alignments[2]">
+                            <div class="text-center">
+                              <ng-container *ngIf="element.textComponent.justify === justifies[0]">
+                                <p class="{{element.textComponent.class}} justify-center">
+                                  {{element.textComponent.text}}
+                                </p>
+                              </ng-container>
+
+                              <ng-container *ngIf="element.textComponent.justify === justifies[1]">
+                                <p class="{{element.textComponent.class}} justify-left">
+                                  {{element.textComponent.text}}
+                                </p>
+                              </ng-container>
+
+                              <ng-container *ngIf="element.textComponent.justify === justifies[2]">
+                                <p class="{{element.textComponent.class}} justify-right">
+                                  {{element.textComponent.text}}
+                                </p>
+                              </ng-container>
+                            </div>
+                          </ng-container>
+                        </div>
+                        <!-- (click)="viewImageboxPropertiesSidePanel(section.id, element.imageBoxComponent.id)" -->
+                        <div class="col-4">
+                          <div class="d-flex align-items-end" style="height: 100%;">
+                            <button class="btn btn-success btn-sm me-1"><i class="fas fa-edit"></i> Properties</button>
+                            <button class="btn btn-danger btn-sm"
+                              (click)="removeField(element.type, section.id, element.textComponent.id)"><i
+                                class="fas fa-trash"></i> Remove</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
               </ng-container>
 
               <div class="mt-2 d-flex justify-content-end">
