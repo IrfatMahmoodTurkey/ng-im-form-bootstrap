@@ -13,6 +13,7 @@ import { RadioButtonGroupPropertiesSidepanelComponent } from './radio-button-gro
 import { ImageboxPropertiesSidepanelComponent } from './imagebox-properties-sidepanel/imagebox-properties-sidepanel.component';
 import { TextPropertiesSidepanelComponent } from './text-properties-sidepanel/text-properties-sidepanel.component';
 import { UIModule } from '../shared-modules/ui-module/ui.module';
+import { FormPropertiesSidepanelComponent } from './form-properties-sidepanel/form-properties-sidepanel.component';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, UIModule],
@@ -28,6 +29,7 @@ import { UIModule } from '../shared-modules/ui-module/ui.module';
     RadioButtonGroupPropertiesSidepanelComponent,
     ImageboxPropertiesSidepanelComponent,
     TextPropertiesSidepanelComponent,
+    FormPropertiesSidepanelComponent,
   ],
   exports: [FormBuilderComponent],
 })

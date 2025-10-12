@@ -12,8 +12,14 @@ export interface IHorizontalFormModel {
     bearerTokenStorageKey: string;
   };
   responseMessages: {
-    onSuccess: string;
-    onFailed: string;
+    onSuccess: {
+      title: string;
+      subTitle: string;
+    };
+    onFailed: {
+      title: string;
+      subTitle: string;
+    };
   };
   sections: IHorizonatalFormSectionModel[];
 }

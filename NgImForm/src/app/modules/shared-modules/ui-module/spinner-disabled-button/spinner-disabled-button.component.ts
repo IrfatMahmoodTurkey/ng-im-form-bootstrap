@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-spinner-disabled-button',

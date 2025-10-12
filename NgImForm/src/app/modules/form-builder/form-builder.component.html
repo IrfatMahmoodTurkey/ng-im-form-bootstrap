@@ -19,7 +19,8 @@
           <h3>Horizontal Form Generator</h3>
         </div>
         <div>
-          <button class="btn btn-success btn-sm me-1"><i class="fas fa-edit"></i> Properties</button>
+          <button class="btn btn-success btn-sm me-1" (click)="viewFormPropertiesSidePanel()"><i
+              class="fas fa-edit"></i> Properties</button>
         </div>
       </div>
     </div>
@@ -373,3 +374,7 @@
 <app-text-properties-sidepanel *ngIf="isTextPropertiesSidePanelOpen" [textProperties]="selectedForTextPropertiesUpdate"
   (hidePanelEvent)="hideTextPropertiesSidePanel()"
   (saveChangesEvent)="saveTextProperties($event)"></app-text-properties-sidepanel>
+
+<app-form-properties-sidepanel *ngIf="isFormPropertiesSidePanelOpen" [formProperties]="horizontalForm"
+  (hidePanelEvent)="hideFormPropertiesSidePanel()"
+  (saveChangesEvent)="saveFormProperties($event)"></app-form-properties-sidepanel>

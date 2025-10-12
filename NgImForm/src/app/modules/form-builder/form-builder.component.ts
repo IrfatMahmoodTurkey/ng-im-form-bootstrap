@@ -54,8 +54,14 @@ export class FormBuilderComponent implements OnInit {
       bearerTokenStorageKey: '',
     },
     responseMessages: {
-      onSuccess: 'Success',
-      onFailed: 'Failed',
+      onSuccess: {
+        title: 'Success',
+        subTitle: '',
+      },
+      onFailed: {
+        title: 'Failed',
+        subTitle: '',
+      },
     },
     sections: [],
   };
@@ -105,6 +111,8 @@ export class FormBuilderComponent implements OnInit {
 
   isTextPropertiesSidePanelOpen: boolean = false;
   selectedForTextPropertiesUpdate: ITextPropertiesInputEmitModel | undefined;
+
+  isFormPropertiesSidePanelOpen: boolean = false;
 
   constructor() {}
 
@@ -814,6 +822,19 @@ export class FormBuilderComponent implements OnInit {
     this.horizontalForm.sections[foundSectionIndex].elements[
       foundTextId
     ].textComponent = emitted.properties;
+  }
+
+  viewFormPropertiesSidePanel(): void {
+    console.log('Worjing');
+    this.isFormPropertiesSidePanelOpen = true;
+  }
+
+  hideFormPropertiesSidePanel(): void {
+    this.isFormPropertiesSidePanelOpen = false;
+  }
+
+  saveFormProperties(emitted: IHorizontalFormModel): void {
+    this.horizontalForm = emitted;
   }
 
   publishForm(): void {

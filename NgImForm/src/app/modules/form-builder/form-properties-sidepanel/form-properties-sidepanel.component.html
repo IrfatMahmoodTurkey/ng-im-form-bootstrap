@@ -1,0 +1,90 @@
+<aside class="details-sidebar card">
+  <div class="details-section">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <span>
+          <h4 class="modal-title">Form Properties</h4>
+        </span>
+        <span>
+          <button type="button" class="btn btn-outline-danger btn-sm" (click)="hide()">
+            <i class="fas fa-times"></i>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div class="card-body sidebar-card-body">
+      <form [formGroup]="form" (ngSubmit)="saveChanges()">
+        <div class="form-horizontal">
+          <div class="form-group mb-2">
+            <input type="checkbox" formControlName="checkValidations"><span class="ms-1">Is Check Validations before
+              Submit</span>
+          </div>
+
+          <div class="form-group mb-2">
+            <input type="checkbox" formControlName="isResetButtonAvailable"><span class="ms-1">Is Reset button
+              available</span>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>API URL*</b></label>
+            <input type="text" class="form-control" formControlName="submitAPIUrl">
+            <small
+              *ngIf="isSubmitClicked && form.controls['submitAPIUrl']?.errors && form.controls['submitAPIUrl']?.errors?.['required']"
+              class="text-danger">API URL is Required!</small>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Method*</b></label>
+            <select class="form-control" formControlName="method">
+              <option *ngFor="let method of apiMethods" value="{{method}}">{{method}}</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Send Body Type*</b></label>
+            <select class="form-control" formControlName="sendBodyAs">
+              <option *ngFor="let type of sendBodyTypes" value="{{type}}">{{type}}</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-2">
+            <input type="checkbox" formControlName="authorization"><span class="ms-1">Is Authorization
+              Required</span>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Bearer Token Storage Key</b></label>
+            <input type="text" class="form-control" formControlName="bearerTokenStorageKey">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>On Success Title</b></label>
+            <input type="text" class="form-control" formControlName="successTitle">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>On Success Sub-Title</b></label>
+            <input type="text" class="form-control" formControlName="successSubTitle">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>On Failed Title</b></label>
+            <input type="text" class="form-control" formControlName="failedTitle">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>On Failed Sub-Title</b></label>
+            <input type="text" class="form-control" formControlName="failedSubTitle">
+          </div>
+          <hr>
+
+          <div class="form-group">
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</aside>
