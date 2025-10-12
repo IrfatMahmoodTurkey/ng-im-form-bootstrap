@@ -1,1 +1,1 @@
-export const JUSTIFY: string[] = ['Center', 'Left', 'Right'];
+export const JUSTIFIES: string[] = ['Center', 'Left', 'Right'];

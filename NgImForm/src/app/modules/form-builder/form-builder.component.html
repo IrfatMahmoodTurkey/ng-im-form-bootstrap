@@ -329,10 +329,12 @@
                             </div>
                           </ng-container>
                         </div>
-                        <!-- (click)="viewImageboxPropertiesSidePanel(section.id, element.imageBoxComponent.id)" -->
+
                         <div class="col-4">
                           <div class="d-flex align-items-end" style="height: 100%;">
-                            <button class="btn btn-success btn-sm me-1"><i class="fas fa-edit"></i> Properties</button>
+                            <button class="btn btn-success btn-sm me-1"
+                              (click)="viewTextPropertiesSidePanel(section.id, element.textComponent.id)"><i
+                                class="fas fa-edit"></i> Properties</button>
                             <button class="btn btn-danger btn-sm"
                               (click)="removeField(element.type, section.id, element.textComponent.id)"><i
                                 class="fas fa-trash"></i> Remove</button>
@@ -396,3 +398,7 @@
 <app-imagebox-properties-sidepanel *ngIf="isImageboxPropertiesSidePanelOpen"
   [imageboxProperties]="selectedForImageboxPropertiesUpdate" (hidePanelEvent)="hideImageboxPropertiesSidePanel()"
   (saveChangesEvent)="saveImageboxProperties($event)"></app-imagebox-properties-sidepanel>
+
+<app-text-properties-sidepanel *ngIf="isTextPropertiesSidePanelOpen" [textProperties]="selectedForTextPropertiesUpdate"
+  (hidePanelEvent)="hideTextPropertiesSidePanel()"
+  (saveChangesEvent)="saveTextProperties($event)"></app-text-properties-sidepanel>

@@ -26,7 +26,8 @@ import { ICheckboxPropertiesInputEmitModel } from '../../models/checkbox-propert
 import { IRadioButtonGroupPropertiesInputEmitModel } from '../../models/radio-button-group-properties-input-emit.model';
 import { ALIGNMENTS } from '../../constants/alignments.constant';
 import { IImageBoxPropertiesInputEmitModel } from '../../models/image-box-properties-input-emit.model';
-import { JUSTIFY } from '../../constants/justify.constant';
+import { JUSTIFIES } from '../../constants/justify.constant';
+import { ITextPropertiesInputEmitModel } from '../../models/text-properties-input-emit.model';
 
 @Component({
   selector: 'app-form-builder',
@@ -35,7 +36,7 @@ import { JUSTIFY } from '../../constants/justify.constant';
 })
 export class FormBuilderComponent implements OnInit {
   alignments: string[] = ALIGNMENTS;
-  justifies: string[] = JUSTIFY;
+  justifies: string[] = JUSTIFIES;
   fields: string[] = FIELDS;
 
   horizontalForm: IHorizontalFormModel = {
@@ -97,6 +98,9 @@ export class FormBuilderComponent implements OnInit {
   selectedForImageboxPropertiesUpdate:
     | IImageBoxPropertiesInputEmitModel
     | undefined;
+
+  isTextPropertiesSidePanelOpen: boolean = false;
+  selectedForTextPropertiesUpdate: ITextPropertiesInputEmitModel | undefined;
 
   constructor() {}
 
@@ -741,5 +745,66 @@ export class FormBuilderComponent implements OnInit {
     this.horizontalForm.sections[foundSectionIndex].elements[
       foundImageboxId
     ].imageBoxComponent = emitted.properties;
+  }
+
+  viewTextPropertiesSidePanel(sectionId: string, textId: string): void {
+    let properties: IHorizonatalFormSectionModel | undefined =
+      this.horizontalForm.sections.find(
+        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+      );
+
+    if (!properties) {
+      return;
+    }
+
+    let element: IElementModel | undefined = properties.elements.find(
+      (value: IElementModel) =>
+        value.type === FIELDS[7] &&
+        value.textComponent &&
+        value.textComponent.id === textId
+    );
+
+    if (!element || !element.textComponent) {
+      return;
+    }
+
+    this.selectedForTextPropertiesUpdate = {
+      sectionId,
+      textId: textId,
+      properties: element.textComponent,
+    };
+
+    this.isTextPropertiesSidePanelOpen = true;
+  }
+
+  hideTextPropertiesSidePanel(): void {
+    this.isTextPropertiesSidePanelOpen = false;
+  }
+
+  saveTextProperties(emitted: ITextPropertiesInputEmitModel): void {
+    let foundSectionIndex: number = this.horizontalForm.sections.findIndex(
+      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+    );
+
+    if (foundSectionIndex < 0) {
+      return;
+    }
+
+    const foundTextId: number = this.horizontalForm.sections[
+      foundSectionIndex
+    ].elements.findIndex(
+      (value: IElementModel) =>
+        value.type === FIELDS[7] &&
+        value.textComponent &&
+        value.textComponent.id === emitted.textId
+    );
+
+    if (foundTextId < 0) {
+      return;
+    }
+
+    this.horizontalForm.sections[foundSectionIndex].elements[
+      foundTextId
+    ].textComponent = emitted.properties;
   }
 }
