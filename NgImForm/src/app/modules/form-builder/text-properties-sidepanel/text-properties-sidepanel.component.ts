@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ALIGNMENTS } from '../../../constants/alignments.constant';
-import { JUSTIFIES } from '../../../constants/justify.constant';
 import { ITextPropertiesInputEmitModel } from '../../../models/text-properties-input-emit.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ITextModel } from '../../../models/horizontal-form.model';
@@ -11,7 +10,6 @@ import { ITextModel } from '../../../models/horizontal-form.model';
 })
 export class TextPropertiesSidepanelComponent implements OnInit {
   alignments: string[] = ALIGNMENTS;
-  justifies: string[] = JUSTIFIES;
 
   @Input() textProperties: ITextPropertiesInputEmitModel | undefined;
 
@@ -46,7 +44,6 @@ export class TextPropertiesSidepanelComponent implements OnInit {
     );
     this.form.addControl('text', new FormControl('', [Validators.required]));
     this.form.addControl('alignment', new FormControl(this.alignments[0]));
-    this.form.addControl('justify', new FormControl(this.justifies[0]));
 
     if (!this.textProperties) {
       return;
@@ -59,7 +56,6 @@ export class TextPropertiesSidepanelComponent implements OnInit {
     this.form.controls['class'].setValue(properties.class);
     this.form.controls['userDefinedId'].setValue(properties.userDefinedId);
     this.form.controls['text'].setValue(properties.text);
-    this.form.controls['justify'].setValue(properties.justify);
     this.form.controls['alignment'].setValue(properties.alignment);
   }
 
@@ -74,13 +70,12 @@ export class TextPropertiesSidepanelComponent implements OnInit {
       return;
     }
 
-    const [order, name, className, userDefinedId, text, justify, alignment] = [
+    const [order, name, className, userDefinedId, text, alignment] = [
       this.form.controls['order'].value,
       this.form.controls['name'].value,
       this.form.controls['class'].value,
       this.form.controls['userDefinedId'].value,
       this.form.controls['text'].value,
-      this.form.controls['justify'].value,
       this.form.controls['alignment'].value,
     ];
 
@@ -94,7 +89,6 @@ export class TextPropertiesSidepanelComponent implements OnInit {
         class: className,
         userDefinedId,
         text,
-        justify,
         alignment,
       },
     });

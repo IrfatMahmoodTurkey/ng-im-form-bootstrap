@@ -201,5 +201,4 @@ export interface ITextModel {
   userDefinedId: string;
   text: string;
   alignment: string;
-  justify: string;
 }

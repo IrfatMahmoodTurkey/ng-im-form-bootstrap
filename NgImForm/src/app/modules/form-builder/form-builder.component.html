@@ -265,67 +265,25 @@
                         <div class="col-8">
                           <ng-container *ngIf="element.textComponent.alignment === alignments[0]">
                             <div class="text-left">
-                              <ng-container *ngIf="element.textComponent.justify === justifies[0]">
-                                <p class="{{element.textComponent.class}} justify-center">
-                                  {{element.textComponent.text}}
-                                </p>
-                              </ng-container>
-
-                              <ng-container *ngIf="element.textComponent.justify === justifies[1]">
-                                <p class="{{element.textComponent.class}} justify-left">
-                                  {{element.textComponent.text}}
-                                </p>
-                              </ng-container>
-
-                              <ng-container *ngIf="element.textComponent.justify === justifies[2]">
-                                <p class="{{element.textComponent.class}} justify-right">
-                                  {{element.textComponent.text}}
-                                </p>
-                              </ng-container>
+                              <p class="{{element.textComponent.class}}">
+                                {{element.textComponent.text}}
+                              </p>
                             </div>
                           </ng-container>
 
                           <ng-container *ngIf="element.textComponent.alignment === alignments[1]">
                             <div class="text-end">
-                              <ng-container *ngIf="element.textComponent.justify === justifies[0]">
-                                <p class="{{element.textComponent.class}} justify-center">
-                                  {{element.textComponent.text}}
-                                </p>
-                              </ng-container>
-
-                              <ng-container *ngIf="element.textComponent.justify === justifies[1]">
-                                <p class="{{element.textComponent.class}} justify-left">
-                                  {{element.textComponent.text}}
-                                </p>
-                              </ng-container>
-
-                              <ng-container *ngIf="element.textComponent.justify === justifies[2]">
-                                <p class="{{element.textComponent.class}} justify-right">
-                                  {{element.textComponent.text}}
-                                </p>
-                              </ng-container>
+                              <p class="{{element.textComponent.class}}">
+                                {{element.textComponent.text}}
+                              </p>
                             </div>
                           </ng-container>
 
                           <ng-container *ngIf="element.textComponent.alignment === alignments[2]">
                             <div class="text-center">
-                              <ng-container *ngIf="element.textComponent.justify === justifies[0]">
-                                <p class="{{element.textComponent.class}} justify-center">
-                                  {{element.textComponent.text}}
-                                </p>
-                              </ng-container>
-
-                              <ng-container *ngIf="element.textComponent.justify === justifies[1]">
-                                <p class="{{element.textComponent.class}} justify-left">
-                                  {{element.textComponent.text}}
-                                </p>
-                              </ng-container>
-
-                              <ng-container *ngIf="element.textComponent.justify === justifies[2]">
-                                <p class="{{element.textComponent.class}} justify-right">
-                                  {{element.textComponent.text}}
-                                </p>
-                              </ng-container>
+                              <p class="{{element.textComponent.class}}">
+                                {{element.textComponent.text}}
+                              </p>
                             </div>
                           </ng-container>
                         </div>

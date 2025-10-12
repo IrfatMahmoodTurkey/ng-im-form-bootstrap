@@ -26,7 +26,6 @@ import { ICheckboxPropertiesInputEmitModel } from '../../models/checkbox-propert
 import { IRadioButtonGroupPropertiesInputEmitModel } from '../../models/radio-button-group-properties-input-emit.model';
 import { ALIGNMENTS } from '../../constants/alignments.constant';
 import { IImageBoxPropertiesInputEmitModel } from '../../models/image-box-properties-input-emit.model';
-import { JUSTIFIES } from '../../constants/justify.constant';
 import { ITextPropertiesInputEmitModel } from '../../models/text-properties-input-emit.model';
 
 @Component({
@@ -36,7 +35,6 @@ import { ITextPropertiesInputEmitModel } from '../../models/text-properties-inpu
 })
 export class FormBuilderComponent implements OnInit {
   alignments: string[] = ALIGNMENTS;
-  justifies: string[] = JUSTIFIES;
   fields: string[] = FIELDS;
 
   horizontalForm: IHorizontalFormModel = {

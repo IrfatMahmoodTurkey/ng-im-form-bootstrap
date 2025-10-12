@@ -1,6 +1,5 @@
 import { ALIGNMENTS } from '../constants/alignments.constant';
 import { FIELDS } from '../constants/field-types.constant';
-import { JUSTIFIES } from '../constants/justify.constant';
 import {
   IElementModel,
   IHorizonatalFormSectionModel,
@@ -37,7 +36,6 @@ function addText(
     userDefinedId: generatedId,
     text: 'Text',
     alignment: ALIGNMENTS[0],
-    justify: JUSTIFIES[0],
   };
 
   toModifySection.elements.push({
