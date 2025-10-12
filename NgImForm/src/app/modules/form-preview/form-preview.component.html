@@ -1,3 +1,13 @@
-<p>
-  form-preview works!
-</p>
+<div class="container container-fluid">
+    <div class="m-3">
+        <ng-container *ngFor="let section of sections">
+            <div [ngClass]="section.class">
+                <div [ngClass]="section.headerClass">
+                    <h4>{{section.title}}</h4>
+                    <small>{{section.subTitle}}</small>
+                </div>
+                <div [ngClass]="section.bodyClass"></div>
+            </div>
+        </ng-container>
+    </div>
+</div>

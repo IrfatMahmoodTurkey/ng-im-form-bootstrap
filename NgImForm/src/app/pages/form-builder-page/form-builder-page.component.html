@@ -1,1 +1,5 @@
-<app-form-builder></app-form-builder>
+<div class="m-1">
+    <button class="btn btn-danger" (click)="clearForm()">Clear Form from Storage</button>
+</div>
+<hr>
+<app-form-builder [preset]="builtForm" (publishFormEvent)="storeNewForm($event)"></app-form-builder>

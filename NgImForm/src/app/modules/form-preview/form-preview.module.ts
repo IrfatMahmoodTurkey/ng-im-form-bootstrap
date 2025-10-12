@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormPreviewComponent } from './form-preview.component';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [FormPreviewComponent]
+  imports: [CommonModule],
+  declarations: [FormPreviewComponent],
+  exports: [FormPreviewComponent],
 })
-export class FormPreviewModule { }
+export class FormPreviewModule {}
