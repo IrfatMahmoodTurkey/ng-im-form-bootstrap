@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { FormPreviewComponent } from './modules/form-preview/form-preview.component';
-import { FormBuilderComponent } from './modules/form-builder/form-builder.component';
+import { FormBuilderPageComponent } from './pages/form-builder-page/form-builder-page.component';
+import { FormPreviewPageComponent } from './pages/form-preview-page/form-preview-page.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -12,26 +12,26 @@ import { FormBuilderComponent } from './modules/form-builder/form-builder.compon
     RouterModule.forRoot([
       {
         path: '',
-        component: FormBuilderComponent,
+        component: FormBuilderPageComponent,
         loadChildren: () =>
-          import('./modules/form-builder/form-builder.module').then(
-            (m) => m.FormBuilderModule
+          import('./pages/form-builder-page/form-builder-page.module').then(
+            (m) => m.FormBuilderPageModule
           ),
       },
       {
         path: 'form-build',
-        component: FormBuilderComponent,
+        component: FormBuilderPageComponent,
         loadChildren: () =>
-          import('./modules/form-builder/form-builder.module').then(
-            (m) => m.FormBuilderModule
+          import('./pages/form-builder-page/form-builder-page.module').then(
+            (m) => m.FormBuilderPageModule
           ),
       },
       {
         path: 'form-preview',
-        component: FormPreviewComponent,
+        component: FormPreviewPageComponent,
         loadChildren: () =>
-          import('./modules/form-preview/form-preview.module').then(
-            (m) => m.FormPreviewModule
+          import('./pages/form-preview-page/form-preview-page.module').then(
+            (m) => m.FormPreviewPageModule
           ),
       },
     ]),
