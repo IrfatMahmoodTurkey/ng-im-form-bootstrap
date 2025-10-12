@@ -1,13 +1,36 @@
 <div class="container container-fluid">
     <div class="m-3">
-        <ng-container *ngFor="let section of sections">
-            <div [ngClass]="section.class">
-                <div [ngClass]="section.headerClass">
-                    <h4>{{section.title}}</h4>
-                    <small>{{section.subTitle}}</small>
+        <form [formGroup]="form">
+            <ng-container *ngFor="let section of sections">
+                <div [ngClass]="section.class">
+                    <div [ngClass]="section.headerClass">
+                        <h4>{{section.title}}</h4>
+                        <small>{{section.subTitle}}</small>
+                    </div>
+                    <div [ngClass]="section.bodyClass">
+                        <div class="form-horizontal">
+                            <ng-container *ngFor="let element of section.elements">
+                                <ng-container *ngIf="element.textBoxComponent">
+                                    <div class="form-group" [hidden]="element.textBoxComponent.isHidden">
+                                        <label class="mb-1"><b>{{element.textBoxComponent.label}}</b></label>
+                                        <input type="{{element.textBoxComponent.type}}"
+                                            class="{{element.textBoxComponent.class}}"
+                                            placeholder="{{element.textBoxComponent.placeholder}}"
+                                            formControlName="{{element.textBoxComponent.name}}"
+                                            [readOnly]="element.textBoxComponent.isReadOnly">
+
+                                        <ng-container *ngIf="element.textBoxComponent.isRequired">
+                                            <small
+                                                *ngIf="isSubmitClicked && form.controls[element.textBoxComponent.name]?.errors && form.controls[element.textBoxComponent.name]?.errors?.['required']"
+                                                class="text-danger">{{element.textBoxComponent.requiredMessage}}</small>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
                 </div>
-                <div [ngClass]="section.bodyClass"></div>
-            </div>
-        </ng-container>
+            </ng-container>
+        </form>
     </div>
 </div>
