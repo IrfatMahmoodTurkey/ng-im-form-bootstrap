@@ -54,7 +54,8 @@
                           <div class="form-group">
                             <label class="mb-1"><b>{{element.textBoxComponent.label}}</b></label>
                             <input type="{{element.textBoxComponent.type}}" class="{{element.textBoxComponent.class}}"
-                              placeholder="{{element.textBoxComponent.placeholder}}" style="width: 100%;">
+                              placeholder="{{element.textBoxComponent.placeholder}}" style="width: 100%;"
+                              [readOnly]="element.textBoxComponent.isReadOnly">
                           </div>
                         </div>
 
@@ -83,7 +84,7 @@
                             <textarea class="{{element.textAreaComponent.class}}"
                               placeholder="{{element.textAreaComponent.placeholder}}"
                               rows="{{element.textAreaComponent.rows}}" cols="{{element.textAreaComponent.columns}}"
-                              style="width: 100%;"></textarea>
+                              style="width: 100%;" [readOnly]="element.textAreaComponent.isReadOnly"></textarea>
                           </div>
                         </div>
 

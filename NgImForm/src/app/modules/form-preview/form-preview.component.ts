@@ -101,12 +101,12 @@ export class FormPreviewComponent implements OnInit {
 
         validators.push(Validators.pattern(expression));
       }
-
-      this.form.addControl(
-        textbox.name,
-        new FormControl(textbox.value, validators)
-      );
     }
+
+    this.form.addControl(
+      textbox.name,
+      new FormControl(textbox.value, validators)
+    );
   }
 
   private appendTextArea(textarea: ITextAreaModel): void {
@@ -134,11 +134,11 @@ export class FormPreviewComponent implements OnInit {
 
         validators.push(Validators.pattern(expression));
       }
-
-      this.form.addControl(
-        textarea.name,
-        new FormControl(textarea.value, validators)
-      );
     }
+
+    this.form.addControl(
+      textarea.name,
+      new FormControl(textarea.value, validators)
+    );
   }
 }
