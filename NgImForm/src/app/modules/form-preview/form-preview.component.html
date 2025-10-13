@@ -91,6 +91,39 @@
                                         </ng-container>
                                     </div>
                                 </ng-container>
+
+                                <ng-container *ngIf="element.fileFieldComponent">
+                                    <div class="form-group" [hidden]="element.fileFieldComponent.isHidden">
+                                        <label class="mb-1"><b>{{element.fileFieldComponent.label}}</b></label>
+                                        <input type="file" name="{{element.fileFieldComponent.name}}"
+                                            class="{{element.fileFieldComponent.class}}"
+                                            [multiple]="element.fileFieldComponent.isMultiple"
+                                            accept="{{element.fileFieldComponent.accept}}"
+                                            (change)="fileChangeEvent($event, element.fileFieldComponent)">
+
+                                        <ng-container *ngIf="browsedFiles.get(element.fileFieldComponent.id)">
+                                            <small
+                                                *ngIf="isSubmitClicked && browsedFiles.get(element.fileFieldComponent.id)?.required && !browsedFiles.get(element.fileFieldComponent.id)?.hasFiles"
+                                                class="text-danger">{{browsedFiles.get(element.fileFieldComponent.id)?.requiredMessage}}</small>
+                                        </ng-container>
+
+                                        <ng-container *ngIf="browsedFiles.get(element.fileFieldComponent.id)">
+                                            <small
+                                                *ngIf="isSubmitClicked && !browsedFiles.get(element.fileFieldComponent.id)?.sizeValid"
+                                                class="text-danger">{{browsedFiles.get(element.fileFieldComponent.id)?.sizeValidationMessage}}</small>
+                                        </ng-container>
+
+                                        <ng-container *ngIf="browsedFiles.get(element.fileFieldComponent.id)">
+                                            <small
+                                                *ngIf="isSubmitClicked && !browsedFiles.get(element.fileFieldComponent.id)?.extensionsValid"
+                                                class="text-danger">
+                                                <span
+                                                    *ngFor="let extensionValidationMessage of browsedFiles.get(element.fileFieldComponent.id)?.extendsionValidationMessages">
+                                                    {{extensionValidationMessage}}</span>
+                                            </small>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
                             </ng-container>
                         </div>
                     </div>
