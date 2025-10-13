@@ -31,6 +31,18 @@
                     </div>
                 </div>
             </ng-container>
+
+            <hr>
+
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary">Submit</button>
+
+                <ng-container *ngIf="preset">
+                    <ng-container *ngIf="preset.isResetButtonAvailable">
+                        <button class="btn btn-warning ms-1">Reset</button>
+                    </ng-container>
+                </ng-container>
+            </div>
         </form>
     </div>
 </div>

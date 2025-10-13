@@ -72,7 +72,7 @@ export class FormPropertiesSidepanelComponent implements OnInit {
       properties.checkValidations
     );
     this.form.controls['isResetButtonAvailable'].setValue(
-      properties.checkValidations
+      properties.isResetButtonAvailable
     );
     this.form.controls['submitAPIUrl'].setValue(properties.submitAPIUrl);
     this.form.controls['method'].setValue(properties.method);
