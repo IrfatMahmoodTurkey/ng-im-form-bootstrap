@@ -1,6 +1,6 @@
 <div class="container container-fluid">
     <div class="m-3">
-        <form [formGroup]="form">
+        <form [formGroup]="form" (ngSubmit)="submit()">
             <ng-container *ngFor="let section of sections">
                 <div [ngClass]="section.class">
                     <div [ngClass]="section.headerClass">
@@ -23,6 +23,38 @@
                                             <small
                                                 *ngIf="isSubmitClicked && form.controls[element.textBoxComponent.name]?.errors && form.controls[element.textBoxComponent.name]?.errors?.['required']"
                                                 class="text-danger">{{element.textBoxComponent.requiredMessage}}</small>
+                                        </ng-container>
+
+                                        <ng-container *ngFor="let tbValidation of element.textBoxComponent.validations">
+                                            <ng-container *ngIf="tbValidation.type === textboxValidationEnum.EMAIL">
+                                                <small
+                                                    *ngIf="isSubmitClicked && form.controls[element.textBoxComponent.name]?.errors && form.controls[element.textBoxComponent.name]?.errors?.['email']"
+                                                    class="text-danger">{{tbValidation.message}}</small>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="tbValidation.type === textboxValidationEnum.MIN">
+                                                <small
+                                                    *ngIf="isSubmitClicked && form.controls[element.textBoxComponent.name]?.errors && form.controls[element.textBoxComponent.name]?.errors?.['min']"
+                                                    class="text-danger">{{tbValidation.message}}</small>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="tbValidation.type === textboxValidationEnum.MAX">
+                                                <small
+                                                    *ngIf="isSubmitClicked && form.controls[element.textBoxComponent.name]?.errors && form.controls[element.textBoxComponent.name]?.errors?.['max']"
+                                                    class="text-danger">{{tbValidation.message}}</small>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="tbValidation.type === textboxValidationEnum.MIN_LEN">
+                                                <small
+                                                    *ngIf="isSubmitClicked && form.controls[element.textBoxComponent.name]?.errors && form.controls[element.textBoxComponent.name]?.errors?.['minlength']"
+                                                    class="text-danger">{{tbValidation.message}}</small>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="tbValidation.type === textboxValidationEnum.MAX_LEN">
+                                                <small
+                                                    *ngIf="isSubmitClicked && form.controls[element.textBoxComponent.name]?.errors && form.controls[element.textBoxComponent.name]?.errors?.['maxlength']"
+                                                    class="text-danger">{{tbValidation.message}}</small>
+                                            </ng-container>
                                         </ng-container>
                                     </div>
                                 </ng-container>

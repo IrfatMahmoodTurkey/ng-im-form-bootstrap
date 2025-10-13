@@ -26,6 +26,7 @@ export class FormPreviewComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   isSubmitClicked: boolean = false;
 
+  textboxValidationEnum = TEXTBOX_UTILITIES.TextboxValidationsEnum;
   constructor() {}
 
   ngOnInit() {
@@ -36,6 +37,20 @@ export class FormPreviewComponent implements OnInit {
 
     this.sections = this.preset.sections;
     this.buildForm();
+  }
+
+  submit(): void {
+    if (!this.preset) {
+      console.error('Must need a form object to initialze the form!');
+      return;
+    }
+
+    if (!this.preset.checkValidations) {
+      // action when validation not needed
+      return;
+    }
+
+    this.isSubmitClicked = true;
   }
 
   private buildForm(): void {
@@ -64,19 +79,15 @@ export class FormPreviewComponent implements OnInit {
         for (const validation of textbox.validations) {
           const { type, min, max, minChar, maxChar } = validation;
 
-          if (type === TEXTBOX_UTILITIES.TextboxValidationsEnum.EMAIL) {
+          if (type === this.textboxValidationEnum.EMAIL) {
             validators.push(Validators.email);
-          } else if (type === TEXTBOX_UTILITIES.TextboxValidationsEnum.MIN) {
+          } else if (type === this.textboxValidationEnum.MIN) {
             validators.push(Validators.min(min ?? 0));
-          } else if (type === TEXTBOX_UTILITIES.TextboxValidationsEnum.MAX) {
+          } else if (type === this.textboxValidationEnum.MAX) {
             validators.push(Validators.max(max ?? 0));
-          } else if (
-            type === TEXTBOX_UTILITIES.TextboxValidationsEnum.MIN_LEN
-          ) {
+          } else if (type === this.textboxValidationEnum.MIN_LEN) {
             validators.push(Validators.minLength(minChar ?? 0));
-          } else if (
-            type === TEXTBOX_UTILITIES.TextboxValidationsEnum.MAX_LEN
-          ) {
+          } else if (type === this.textboxValidationEnum.MAX_LEN) {
             validators.push(Validators.maxLength(maxChar ?? 0));
           }
         }
