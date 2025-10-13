@@ -3,6 +3,7 @@ import {
   IElementModel,
   IHorizonatalFormSectionModel,
   IHorizontalFormModel,
+  ITextAreaModel,
   ITextBoxModel,
 } from '../../models/horizontal-form.model';
 import {
@@ -64,6 +65,8 @@ export class FormPreviewComponent implements OnInit {
   private appendControl(element: IElementModel): void {
     if (element.textBoxComponent) {
       this.appendTextBox(element.textBoxComponent);
+    } else if (element.textAreaComponent) {
+      this.appendTextArea(element.textAreaComponent);
     }
   }
 
@@ -102,6 +105,39 @@ export class FormPreviewComponent implements OnInit {
       this.form.addControl(
         textbox.name,
         new FormControl(textbox.value, validators)
+      );
+    }
+  }
+
+  private appendTextArea(textarea: ITextAreaModel): void {
+    let validators: ValidatorFn[] = [];
+
+    if (!textarea.isReadOnly && !textarea.isHidden) {
+      if (textarea.isRequired) {
+        validators.push(Validators.required);
+      }
+
+      if (textarea.validations) {
+        for (const validation of textarea.validations) {
+          const { type, minChar, maxChar } = validation;
+
+          if (type === this.textboxValidationEnum.MIN_LEN) {
+            validators.push(Validators.minLength(minChar ?? 0));
+          } else if (type === this.textboxValidationEnum.MAX_LEN) {
+            validators.push(Validators.maxLength(maxChar ?? 0));
+          }
+        }
+      }
+
+      if (textarea.regexValidation) {
+        const { expression } = textarea.regexValidation;
+
+        validators.push(Validators.pattern(expression));
+      }
+
+      this.form.addControl(
+        textarea.name,
+        new FormControl(textarea.value, validators)
       );
     }
   }

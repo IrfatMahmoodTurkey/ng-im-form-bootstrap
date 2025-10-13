@@ -24,9 +24,6 @@ export class TextareaPropertiesSidepanelComponent implements OnInit {
 
   toUseValidations: string[] = [];
 
-  canUseMinLenValidation: boolean = false;
-  canUseMaxLenValidation: boolean = false;
-
   isSubmitClicked: boolean = false;
 
   constructor() {}

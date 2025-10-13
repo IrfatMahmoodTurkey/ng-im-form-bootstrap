@@ -58,6 +58,39 @@
                                         </ng-container>
                                     </div>
                                 </ng-container>
+
+                                <ng-container *ngIf="element.textAreaComponent">
+                                    <div class="form-group" [hidden]="element.textAreaComponent.isHidden">
+                                        <label class="mb-1"><b>{{element.textAreaComponent.label}}</b></label>
+                                        <textarea cols="{{element.textAreaComponent.columns}}"
+                                            rows="{{element.textAreaComponent.rows}}"
+                                            class="{{element.textAreaComponent.class}}"
+                                            placeholder="{{element.textAreaComponent.placeholder}}"
+                                            formControlName="{{element.textAreaComponent.name}}"
+                                            [readOnly]="element.textAreaComponent.isReadOnly"></textarea>
+
+                                        <ng-container *ngIf="element.textAreaComponent.isRequired">
+                                            <small
+                                                *ngIf="isSubmitClicked && form.controls[element.textAreaComponent.name]?.errors && form.controls[element.textAreaComponent.name]?.errors?.['required']"
+                                                class="text-danger">{{element.textAreaComponent.requiredMessage}}</small>
+                                        </ng-container>
+
+                                        <ng-container
+                                            *ngFor="let tbValidation of element.textAreaComponent.validations">
+                                            <ng-container *ngIf="tbValidation.type === textboxValidationEnum.MIN_LEN">
+                                                <small
+                                                    *ngIf="isSubmitClicked && form.controls[element.textAreaComponent.name]?.errors && form.controls[element.textAreaComponent.name]?.errors?.['minlength']"
+                                                    class="text-danger">{{tbValidation.message}}</small>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="tbValidation.type === textboxValidationEnum.MAX_LEN">
+                                                <small
+                                                    *ngIf="isSubmitClicked && form.controls[element.textAreaComponent.name]?.errors && form.controls[element.textAreaComponent.name]?.errors?.['maxlength']"
+                                                    class="text-danger">{{tbValidation.message}}</small>
+                                            </ng-container>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
                             </ng-container>
                         </div>
                     </div>
