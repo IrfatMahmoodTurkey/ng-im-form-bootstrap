@@ -11,7 +11,7 @@
                         <div class="form-horizontal">
                             <ng-container *ngFor="let element of section.elements">
                                 <ng-container *ngIf="element.textBoxComponent">
-                                    <div class="form-group" [hidden]="element.textBoxComponent.isHidden">
+                                    <div class="form-group mb-3" [hidden]="element.textBoxComponent.isHidden">
                                         <label class="mb-1"><b>{{element.textBoxComponent.label}}</b></label>
                                         <input type="{{element.textBoxComponent.type}}"
                                             class="{{element.textBoxComponent.class}}"
@@ -60,7 +60,7 @@
                                 </ng-container>
 
                                 <ng-container *ngIf="element.textAreaComponent">
-                                    <div class="form-group" [hidden]="element.textAreaComponent.isHidden">
+                                    <div class="form-group mb-3" [hidden]="element.textAreaComponent.isHidden">
                                         <label class="mb-1"><b>{{element.textAreaComponent.label}}</b></label>
                                         <textarea cols="{{element.textAreaComponent.columns}}"
                                             rows="{{element.textAreaComponent.rows}}"
@@ -93,7 +93,7 @@
                                 </ng-container>
 
                                 <ng-container *ngIf="element.fileFieldComponent">
-                                    <div class="form-group" [hidden]="element.fileFieldComponent.isHidden">
+                                    <div class="form-group mb-3" [hidden]="element.fileFieldComponent.isHidden">
                                         <label class="mb-1"><b>{{element.fileFieldComponent.label}}</b></label>
                                         <input type="file" name="{{element.fileFieldComponent.name}}"
                                             class="{{element.fileFieldComponent.class}}"
@@ -102,25 +102,31 @@
                                             (change)="fileChangeEvent($event, element.fileFieldComponent)">
 
                                         <ng-container *ngIf="browsedFiles.get(element.fileFieldComponent.id)">
-                                            <small
-                                                *ngIf="isSubmitClicked && browsedFiles.get(element.fileFieldComponent.id)?.required && !browsedFiles.get(element.fileFieldComponent.id)?.hasFiles"
-                                                class="text-danger">{{browsedFiles.get(element.fileFieldComponent.id)?.requiredMessage}}</small>
+                                            <div>
+                                                <small
+                                                    *ngIf="isSubmitClicked && browsedFiles.get(element.fileFieldComponent.id)?.required && !browsedFiles.get(element.fileFieldComponent.id)?.hasFiles"
+                                                    class="text-danger">{{browsedFiles.get(element.fileFieldComponent.id)?.requiredMessage}}</small>
+                                            </div>
                                         </ng-container>
 
                                         <ng-container *ngIf="browsedFiles.get(element.fileFieldComponent.id)">
-                                            <small
-                                                *ngIf="isSubmitClicked && !browsedFiles.get(element.fileFieldComponent.id)?.sizeValid"
-                                                class="text-danger">{{browsedFiles.get(element.fileFieldComponent.id)?.sizeValidationMessage}}</small>
+                                            <div>
+                                                <small
+                                                    *ngIf="isSubmitClicked && !browsedFiles.get(element.fileFieldComponent.id)?.sizeValid"
+                                                    class="text-danger">{{browsedFiles.get(element.fileFieldComponent.id)?.sizeValidationMessage}}</small>
+                                            </div>
                                         </ng-container>
 
                                         <ng-container *ngIf="browsedFiles.get(element.fileFieldComponent.id)">
-                                            <small
-                                                *ngIf="isSubmitClicked && !browsedFiles.get(element.fileFieldComponent.id)?.extensionsValid"
-                                                class="text-danger">
-                                                <span
-                                                    *ngFor="let extensionValidationMessage of browsedFiles.get(element.fileFieldComponent.id)?.extendsionValidationMessages">
-                                                    {{extensionValidationMessage}}</span>
-                                            </small>
+                                            <div>
+                                                <small
+                                                    *ngIf="isSubmitClicked && !browsedFiles.get(element.fileFieldComponent.id)?.extensionsValid"
+                                                    class="text-danger">
+                                                    <span
+                                                        *ngFor="let extensionValidationMessage of browsedFiles.get(element.fileFieldComponent.id)?.extendsionValidationMessages">
+                                                        {{extensionValidationMessage}}</span>
+                                                </small>
+                                            </div>
                                         </ng-container>
                                     </div>
                                 </ng-container>

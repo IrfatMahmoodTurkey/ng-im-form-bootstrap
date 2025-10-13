@@ -193,6 +193,26 @@ export class FormPreviewComponent implements OnInit {
   }
 
   fileChangeEvent(event: any, props: IFileFieldModel): void {
+    if (event.target.files.length <= 0) {
+      this.browsedFiles.set(props.id, {
+        files: [],
+        hasFiles: false,
+        required:
+          !props.isHidden && !props.isReadOnly ? props.isRequired : false,
+        requiredMessage: props.requiredMessage,
+        sizeValid: true,
+        sizeValidationMessage: props.sizeValidation
+          ? props.sizeValidation.message
+          : null,
+        extensionsValid: true,
+        extendsionValidationMessages: [],
+        everythingIsValid:
+          !props.isHidden && !props.isReadOnly ? props.isRequired : false,
+      });
+
+      return;
+    }
+
     let current:
       | {
           required: boolean;
