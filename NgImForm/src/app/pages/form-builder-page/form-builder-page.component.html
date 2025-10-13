@@ -1,5 +1,6 @@
 <div class="m-1">
     <button class="btn btn-danger" (click)="clearForm()">Clear Form from Storage</button>
+    <a class="btn btn-success ms-1" [routerLink]="['/form-preview']">Go to Preview</a>
 </div>
 <hr>
 <app-form-builder [preset]="builtForm" (publishFormEvent)="storeNewForm($event)"></app-form-builder>
