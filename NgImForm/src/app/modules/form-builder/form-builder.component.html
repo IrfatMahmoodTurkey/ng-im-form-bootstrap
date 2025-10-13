@@ -52,7 +52,40 @@
                       <div class="row">
                         <div class="col-8">
                           <div class="form-group">
-                            <label class="mb-1"><b>{{element.textBoxComponent.label}}</b></label>
+                            <div class="mb-1">
+                              <div class="d-flex justify-content-between">
+                                <div>
+                                  <label><b>{{element.textBoxComponent.label}}</b></label>
+                                </div>
+
+                                <div>
+                                  <ng-container *ngIf="element.textBoxComponent.isHidden; else tbNotHidden">
+                                    <span class="badge bg-danger">Hidden</span>
+                                  </ng-container>
+                                  <ng-template #tbNotHidden>
+                                    <span class="badge bg-success">Not Hidden</span>
+                                  </ng-template>
+
+                                  <span class="ms-1"></span>
+
+                                  <ng-container *ngIf="element.textBoxComponent.isReadOnly; else tbNotReadonly">
+                                    <span class="badge bg-danger">Readonly</span>
+                                  </ng-container>
+                                  <ng-template #tbNotReadonly>
+                                    <span class="badge bg-success">Not Readonly</span>
+                                  </ng-template>
+
+                                  <span class="ms-1"></span>
+
+                                  <ng-container *ngIf="element.textBoxComponent.isRequired; else tbNotRequired">
+                                    <span class="badge bg-success">Required</span>
+                                  </ng-container>
+                                  <ng-template #tbNotRequired>
+                                    <span class="badge bg-danger">Not Required</span>
+                                  </ng-template>
+                                </div>
+                              </div>
+                            </div>
                             <input type="{{element.textBoxComponent.type}}" class="{{element.textBoxComponent.class}}"
                               placeholder="{{element.textBoxComponent.placeholder}}" style="width: 100%;"
                               [readOnly]="element.textBoxComponent.isReadOnly">
@@ -80,7 +113,40 @@
                       <div class="row">
                         <div class="col-8">
                           <div class="form-group">
-                            <label class="mb-1"><b>{{element.textAreaComponent.label}}</b></label>
+                            <div class="mb-1">
+                              <div class="d-flex justify-content-between">
+                                <div>
+                                  <label><b>{{element.textAreaComponent.label}}</b></label>
+                                </div>
+
+                                <div>
+                                  <ng-container *ngIf="element.textAreaComponent.isHidden; else tbNotHidden">
+                                    <span class="badge bg-danger">Hidden</span>
+                                  </ng-container>
+                                  <ng-template #tbNotHidden>
+                                    <span class="badge bg-success">Not Hidden</span>
+                                  </ng-template>
+
+                                  <span class="ms-1"></span>
+
+                                  <ng-container *ngIf="element.textAreaComponent.isReadOnly; else tbNotReadonly">
+                                    <span class="badge bg-danger">Readonly</span>
+                                  </ng-container>
+                                  <ng-template #tbNotReadonly>
+                                    <span class="badge bg-success">Not Readonly</span>
+                                  </ng-template>
+
+                                  <span class="ms-1"></span>
+
+                                  <ng-container *ngIf="element.textAreaComponent.isRequired; else tbNotRequired">
+                                    <span class="badge bg-success">Required</span>
+                                  </ng-container>
+                                  <ng-template #tbNotRequired>
+                                    <span class="badge bg-danger">Not Required</span>
+                                  </ng-template>
+                                </div>
+                              </div>
+                            </div>
                             <textarea class="{{element.textAreaComponent.class}}"
                               placeholder="{{element.textAreaComponent.placeholder}}"
                               rows="{{element.textAreaComponent.rows}}" cols="{{element.textAreaComponent.columns}}"
