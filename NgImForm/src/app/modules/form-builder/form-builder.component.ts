@@ -825,7 +825,6 @@ export class FormBuilderComponent implements OnInit {
   }
 
   viewFormPropertiesSidePanel(): void {
-    console.log('Worjing');
     this.isFormPropertiesSidePanelOpen = true;
   }
 
