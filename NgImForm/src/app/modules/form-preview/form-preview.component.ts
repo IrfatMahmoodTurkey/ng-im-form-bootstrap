@@ -17,6 +17,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { TEXTBOX_UTILITIES } from '../../constants/textbox-utilities.constant';
+import { ALIGNMENTS } from '../../constants/alignments.constant';
 
 @Component({
   selector: 'app-form-preview',
@@ -24,6 +25,8 @@ import { TEXTBOX_UTILITIES } from '../../constants/textbox-utilities.constant';
   styleUrls: ['./form-preview.component.css'],
 })
 export class FormPreviewComponent implements OnInit {
+  alignments: string[] = ALIGNMENTS;
+
   @Input() preset: IHorizontalFormModel | null | undefined;
 
   sections: IHorizonatalFormSectionModel[] = [];

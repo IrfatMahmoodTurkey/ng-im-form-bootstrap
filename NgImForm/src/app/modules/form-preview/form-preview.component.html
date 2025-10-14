@@ -228,6 +228,47 @@
                                         </ng-container>
                                     </div>
                                 </ng-container>
+
+                                <ng-container *ngIf="element.imageBoxComponent">
+                                    <div class="form-group mb-3">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <ng-container
+                                                    *ngIf="element.imageBoxComponent.alignment === alignments[0]">
+                                                    <div class="text-left">
+                                                        <img src="{{element.imageBoxComponent.url}}"
+                                                            alt="{{element.imageBoxComponent.alt}}"
+                                                            height="{{element.imageBoxComponent.height}}"
+                                                            width="{{element.imageBoxComponent.width}}"
+                                                            class="{{element.imageBoxComponent.class}}">
+                                                    </div>
+                                                </ng-container>
+
+                                                <ng-container
+                                                    *ngIf="element.imageBoxComponent.alignment === alignments[1]">
+                                                    <div class="text-end">
+                                                        <img src="{{element.imageBoxComponent.url}}"
+                                                            alt="{{element.imageBoxComponent.alt}}"
+                                                            height="{{element.imageBoxComponent.height}}"
+                                                            width="{{element.imageBoxComponent.width}}"
+                                                            class="{{element.imageBoxComponent.class}}">
+                                                    </div>
+                                                </ng-container>
+
+                                                <ng-container
+                                                    *ngIf="element.imageBoxComponent.alignment === alignments[2]">
+                                                    <div class="text-center">
+                                                        <img src="{{element.imageBoxComponent.url}}"
+                                                            alt="{{element.imageBoxComponent.alt}}"
+                                                            height="{{element.imageBoxComponent.height}}"
+                                                            width="{{element.imageBoxComponent.width}}"
+                                                            class="{{element.imageBoxComponent.class}}">
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
                             </ng-container>
                         </div>
                     </div>
