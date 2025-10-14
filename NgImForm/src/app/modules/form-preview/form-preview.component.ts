@@ -4,6 +4,7 @@ import {
   IFileFieldModel,
   IHorizonatalFormSectionModel,
   IHorizontalFormModel,
+  ISelectBoxModel,
   ITextAreaModel,
   ITextBoxModel,
 } from '../../models/horizontal-form.model';
@@ -85,6 +86,8 @@ export class FormPreviewComponent implements OnInit {
       this.appendTextBox(element.textBoxComponent);
     } else if (element.textAreaComponent) {
       this.appendTextArea(element.textAreaComponent);
+    } else if (element.selectBoxComponent) {
+      this.appendSelectBox(element.selectBoxComponent);
     }
   }
 
@@ -373,5 +376,43 @@ export class FormPreviewComponent implements OnInit {
     const extension: string = file.name.split('.').pop()?.toLowerCase();
 
     return extension === extensionToCompare;
+  }
+
+  private appendSelectBox(selectBox: ISelectBoxModel): void {
+    let validators: ValidatorFn[] = [];
+
+    if (!selectBox.isReadOnly && !selectBox.isHidden) {
+      if (selectBox.isRequired) {
+        validators.push(Validators.required);
+      }
+    }
+
+    let selected: string[] = [];
+
+    if (selectBox.options) {
+      if (selectBox.isMultiple) {
+        selected = selectBox.options
+          .filter((value) => value.selected)
+          .map((value) => value.value);
+
+        this.form.addControl(
+          selectBox.name,
+          new FormControl(selected, validators)
+        );
+      } else {
+        selected = selected = selectBox.options
+          .filter((value) => value.selected)
+          .map((value) => value.value);
+
+        if (selected.length > 0) {
+          this.form.addControl(
+            selectBox.name,
+            new FormControl(selected[0], validators)
+          );
+        }
+      }
+    }
+
+    this.form.addControl(selectBox.name, new FormControl('', validators));
   }
 }
