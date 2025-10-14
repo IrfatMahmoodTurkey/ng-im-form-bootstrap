@@ -302,12 +302,43 @@
                       <div class="row">
                         <div class="col-8">
                           <div class="form-group">
-                            <input type="checkbox" class="{{element.checkBoxComponent.class}}"
-                              [checked]="element.checkBoxComponent.checked">
+                            <div class="d-flex justify-content-between">
+                              <div>
+                                <input type="checkbox" class="{{element.checkBoxComponent.class}}"
+                                  [checked]="element.checkBoxComponent.checked">
 
-                            <ng-container *ngIf="element.checkBoxComponent.label">
-                              <span class="ms-1"><b>{{element.checkBoxComponent.label}}</b></span>
-                            </ng-container>
+                                <ng-container *ngIf="element.checkBoxComponent.label">
+                                  <span class="ms-1"><b>{{element.checkBoxComponent.label}}</b></span>
+                                </ng-container>
+                              </div>
+
+                              <div>
+                                <ng-container *ngIf="element.checkBoxComponent.isHidden; else cbNotHidden">
+                                  <span class="badge bg-danger">Hidden</span>
+                                </ng-container>
+                                <ng-template #cbNotHidden>
+                                  <span class="badge bg-success">Not Hidden</span>
+                                </ng-template>
+
+                                <span class="ms-1"></span>
+
+                                <ng-container *ngIf="element.checkBoxComponent.isReadOnly; else cbNotReadonly">
+                                  <span class="badge bg-danger">Readonly</span>
+                                </ng-container>
+                                <ng-template #cbNotReadonly>
+                                  <span class="badge bg-success">Not Readonly</span>
+                                </ng-template>
+
+                                <span class="ms-1"></span>
+
+                                <ng-container *ngIf="element.checkBoxComponent.isRequired; else cbNotRequired">
+                                  <span class="badge bg-success">Required</span>
+                                </ng-container>
+                                <ng-template #cbNotRequired>
+                                  <span class="badge bg-danger">Not Required</span>
+                                </ng-template>
+                              </div>
+                            </div>
                           </div>
                         </div>
 
