@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "NgImForm": {
+    "NgImFormBootstrap": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ng-im-form",
+            "outputPath": "dist/ng-im-form-bootstrap",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -67,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "NgImForm:build:production"
+              "buildTarget": "NgImFormBootstrap:build:production"
             },
             "development": {
-              "buildTarget": "NgImForm:build:development"
+              "buildTarget": "NgImFormBootstrap:build:development"
             }
           },
           "defaultConfiguration": "development"
