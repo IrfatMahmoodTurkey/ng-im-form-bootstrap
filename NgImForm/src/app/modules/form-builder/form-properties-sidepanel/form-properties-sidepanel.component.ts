@@ -90,7 +90,7 @@ export class FormPropertiesSidepanelComponent implements OnInit {
       properties.responseMessages.onSuccess.subTitle
     );
     this.form.controls['failedTitle'].setValue(
-      properties.responseMessages.onFailed.subTitle
+      properties.responseMessages.onFailed.title
     );
     this.form.controls['failedSubTitle'].setValue(
       properties.responseMessages.onFailed.subTitle
