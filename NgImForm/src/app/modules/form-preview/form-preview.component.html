@@ -199,6 +199,35 @@
                                         </ng-container>
                                     </div>
                                 </ng-container>
+
+                                <ng-container *ngIf="element.radioButtonGroupComponent">
+                                    <div class="form-group mb-3" [hidden]="element.radioButtonGroupComponent.isHidden">
+                                        <div class="mb-1">
+                                            <label
+                                                class="mb-1"><b>{{element.radioButtonGroupComponent.label}}</b></label>
+
+                                            <div class="row">
+                                                <ng-container
+                                                    *ngFor="let radioButton of element.radioButtonGroupComponent.radioButtons">
+                                                    <div class="col-sm-12 col-md-3">
+                                                        <input type="radio"
+                                                            class="{{element.radioButtonGroupComponent.class}}"
+                                                            [value]="radioButton.value"
+                                                            formControlName="{{element.radioButtonGroupComponent.name}}">
+
+                                                        <span class="ms-1"><b>{{radioButton.text}}</b></span>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+
+                                        <ng-container *ngIf="element.radioButtonGroupComponent.isRequired">
+                                            <small
+                                                *ngIf="isSubmitClicked && form.controls[element.radioButtonGroupComponent.name]?.errors && form.controls[element.radioButtonGroupComponent.name]?.errors?.['required']"
+                                                class="text-danger">{{element.radioButtonGroupComponent.requiredMessage}}</small>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
                             </ng-container>
                         </div>
                     </div>

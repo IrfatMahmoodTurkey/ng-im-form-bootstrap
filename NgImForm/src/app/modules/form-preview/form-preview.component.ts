@@ -5,6 +5,7 @@ import {
   IFileFieldModel,
   IHorizonatalFormSectionModel,
   IHorizontalFormModel,
+  IRadioButtonGroupModel,
   ISelectBoxModel,
   ITextAreaModel,
   ITextBoxModel,
@@ -66,6 +67,8 @@ export class FormPreviewComponent implements OnInit {
       return;
     }
 
+    console.log(this.form);
+
     if (!this.preset.checkValidations) {
       // action when validation not needed
       return;
@@ -91,6 +94,9 @@ export class FormPreviewComponent implements OnInit {
       this.appendSelectBox(element.selectBoxComponent);
     } else if (element.checkBoxComponent) {
       this.appendCheckbox(element.checkBoxComponent);
+    } else if (element.radioButtonGroupComponent) {
+      console.log(element.radioButtonGroupComponent);
+      this.appendRadioButtonGroup(element.radioButtonGroupComponent);
     }
   }
 
@@ -433,5 +439,44 @@ export class FormPreviewComponent implements OnInit {
     } else {
       this.form.addControl(checkbox.name, new FormControl(false, validators));
     }
+  }
+
+  private appendRadioButtonGroup(
+    radioButtonGroup: IRadioButtonGroupModel
+  ): void {
+    let validators: ValidatorFn[] = [];
+
+    if (!radioButtonGroup.isReadOnly && !radioButtonGroup.isHidden) {
+      if (radioButtonGroup.isRequired) {
+        validators.push(Validators.required);
+      }
+    }
+
+    if (!radioButtonGroup.radioButtons) {
+      this.form.addControl(
+        radioButtonGroup.name,
+        new FormControl(null, validators)
+      );
+      return;
+    }
+
+    let selectedRadioButton:
+      | { checked: boolean; value: string; text: string }
+      | undefined = radioButtonGroup.radioButtons.find(
+      (value) => value.checked
+    );
+
+    if (!selectedRadioButton) {
+      this.form.addControl(
+        radioButtonGroup.name,
+        new FormControl(null, validators)
+      );
+      return;
+    }
+
+    this.form.addControl(
+      radioButtonGroup.name,
+      new FormControl(selectedRadioButton.value, validators)
+    );
   }
 }
