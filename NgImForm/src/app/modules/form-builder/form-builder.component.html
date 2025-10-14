@@ -120,28 +120,28 @@
                                 </div>
 
                                 <div>
-                                  <ng-container *ngIf="element.textAreaComponent.isHidden; else tbNotHidden">
+                                  <ng-container *ngIf="element.textAreaComponent.isHidden; else taNotHidden">
                                     <span class="badge bg-danger">Hidden</span>
                                   </ng-container>
-                                  <ng-template #tbNotHidden>
+                                  <ng-template #taNotHidden>
                                     <span class="badge bg-success">Not Hidden</span>
                                   </ng-template>
 
                                   <span class="ms-1"></span>
 
-                                  <ng-container *ngIf="element.textAreaComponent.isReadOnly; else tbNotReadonly">
+                                  <ng-container *ngIf="element.textAreaComponent.isReadOnly; else taNotReadonly">
                                     <span class="badge bg-danger">Readonly</span>
                                   </ng-container>
-                                  <ng-template #tbNotReadonly>
+                                  <ng-template #taNotReadonly>
                                     <span class="badge bg-success">Not Readonly</span>
                                   </ng-template>
 
                                   <span class="ms-1"></span>
 
-                                  <ng-container *ngIf="element.textAreaComponent.isRequired; else tbNotRequired">
+                                  <ng-container *ngIf="element.textAreaComponent.isRequired; else taNotRequired">
                                     <span class="badge bg-success">Required</span>
                                   </ng-container>
-                                  <ng-template #tbNotRequired>
+                                  <ng-template #taNotRequired>
                                     <span class="badge bg-danger">Not Required</span>
                                   </ng-template>
                                 </div>
@@ -182,28 +182,28 @@
                                 </div>
 
                                 <div>
-                                  <ng-container *ngIf="element.fileFieldComponent.isHidden; else tbNotHidden">
+                                  <ng-container *ngIf="element.fileFieldComponent.isHidden; else fNotHidden">
                                     <span class="badge bg-danger">Hidden</span>
                                   </ng-container>
-                                  <ng-template #tbNotHidden>
+                                  <ng-template #fNotHidden>
                                     <span class="badge bg-success">Not Hidden</span>
                                   </ng-template>
 
                                   <span class="ms-1"></span>
 
-                                  <ng-container *ngIf="element.fileFieldComponent.isReadOnly; else tbNotReadonly">
+                                  <ng-container *ngIf="element.fileFieldComponent.isReadOnly; else fNotReadonly">
                                     <span class="badge bg-danger">Readonly</span>
                                   </ng-container>
-                                  <ng-template #tbNotReadonly>
+                                  <ng-template #fNotReadonly>
                                     <span class="badge bg-success">Not Readonly</span>
                                   </ng-template>
 
                                   <span class="ms-1"></span>
 
-                                  <ng-container *ngIf="element.fileFieldComponent.isRequired; else tbNotRequired">
+                                  <ng-container *ngIf="element.fileFieldComponent.isRequired; else fNotRequired">
                                     <span class="badge bg-success">Required</span>
                                   </ng-container>
-                                  <ng-template #tbNotRequired>
+                                  <ng-template #fNotRequired>
                                     <span class="badge bg-danger">Not Required</span>
                                   </ng-template>
                                 </div>
@@ -235,7 +235,41 @@
                       <div class="row">
                         <div class="col-8">
                           <div class="form-group">
-                            <label class="mb-1"><b>{{element.selectBoxComponent.label}}</b></label>
+                            <div class="mb-1">
+                              <div class="d-flex justify-content-between">
+                                <div>
+                                  <label><b>{{element.selectBoxComponent.label}}</b></label>
+                                </div>
+
+                                <div>
+                                  <ng-container *ngIf="element.selectBoxComponent.isHidden; else slNotHidden">
+                                    <span class="badge bg-danger">Hidden</span>
+                                  </ng-container>
+                                  <ng-template #slNotHidden>
+                                    <span class="badge bg-success">Not Hidden</span>
+                                  </ng-template>
+
+                                  <span class="ms-1"></span>
+
+                                  <ng-container *ngIf="element.selectBoxComponent.isReadOnly; else slNotReadonly">
+                                    <span class="badge bg-danger">Readonly</span>
+                                  </ng-container>
+                                  <ng-template #slNotReadonly>
+                                    <span class="badge bg-success">Not Readonly</span>
+                                  </ng-template>
+
+                                  <span class="ms-1"></span>
+
+                                  <ng-container *ngIf="element.selectBoxComponent.isRequired; else slNotRequired">
+                                    <span class="badge bg-success">Required</span>
+                                  </ng-container>
+                                  <ng-template #slNotRequired>
+                                    <span class="badge bg-danger">Not Required</span>
+                                  </ng-template>
+                                </div>
+                              </div>
+                            </div>
+
                             <select class="{{element.selectBoxComponent.class}}"
                               [multiple]="element.selectBoxComponent.isMultiple">
                               <option *ngIf="element.selectBoxComponent.placeholder" value=""
