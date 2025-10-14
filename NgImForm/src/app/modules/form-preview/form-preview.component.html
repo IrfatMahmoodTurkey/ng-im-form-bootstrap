@@ -269,6 +269,36 @@
                                         </div>
                                     </div>
                                 </ng-container>
+
+                                <ng-container *ngIf="element.textComponent">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <ng-container *ngIf="element.textComponent.alignment === alignments[0]">
+                                                <div class="text-left">
+                                                    <p class="{{element.textComponent.class}}">
+                                                        {{element.textComponent.text}}
+                                                    </p>
+                                                </div>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="element.textComponent.alignment === alignments[1]">
+                                                <div class="text-end">
+                                                    <p class="{{element.textComponent.class}}">
+                                                        {{element.textComponent.text}}
+                                                    </p>
+                                                </div>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="element.textComponent.alignment === alignments[2]">
+                                                <div class="text-center">
+                                                    <p class="{{element.textComponent.class}}">
+                                                        {{element.textComponent.text}}
+                                                    </p>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </ng-container>
                             </ng-container>
                         </div>
                     </div>
