@@ -182,6 +182,23 @@
                                         </ng-template>
                                     </div>
                                 </ng-container>
+
+                                <ng-container *ngIf="element.checkBoxComponent">
+                                    <div class="form-group mb-3" [hidden]="element.checkBoxComponent.isHidden">
+                                        <div class="mb-1">
+                                            <input type="checkbox" class="{{element.checkBoxComponent.class}}"
+                                                formControlName="{{element.checkBoxComponent.name}}">
+
+                                            <span class="ms-1"><b>{{element.checkBoxComponent.label}}</b></span>
+                                        </div>
+
+                                        <ng-container *ngIf="element.checkBoxComponent.isRequired">
+                                            <small
+                                                *ngIf="isSubmitClicked && form.controls[element.checkBoxComponent.name]?.errors && form.controls[element.checkBoxComponent.name]?.errors?.['required']"
+                                                class="text-danger">{{element.checkBoxComponent.requiredMessage}}</small>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
                             </ng-container>
                         </div>
                     </div>

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
+  ICheckBoxModel,
   IElementModel,
   IFileFieldModel,
   IHorizonatalFormSectionModel,
@@ -88,6 +89,8 @@ export class FormPreviewComponent implements OnInit {
       this.appendTextArea(element.textAreaComponent);
     } else if (element.selectBoxComponent) {
       this.appendSelectBox(element.selectBoxComponent);
+    } else if (element.checkBoxComponent) {
+      this.appendCheckbox(element.checkBoxComponent);
     }
   }
 
@@ -414,5 +417,21 @@ export class FormPreviewComponent implements OnInit {
     }
 
     this.form.addControl(selectBox.name, new FormControl('', validators));
+  }
+
+  private appendCheckbox(checkbox: ICheckBoxModel): void {
+    let validators: ValidatorFn[] = [];
+
+    if (!checkbox.isReadOnly && !checkbox.isHidden) {
+      if (checkbox.isRequired) {
+        validators.push(Validators.requiredTrue);
+      }
+    }
+
+    if (checkbox.checked) {
+      this.form.addControl(checkbox.name, new FormControl(true, validators));
+    } else {
+      this.form.addControl(checkbox.name, new FormControl(false, validators));
+    }
   }
 }
