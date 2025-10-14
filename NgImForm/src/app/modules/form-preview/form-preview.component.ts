@@ -95,7 +95,6 @@ export class FormPreviewComponent implements OnInit {
     } else if (element.checkBoxComponent) {
       this.appendCheckbox(element.checkBoxComponent);
     } else if (element.radioButtonGroupComponent) {
-      console.log(element.radioButtonGroupComponent);
       this.appendRadioButtonGroup(element.radioButtonGroupComponent);
     }
   }
@@ -406,7 +405,10 @@ export class FormPreviewComponent implements OnInit {
 
         this.form.addControl(
           selectBox.name,
-          new FormControl(selected, validators)
+          new FormControl(
+            { value: selected, disabled: selectBox.isReadOnly },
+            validators
+          )
         );
       } else {
         selected = selected = selectBox.options
@@ -416,13 +418,19 @@ export class FormPreviewComponent implements OnInit {
         if (selected.length > 0) {
           this.form.addControl(
             selectBox.name,
-            new FormControl(selected[0], validators)
+            new FormControl(
+              { value: selected[0], disabled: selectBox.isReadOnly },
+              validators
+            )
           );
         }
       }
     }
 
-    this.form.addControl(selectBox.name, new FormControl('', validators));
+    this.form.addControl(
+      selectBox.name,
+      new FormControl({ value: '', disabled: selectBox.isReadOnly }, validators)
+    );
   }
 
   private appendCheckbox(checkbox: ICheckBoxModel): void {
@@ -435,9 +443,21 @@ export class FormPreviewComponent implements OnInit {
     }
 
     if (checkbox.checked) {
-      this.form.addControl(checkbox.name, new FormControl(true, validators));
+      this.form.addControl(
+        checkbox.name,
+        new FormControl(
+          { value: true, disabled: checkbox.isReadOnly },
+          validators
+        )
+      );
     } else {
-      this.form.addControl(checkbox.name, new FormControl(false, validators));
+      this.form.addControl(
+        checkbox.name,
+        new FormControl(
+          { value: false, disabled: checkbox.isReadOnly },
+          validators
+        )
+      );
     }
   }
 
@@ -455,7 +475,10 @@ export class FormPreviewComponent implements OnInit {
     if (!radioButtonGroup.radioButtons) {
       this.form.addControl(
         radioButtonGroup.name,
-        new FormControl(null, validators)
+        new FormControl(
+          { value: null, disabled: radioButtonGroup.isReadOnly },
+          validators
+        )
       );
       return;
     }
@@ -469,14 +492,23 @@ export class FormPreviewComponent implements OnInit {
     if (!selectedRadioButton) {
       this.form.addControl(
         radioButtonGroup.name,
-        new FormControl(null, validators)
+        new FormControl(
+          { value: null, disabled: radioButtonGroup.isReadOnly },
+          validators
+        )
       );
       return;
     }
 
     this.form.addControl(
       radioButtonGroup.name,
-      new FormControl(selectedRadioButton.value, validators)
+      new FormControl(
+        {
+          value: selectedRadioButton.value,
+          disabled: radioButtonGroup.isReadOnly,
+        },
+        validators
+      )
     );
   }
 }
