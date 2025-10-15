@@ -150,11 +150,10 @@ export interface ISelectBoxModel {
 
 export interface ICheckBoxModel {
   id: string;
-  order: number;
   name: string;
   label: string;
   class: string;
-  userDefinedId: string;
+  validationErrorClass: string;
   checked: boolean;
   isReadOnly: boolean;
   isHidden: boolean;

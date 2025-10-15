@@ -29,17 +29,10 @@ export class CheckboxPropertiesSidepanelComponent implements OnInit {
   }
 
   private initializeForm(): void {
-    this.form.addControl(
-      'order',
-      new FormControl(1, [Validators.required, Validators.min(1)])
-    );
     this.form.addControl('name', new FormControl('', [Validators.required]));
     this.form.addControl('label', new FormControl('', [Validators.required]));
     this.form.addControl('class', new FormControl(''));
-    this.form.addControl(
-      'userDefinedId',
-      new FormControl('', [Validators.required])
-    );
+    this.form.addControl('validationErrorClass', new FormControl(''));
     this.form.addControl('checked', new FormControl(false));
     this.form.addControl('isReadOnly', new FormControl(false));
     this.form.addControl('isHidden', new FormControl(false));
@@ -52,11 +45,12 @@ export class CheckboxPropertiesSidepanelComponent implements OnInit {
 
     const properties: ICheckBoxModel = this.checkboxProperties.properties;
 
-    this.form.controls['order'].setValue(properties.order);
     this.form.controls['name'].setValue(properties.name);
     this.form.controls['label'].setValue(properties.label);
     this.form.controls['class'].setValue(properties.class);
-    this.form.controls['userDefinedId'].setValue(properties.userDefinedId);
+    this.form.controls['validationErrorClass'].setValue(
+      properties.validationErrorClass
+    );
     this.form.controls['checked'].setValue(properties.checked);
     this.form.controls['isReadOnly'].setValue(properties.isReadOnly);
     this.form.controls['isHidden'].setValue(properties.isHidden);
@@ -76,22 +70,20 @@ export class CheckboxPropertiesSidepanelComponent implements OnInit {
     }
 
     const [
-      order,
       name,
       label,
       className,
-      userDefinedId,
+      validationErrorClass,
       checked,
       isReadOnly,
       isHidden,
       isRequired,
       requiredMessage,
     ] = [
-      this.form.controls['order'].value,
       this.form.controls['name'].value,
       this.form.controls['label'].value,
       this.form.controls['class'].value,
-      this.form.controls['userDefinedId'].value,
+      this.form.controls['validationErrorClass'].value,
       this.form.controls['checked'].value,
       this.form.controls['isReadOnly'].value,
       this.form.controls['isHidden'].value,
@@ -104,11 +96,10 @@ export class CheckboxPropertiesSidepanelComponent implements OnInit {
       checkboxId: this.checkboxProperties.checkboxId,
       properties: {
         id: this.checkboxProperties.checkboxId,
-        order: order,
         name,
         label,
         class: className,
-        userDefinedId,
+        validationErrorClass,
         checked,
         isReadOnly,
         isHidden,

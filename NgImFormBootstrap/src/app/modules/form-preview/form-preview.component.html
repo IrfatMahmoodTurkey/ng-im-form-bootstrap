@@ -157,8 +157,10 @@
                                         </ng-container>
 
                                         <ng-template #multiSelectSection>
-                                            <select class="{{element.selectBoxComponent.class}}"
-                                                formControlName="{{element.selectBoxComponent.name}}" multiple>
+                                            <select class="{{element.selectBoxComponent.class}}" [ngClass]="
+                                                    (isSubmitClicked && form.controls[element.selectBoxComponent.name].errors) ?
+                                                    element.selectBoxComponent.validationErrorClass : ''
+                                                " formControlName="{{element.selectBoxComponent.name}}" multiple>
                                                 <option *ngIf="element.selectBoxComponent.placeholder" [value]="null"
                                                     [selected]="!element.selectBoxComponent.isMultiple" disabled>
                                                     {{element.selectBoxComponent.placeholder}}</option>
@@ -189,12 +191,18 @@
                                     <div class="form-group mb-3" [hidden]="element.checkBoxComponent.isHidden">
                                         <div class="mb-1">
                                             <input type="checkbox" class="{{element.checkBoxComponent.class}}"
-                                                formControlName="{{element.checkBoxComponent.name}}">
+                                                [ngClass]="
+                                                    (isSubmitClicked && form.controls[element.checkBoxComponent.name].errors) ?
+                                                    element.checkBoxComponent.validationErrorClass : ''
+                                                " formControlName="{{element.checkBoxComponent.name}}">
 
-                                            <span class="ms-1"><b>{{element.checkBoxComponent.label}}</b></span>
+                                            <span class="ms-1"
+                                                [ngClass]="
+                                                    (isSubmitClicked && form.controls[element.checkBoxComponent.name].errors) ?
+                                                    'text-danger' : ''"><b>{{element.checkBoxComponent.label}}</b></span>
                                         </div>
 
-                                        <ng-container *ngIf="element.checkBoxComponent.isRequired">
+                                        <ng-container *ngIf=" element.checkBoxComponent.isRequired">
                                             <small
                                                 *ngIf="isSubmitClicked && form.controls[element.checkBoxComponent.name]?.errors && form.controls[element.checkBoxComponent.name]?.errors?.['required']"
                                                 class="text-danger">{{element.checkBoxComponent.requiredMessage}}</small>

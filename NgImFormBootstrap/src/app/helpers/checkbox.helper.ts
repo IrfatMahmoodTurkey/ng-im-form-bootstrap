@@ -29,11 +29,10 @@ function addCheckbox(
 
   const toAddCheckBox: ICheckBoxModel = {
     id: generatedId,
-    order: order + 1,
     name: generatedId,
     label: `Checkbox ${order + 1}`,
     class: '',
-    userDefinedId: generatedId,
+    validationErrorClass: '',
     checked: false,
     isReadOnly: false,
     isHidden: false,
