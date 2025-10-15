@@ -48,13 +48,12 @@ export interface IElementModel {
 
 export interface ITextBoxModel {
   id: string;
-  order: number;
   name: string;
   label: string;
   type: string;
   placeholder: string;
   class: string;
-  userDefinedId: string;
+  validationErrorClass: string;
   value: string;
   isReadOnly: boolean;
   isHidden: boolean;

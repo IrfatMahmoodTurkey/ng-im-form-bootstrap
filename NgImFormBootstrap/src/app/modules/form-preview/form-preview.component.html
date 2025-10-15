@@ -14,8 +14,10 @@
                                     <div class="form-group mb-3" [hidden]="element.textBoxComponent.isHidden">
                                         <label class="mb-1"><b>{{element.textBoxComponent.label}}</b></label>
                                         <input type="{{element.textBoxComponent.type}}"
-                                            class="{{element.textBoxComponent.class}}"
-                                            placeholder="{{element.textBoxComponent.placeholder}}"
+                                            class="{{element.textBoxComponent.class}}" [ngClass]="
+                                                (isSubmitClicked && form.controls[element.textBoxComponent.name].errors) ?
+                                                element.textBoxComponent.validationErrorClass : ''
+                                            " placeholder="{{element.textBoxComponent.placeholder}}"
                                             formControlName="{{element.textBoxComponent.name}}"
                                             [readOnly]="element.textBoxComponent.isReadOnly">
 

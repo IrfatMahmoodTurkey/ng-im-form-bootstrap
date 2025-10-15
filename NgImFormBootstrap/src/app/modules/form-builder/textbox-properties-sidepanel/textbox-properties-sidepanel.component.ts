@@ -54,19 +54,12 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
   }
 
   private initializeForm(): void {
-    this.form.addControl(
-      'order',
-      new FormControl(1, [Validators.required, Validators.min(1)])
-    );
     this.form.addControl('name', new FormControl('', [Validators.required]));
     this.form.addControl('label', new FormControl('', [Validators.required]));
     this.form.addControl('type', new FormControl('', [Validators.required]));
     this.form.addControl('placeholder', new FormControl(''));
     this.form.addControl('class', new FormControl(''));
-    this.form.addControl(
-      'userDefinedId',
-      new FormControl('', [Validators.required])
-    );
+    this.form.addControl('validationErrorClass', new FormControl(''));
     this.form.addControl('value', new FormControl(''));
     this.form.addControl('isReadOnly', new FormControl(false));
     this.form.addControl('isHidden', new FormControl(false));
@@ -97,13 +90,14 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
 
     const properties: ITextBoxModel = this.textboxProperties.properties;
 
-    this.form.controls['order'].setValue(properties.order);
     this.form.controls['name'].setValue(properties.name);
     this.form.controls['label'].setValue(properties.label);
     this.form.controls['type'].setValue(properties.type);
     this.form.controls['placeholder'].setValue(properties.placeholder);
     this.form.controls['class'].setValue(properties.class);
-    this.form.controls['userDefinedId'].setValue(properties.userDefinedId);
+    this.form.controls['validationErrorClass'].setValue(
+      properties.validationErrorClass
+    );
     this.form.controls['value'].setValue(properties.value);
     this.form.controls['isReadOnly'].setValue(properties.isReadOnly);
     this.form.controls['isHidden'].setValue(properties.isHidden);
@@ -226,13 +220,12 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
     }
 
     const [
-      order,
       name,
       label,
       type,
       placeholder,
       className,
-      userDefinedId,
+      validationErrorClass,
       value,
       isReadOnly,
       isHidden,
@@ -251,13 +244,12 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
       regex,
       regexMessage,
     ] = [
-      this.form.controls['order'].value,
       this.form.controls['name'].value,
       this.form.controls['label'].value,
       this.form.controls['type'].value,
       this.form.controls['placeholder'].value,
       this.form.controls['class'].value,
-      this.form.controls['userDefinedId'].value,
+      this.form.controls['validationErrorClass'].value,
       this.form.controls['value'].value,
       this.form.controls['isReadOnly'].value,
       this.form.controls['isHidden'].value,
@@ -346,13 +338,12 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
       textboxId: this.textboxProperties.textboxId,
       properties: {
         id: this.textboxProperties.textboxId,
-        order: order,
         name,
         label,
         type,
         placeholder,
         class: className,
-        userDefinedId,
+        validationErrorClass,
         value,
         isReadOnly,
         isHidden,

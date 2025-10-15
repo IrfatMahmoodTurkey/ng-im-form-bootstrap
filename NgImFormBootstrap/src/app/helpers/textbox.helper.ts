@@ -29,13 +29,12 @@ function addTextbox(
 
   const toAddTextBox: ITextBoxModel = {
     id: generatedId,
-    order: order + 1,
     name: generatedId,
     label: `Input Field ${order + 1}`,
     type: 'text',
     class: 'form-control',
     placeholder: `Input Field ${order + 1}`,
-    userDefinedId: generatedId,
+    validationErrorClass: '',
     value: '',
     isReadOnly: false,
     isHidden: false,
