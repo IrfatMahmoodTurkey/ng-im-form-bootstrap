@@ -29,12 +29,11 @@ function addFilefield(
 
   const toAddFileField: IFileFieldModel = {
     id: generatedId,
-    order: order + 1,
     name: generatedId,
     label: `Input Field ${order + 1}`,
     accept: '',
     class: 'form-control',
-    userDefinedId: generatedId,
+    validationErrorClass: '',
     isMultiple: false,
     isReadOnly: false,
     isHidden: false,

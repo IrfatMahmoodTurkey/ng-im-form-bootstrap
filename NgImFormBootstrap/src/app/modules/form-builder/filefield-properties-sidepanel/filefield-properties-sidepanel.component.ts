@@ -26,11 +26,10 @@ export class FilefieldPropertiesSidepanelComponent implements OnInit {
 
   private initializeForm(): void {
     this.form = this.formBuilder.group({
-      order: [1, [Validators.required]],
       name: ['', [Validators.required]],
       label: ['', [Validators.required]],
       class: [''],
-      userDefinedId: ['', [Validators.required]],
+      validationErrorClass: [''],
       accept: [''],
       isMultiple: [false],
       isReadOnly: [false],
@@ -48,11 +47,12 @@ export class FilefieldPropertiesSidepanelComponent implements OnInit {
 
     const properties: IFileFieldModel = this.fileFieldProperties.properties;
 
-    this.form.controls['order'].setValue(properties.order);
     this.form.controls['name'].setValue(properties.name);
     this.form.controls['label'].setValue(properties.label);
     this.form.controls['class'].setValue(properties.class);
-    this.form.controls['userDefinedId'].setValue(properties.userDefinedId);
+    this.form.controls['validationErrorClass'].setValue(
+      properties.validationErrorClass
+    );
     this.form.controls['accept'].setValue(properties.accept);
     this.form.controls['isMultiple'].setValue(properties.isMultiple);
     this.form.controls['isReadOnly'].setValue(properties.isReadOnly);
@@ -131,11 +131,10 @@ export class FilefieldPropertiesSidepanelComponent implements OnInit {
     }
 
     const [
-      order,
       name,
       label,
       className,
-      userDefinedId,
+      validationErrorClass,
       accept,
       isMultiple,
       isReadOnly,
@@ -145,11 +144,10 @@ export class FilefieldPropertiesSidepanelComponent implements OnInit {
       sizeValidation,
       sizeValidationMessage,
     ] = [
-      this.form.controls['order'].value,
       this.form.controls['name'].value,
       this.form.controls['label'].value,
       this.form.controls['class'].value,
-      this.form.controls['userDefinedId'].value,
+      this.form.controls['validationErrorClass'].value,
       this.form.controls['accept'].value,
       this.form.controls['isMultiple'].value,
       this.form.controls['isReadOnly'].value,
@@ -179,11 +177,10 @@ export class FilefieldPropertiesSidepanelComponent implements OnInit {
       fileFieldId: this.fileFieldProperties.fileFieldId,
       properties: {
         id: this.fileFieldProperties.fileFieldId,
-        order: order,
         name,
         label,
         class: className,
-        userDefinedId,
+        validationErrorClass,
         accept,
         isMultiple,
         isReadOnly,

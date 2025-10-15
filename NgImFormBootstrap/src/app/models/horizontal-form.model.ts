@@ -105,11 +105,10 @@ export interface ITextAreaModel {
 
 export interface IFileFieldModel {
   id: string;
-  order: number;
   name: string;
   label: string;
   class: string;
-  userDefinedId: string;
+  validationErrorClass: string;
   accept: string;
   isMultiple: boolean;
   isReadOnly: boolean;

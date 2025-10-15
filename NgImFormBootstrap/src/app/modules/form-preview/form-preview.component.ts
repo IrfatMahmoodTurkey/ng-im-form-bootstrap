@@ -319,6 +319,7 @@ export class FormPreviewComponent implements OnInit {
     if (props.extensionValidations && props.extensionValidations.length > 0) {
       if (props.isMultiple) {
         const files = event.target.files;
+        toUpdate.extendsionValidationMessages = [];
 
         for (const file of files) {
           for (const exntensionValidation of props.extensionValidations) {
@@ -337,9 +338,14 @@ export class FormPreviewComponent implements OnInit {
 
             toUpdate.extensionsValid = true;
           }
+
+          if (!toUpdate.extensionsValid) {
+            break;
+          }
         }
       } else {
         const file = event.target.files[0];
+        toUpdate.extendsionValidationMessages = [];
 
         if (file) {
           for (const exntensionValidation of props.extensionValidations) {
@@ -353,6 +359,7 @@ export class FormPreviewComponent implements OnInit {
               toUpdate.extendsionValidationMessages.push(
                 exntensionValidation.message
               );
+
               break;
             }
 

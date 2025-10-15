@@ -100,8 +100,10 @@
                                     <div class="form-group mb-3" [hidden]="element.fileFieldComponent.isHidden">
                                         <label class="mb-1"><b>{{element.fileFieldComponent.label}}</b></label>
                                         <input type="file" name="{{element.fileFieldComponent.name}}"
-                                            class="{{element.fileFieldComponent.class}}"
-                                            [multiple]="element.fileFieldComponent.isMultiple"
+                                            class="{{element.fileFieldComponent.class}}" [ngClass]="
+                                                (browsedFiles.get(element.fileFieldComponent.id) && isSubmitClicked && ((browsedFiles.get(element.fileFieldComponent.id)?.required && !browsedFiles.get(element.fileFieldComponent.id)?.hasFiles) || !browsedFiles.get(element.fileFieldComponent.id)?.sizeValid || !browsedFiles.get(element.fileFieldComponent.id)?.extensionsValid)) ?
+                                                element.fileFieldComponent.validationErrorClass : ''
+                                            " [multiple]="element.fileFieldComponent.isMultiple"
                                             accept="{{element.fileFieldComponent.accept}}"
                                             (change)="fileChangeEvent($event, element.fileFieldComponent)">
 
