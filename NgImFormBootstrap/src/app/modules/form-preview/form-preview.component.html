@@ -111,17 +111,11 @@
                                                     *ngIf="isSubmitClicked && browsedFiles.get(element.fileFieldComponent.id)?.required && !browsedFiles.get(element.fileFieldComponent.id)?.hasFiles"
                                                     class="text-danger">{{browsedFiles.get(element.fileFieldComponent.id)?.requiredMessage}}</small>
                                             </div>
-                                        </ng-container>
-
-                                        <ng-container *ngIf="browsedFiles.get(element.fileFieldComponent.id)">
                                             <div>
                                                 <small
                                                     *ngIf="isSubmitClicked && !browsedFiles.get(element.fileFieldComponent.id)?.sizeValid"
                                                     class="text-danger">{{browsedFiles.get(element.fileFieldComponent.id)?.sizeValidationMessage}}</small>
                                             </div>
-                                        </ng-container>
-
-                                        <ng-container *ngIf="browsedFiles.get(element.fileFieldComponent.id)">
                                             <div>
                                                 <small
                                                     *ngIf="isSubmitClicked && !browsedFiles.get(element.fileFieldComponent.id)?.extensionsValid"
