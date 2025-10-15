@@ -129,12 +129,11 @@ export interface IFileFieldModel {
 
 export interface ISelectBoxModel {
   id: string;
-  order: number;
   name: string;
   label: string;
   placeholder: string;
   class: string;
-  userDefinedId: string;
+  validationErrorClass: string;
   isMultiple: boolean;
   isReadOnly: boolean;
   isHidden: boolean;

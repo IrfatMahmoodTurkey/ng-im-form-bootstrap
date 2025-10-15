@@ -29,12 +29,11 @@ function addSelectbox(
 
   const toAddSelectBox: ISelectBoxModel = {
     id: generatedId,
-    order: order + 1,
     name: generatedId,
     label: `Input Field ${order + 1}`,
     class: 'form-control',
     placeholder: `Select`,
-    userDefinedId: generatedId,
+    validationErrorClass: '',
     isMultiple: false,
     isReadOnly: false,
     isHidden: false,

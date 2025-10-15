@@ -137,8 +137,10 @@
 
                                         <ng-container
                                             *ngIf="!element.selectBoxComponent.isMultiple; else multiSelectSection">
-                                            <select class="{{element.selectBoxComponent.class}}"
-                                                formControlName="{{element.selectBoxComponent.name}}">
+                                            <select class="{{element.selectBoxComponent.class}}" [ngClass]="
+                                                    (isSubmitClicked && form.controls[element.selectBoxComponent.name].errors) ?
+                                                    element.selectBoxComponent.validationErrorClass : ''
+                                                " formControlName="{{element.selectBoxComponent.name}}">
                                                 <option *ngIf="element.selectBoxComponent.placeholder" value="">
                                                     {{element.selectBoxComponent.placeholder}}</option>
                                                 <ng-container *ngFor="let option of element.selectBoxComponent.options">
