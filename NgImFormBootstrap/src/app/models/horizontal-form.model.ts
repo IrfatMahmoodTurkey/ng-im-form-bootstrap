@@ -163,11 +163,10 @@ export interface ICheckBoxModel {
 
 export interface IRadioButtonGroupModel {
   id: string;
-  order: number;
   name: string;
   label: string;
   class: string;
-  userDefinedId: string;
+  validationErrorClass: string;
   isReadOnly: boolean;
   isHidden: boolean;
   isRequired: boolean;

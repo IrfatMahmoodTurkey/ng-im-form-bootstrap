@@ -29,11 +29,10 @@ function addRadioButtonGroup(
 
   const toAddRadioButtonGroup: IRadioButtonGroupModel = {
     id: generatedId,
-    order: order + 1,
     name: generatedId,
-    label: `Input Field ${order + 1}`,
+    label: `Radio Button Group ${order + 1}`,
     class: 'form-control',
-    userDefinedId: generatedId,
+    validationErrorClass: '',
     isReadOnly: false,
     isHidden: false,
     isRequired: false,

@@ -222,10 +222,14 @@
                                                     <div class="col-sm-12 col-md-3">
                                                         <input type="radio"
                                                             class="{{element.radioButtonGroupComponent.class}}"
-                                                            [value]="radioButton.value"
+                                                            [ngClass]="
+                                                                (isSubmitClicked && form.controls[element.radioButtonGroupComponent.name].errors) ?
+                                                                element.radioButtonGroupComponent.validationErrorClass : ''
+                                                            " [value]="radioButton.value"
                                                             formControlName="{{element.radioButtonGroupComponent.name}}">
 
-                                                        <span class="ms-1"><b>{{radioButton.text}}</b></span>
+                                                        <span class="ms-1"
+                                                            [ngClass]="(isSubmitClicked && form.controls[element.radioButtonGroupComponent.name].errors) ? 'text-danger' : ''"><b>{{radioButton.text}}</b></span>
                                                     </div>
                                                 </ng-container>
                                             </div>

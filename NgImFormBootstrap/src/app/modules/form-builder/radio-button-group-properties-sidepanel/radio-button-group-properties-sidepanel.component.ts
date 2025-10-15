@@ -29,11 +29,10 @@ export class RadioButtonGroupPropertiesSidepanelComponent implements OnInit {
 
   private initializeForm(): void {
     this.form = this.formBuilder.group({
-      order: [1, [Validators.required]],
       name: ['', [Validators.required]],
       label: ['', [Validators.required]],
       class: [''],
-      userDefinedId: ['', [Validators.required]],
+      validationErrorClass: ['', [Validators.required]],
       isReadOnly: [false],
       isHidden: [false],
       isRequired: [false],
@@ -48,11 +47,12 @@ export class RadioButtonGroupPropertiesSidepanelComponent implements OnInit {
     const properties: IRadioButtonGroupModel =
       this.radioButtonGroupProperties.properties;
 
-    this.form.controls['order'].setValue(properties.order);
     this.form.controls['name'].setValue(properties.name);
     this.form.controls['label'].setValue(properties.label);
     this.form.controls['class'].setValue(properties.class);
-    this.form.controls['userDefinedId'].setValue(properties.userDefinedId);
+    this.form.controls['validationErrorClass'].setValue(
+      properties.validationErrorClass
+    );
     this.form.controls['isReadOnly'].setValue(properties.isReadOnly);
     this.form.controls['isHidden'].setValue(properties.isHidden);
     this.form.controls['isRequired'].setValue(properties.isRequired);
@@ -123,21 +123,19 @@ export class RadioButtonGroupPropertiesSidepanelComponent implements OnInit {
     }
 
     const [
-      order,
       name,
       label,
       className,
-      userDefinedId,
+      validationErrorClass,
       isReadOnly,
       isHidden,
       isRequired,
       requiredMessage,
     ] = [
-      this.form.controls['order'].value,
       this.form.controls['name'].value,
       this.form.controls['label'].value,
       this.form.controls['class'].value,
-      this.form.controls['userDefinedId'].value,
+      this.form.controls['validationErrorClass'].value,
       this.form.controls['isReadOnly'].value,
       this.form.controls['isHidden'].value,
       this.form.controls['isRequired'].value,
@@ -163,11 +161,10 @@ export class RadioButtonGroupPropertiesSidepanelComponent implements OnInit {
       radioButtonGroupId: this.radioButtonGroupProperties.radioButtonGroupId,
       properties: {
         id: this.radioButtonGroupProperties.radioButtonGroupId,
-        order: order,
         name,
         label,
         class: className,
-        userDefinedId,
+        validationErrorClass,
         isReadOnly,
         isHidden,
         isRequired,
