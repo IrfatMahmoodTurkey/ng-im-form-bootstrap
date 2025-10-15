@@ -37,20 +37,13 @@ export class TextareaPropertiesSidepanelComponent implements OnInit {
   }
 
   private initializeForm(): void {
-    this.form.addControl(
-      'order',
-      new FormControl(1, [Validators.required, Validators.min(1)])
-    );
     this.form.addControl('name', new FormControl('', [Validators.required]));
     this.form.addControl('label', new FormControl('', [Validators.required]));
     this.form.addControl('rows', new FormControl(10, [Validators.required]));
     this.form.addControl('columns', new FormControl());
     this.form.addControl('placeholder', new FormControl(''));
     this.form.addControl('class', new FormControl(''));
-    this.form.addControl(
-      'userDefinedId',
-      new FormControl('', [Validators.required])
-    );
+    this.form.addControl('validationErrorClass', new FormControl(''));
     this.form.addControl('value', new FormControl(''));
     this.form.addControl('isReadOnly', new FormControl(false));
     this.form.addControl('isHidden', new FormControl(false));
@@ -71,14 +64,15 @@ export class TextareaPropertiesSidepanelComponent implements OnInit {
 
     const properties: ITextAreaModel = this.textareaProperties.properties;
 
-    this.form.controls['order'].setValue(properties.order);
     this.form.controls['name'].setValue(properties.name);
     this.form.controls['label'].setValue(properties.label);
     this.form.controls['rows'].setValue(properties.rows);
     this.form.controls['columns'].setValue(properties.columns);
     this.form.controls['placeholder'].setValue(properties.placeholder);
     this.form.controls['class'].setValue(properties.class);
-    this.form.controls['userDefinedId'].setValue(properties.userDefinedId);
+    this.form.controls['validationErrorClass'].setValue(
+      properties.validationErrorClass
+    );
     this.form.controls['value'].setValue(properties.value);
     this.form.controls['isReadOnly'].setValue(properties.isReadOnly);
     this.form.controls['isHidden'].setValue(properties.isHidden);
@@ -134,14 +128,13 @@ export class TextareaPropertiesSidepanelComponent implements OnInit {
     }
 
     const [
-      order,
       name,
       label,
       rows,
       columns,
       placeholder,
       className,
-      userDefinedId,
+      validationErrorClass,
       value,
       isReadOnly,
       isHidden,
@@ -154,14 +147,13 @@ export class TextareaPropertiesSidepanelComponent implements OnInit {
       regex,
       regexMessage,
     ] = [
-      this.form.controls['order'].value,
       this.form.controls['name'].value,
       this.form.controls['label'].value,
       this.form.controls['rows'].value,
       this.form.controls['columns'].value,
       this.form.controls['placeholder'].value,
       this.form.controls['class'].value,
-      this.form.controls['userDefinedId'].value,
+      this.form.controls['validationErrorClass'].value,
       this.form.controls['value'].value,
       this.form.controls['isReadOnly'].value,
       this.form.controls['isHidden'].value,
@@ -211,14 +203,13 @@ export class TextareaPropertiesSidepanelComponent implements OnInit {
       textareaId: this.textareaProperties.textareaId,
       properties: {
         id: this.textareaProperties.textareaId,
-        order: order,
         name,
         label,
         rows,
         columns,
         placeholder,
         class: className,
-        userDefinedId,
+        validationErrorClass,
         value,
         isReadOnly,
         isHidden,

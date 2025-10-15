@@ -29,14 +29,13 @@ function addTextArea(
 
   const toAddTextArea: ITextAreaModel = {
     id: generatedId,
-    order: order + 1,
     name: generatedId,
     rows: 10,
     columns: null,
     label: `Input Area ${order + 1}`,
     class: 'form-control',
     placeholder: `Input Area ${order + 1}`,
-    userDefinedId: generatedId,
+    validationErrorClass: '',
     value: '',
     isReadOnly: false,
     isHidden: false,

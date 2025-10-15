@@ -77,12 +77,11 @@ export interface ITextBoxModel {
 
 export interface ITextAreaModel {
   id: string;
-  order: number;
   name: string;
   label: string;
   placeholder: string;
   class: string;
-  userDefinedId: string;
+  validationErrorClass: string;
   rows: number;
   columns: number | null;
   value: string;

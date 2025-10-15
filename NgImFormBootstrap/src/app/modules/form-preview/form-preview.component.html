@@ -66,8 +66,10 @@
                                         <label class="mb-1"><b>{{element.textAreaComponent.label}}</b></label>
                                         <textarea cols="{{element.textAreaComponent.columns}}"
                                             rows="{{element.textAreaComponent.rows}}"
-                                            class="{{element.textAreaComponent.class}}"
-                                            placeholder="{{element.textAreaComponent.placeholder}}"
+                                            class="{{element.textAreaComponent.class}}" [ngClass]="
+                                                isSubmitClicked && form.controls[element.textAreaComponent.name].errors ?
+                                                element.textAreaComponent.validationErrorClass : ''
+                                            " placeholder="{{element.textAreaComponent.placeholder}}"
                                             formControlName="{{element.textAreaComponent.name}}"
                                             [readOnly]="element.textAreaComponent.isReadOnly"></textarea>
 
