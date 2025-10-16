@@ -71,14 +71,31 @@ export class FormPreviewComponent implements OnInit {
       return;
     }
 
-    console.log(this.form);
-
     if (!this.preset.checkValidations) {
-      // action when validation not needed
+      this.extractFormData();
       return;
     }
 
     this.isSubmitClicked = true;
+    this.extractFormData();
+  }
+
+  private extractFormData() {
+    let toPost: any = {};
+
+    for (const key in this.form.controls) {
+      const value: any = this.form.controls[key].value;
+
+      toPost[key] = value;
+    }
+
+    for (const browsedFilePair of this.browsedFiles) {
+      const [key, value] = browsedFilePair;
+
+      toPost[value.name] = value.files;
+    }
+
+    console.log(toPost);
   }
 
   private buildForm(): void {
