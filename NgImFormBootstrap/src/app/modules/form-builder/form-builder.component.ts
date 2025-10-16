@@ -114,6 +114,12 @@ export class FormBuilderComponent implements OnInit {
 
   isFormPropertiesSidePanelOpen: boolean = false;
 
+  draggedSectionIndex: number | null = null;
+  replaceSectionIndex: number | null = null;
+
+  draggedField: { sectionIndex: number; fieldIndex: number } | null = null;
+  replaceField: { sectionIndex: number; fieldIndex: number } | null = null;
+
   constructor() {}
 
   ngOnInit() {
@@ -838,5 +844,106 @@ export class FormBuilderComponent implements OnInit {
 
   publishForm(): void {
     this.publishFormEvent.emit(this.horizontalForm);
+  }
+
+  onSectionDragStart(sectionIndex: number) {
+    this.draggedSectionIndex = sectionIndex;
+  }
+
+  onSectionDragOver(sectionEvent: DragEvent, sectionIndex: number) {
+    sectionEvent.preventDefault();
+
+    if (sectionIndex === this.draggedSectionIndex) {
+      return;
+    }
+
+    this.replaceSectionIndex = sectionIndex;
+  }
+
+  onSectionDrop(event: DragEvent, sectionIndex: number) {
+    event.preventDefault();
+
+    if (this.draggedSectionIndex === null) {
+      return;
+    }
+
+    if (this.draggedSectionIndex === sectionIndex) {
+      this.draggedSectionIndex = null;
+      return;
+    }
+
+    const draggedSection: IHorizonatalFormSectionModel =
+      this.horizontalForm.sections[this.draggedSectionIndex];
+
+    this.horizontalForm.sections.splice(this.draggedSectionIndex, 1);
+    this.horizontalForm.sections.splice(sectionIndex, 0, draggedSection);
+    this.draggedSectionIndex = null;
+    this.replaceSectionIndex = null;
+  }
+
+  onSectionDragEnd(): void {
+    this.draggedSectionIndex = null;
+    this.replaceSectionIndex = null;
+  }
+
+  onFieldDragStart(sectionIndex: number, fieldIndex: number) {
+    this.draggedField = { sectionIndex, fieldIndex };
+  }
+
+  onFieldDragOver(event: DragEvent, sectionIndex: number, fieldIndex: number) {
+    event.preventDefault();
+
+    if (!this.draggedField) {
+      return;
+    }
+
+    if (
+      sectionIndex === this.draggedField.sectionIndex &&
+      fieldIndex === this.draggedField.fieldIndex
+    ) {
+      return;
+    }
+
+    this.replaceField = {
+      sectionIndex,
+      fieldIndex,
+    };
+  }
+
+  onFieldDrop(event: DragEvent, sectionIndex: number, fieldIndex: number) {
+    event.preventDefault();
+    if (!this.draggedField || this.draggedField.sectionIndex !== sectionIndex) {
+      this.draggedField = null;
+      return;
+    }
+
+    if (!this.draggedField && this.draggedField === fieldIndex) {
+      this.draggedField = null;
+      return;
+    }
+
+    const draggedField: IElementModel =
+      this.horizontalForm.sections[sectionIndex].elements[
+        this.draggedField.fieldIndex
+      ];
+
+    this.horizontalForm.sections[sectionIndex].elements.splice(
+      this.draggedField.fieldIndex,
+      1
+    );
+
+    this.horizontalForm.sections[sectionIndex].elements.splice(
+      fieldIndex,
+      0,
+      draggedField
+    );
+
+    this.draggedField = null;
+    this.replaceField = null;
+  }
+
+  onFieldDragEnd(): void {
+    this.draggedField = null;
+    this.replaceField = null;
   }
 }

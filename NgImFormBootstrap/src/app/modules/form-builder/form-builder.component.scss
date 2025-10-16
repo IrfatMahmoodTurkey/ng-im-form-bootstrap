@@ -1,0 +1,37 @@
+* {
+  user-select: none;
+}
+
+.section:hover {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 12px #cfe2ff;
+  transform: translateY(-2px);
+  cursor: grab;
+}
+
+.section.dragging {
+  opacity: 0.6;
+  transform: scale(0.98);
+  border: 2px dashed #999;
+}
+
+.section.replace {
+  transform: scale(0.98);
+  border: 2px dashed blue;
+}
+
+.field:hover {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  transform: scale(1.02);
+  cursor: grab;
+}
+
+.field.dragging {
+  transform: scale(0.95);
+  border: 2px dashed #999;
+}
+
+.field.replace {
+  transform: scale(0.95);
+  border: 2px dashed blue;
+}

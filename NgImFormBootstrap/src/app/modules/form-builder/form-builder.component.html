@@ -26,9 +26,12 @@
     </div>
 
     <div class="card-body">
-      <ng-container *ngFor="let section of horizontalForm.sections">
+      <ng-container *ngFor="let section of horizontalForm.sections; let sectionIndex = index">
         <div class="mb-2">
-          <div class="card bg-body-secondary">
+          <div class="card bg-body-secondary section" draggable="true" (dragstart)="onSectionDragStart(sectionIndex)"
+            (dragover)="onSectionDragOver($event, sectionIndex)" (drop)="onSectionDrop($event, sectionIndex)"
+            (dragend)="onSectionDragEnd()" [class.dragging]="draggedSectionIndex === sectionIndex"
+            [class.replace]="replaceSectionIndex === sectionIndex">
             <div class="card-header">
               <div class="d-flex justify-content-between">
                 <div>
@@ -45,9 +48,18 @@
               </div>
             </div>
             <div class="card-body">
-              <ng-container *ngFor="let element of section.elements">
+              <ng-container *ngFor="let element of section.elements; let fieldIndex = index">
                 <ng-container *ngIf="element.type === fields[0] && element.textBoxComponent">
-                  <div class="card m-1">
+                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
+                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
+                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
+                    [class.dragging]="
+                      draggedField?.sectionIndex === sectionIndex &&
+                      draggedField?.fieldIndex === fieldIndex
+                    " [class.replace]="
+                      replaceField?.sectionIndex === sectionIndex &&
+                      replaceField?.fieldIndex === fieldIndex
+                    ">
                     <div class="card-body">
                       <div class="row">
                         <div class="col-8">
@@ -108,7 +120,16 @@
                 </ng-container>
 
                 <ng-container *ngIf="element.type === fields[1] && element.textAreaComponent">
-                  <div class="card m-1">
+                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
+                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
+                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
+                    [class.dragging]="
+                      draggedField?.sectionIndex === sectionIndex &&
+                      draggedField?.fieldIndex === fieldIndex
+                    " [class.replace]="
+                      replaceField?.sectionIndex === sectionIndex &&
+                      replaceField?.fieldIndex === fieldIndex
+                    ">
                     <div class="card-body">
                       <div class="row">
                         <div class="col-8">
@@ -170,7 +191,16 @@
                 </ng-container>
 
                 <ng-container *ngIf="element.type === fields[2] && element.fileFieldComponent">
-                  <div class="card m-1">
+                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
+                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
+                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
+                    [class.dragging]="
+                      draggedField?.sectionIndex === sectionIndex &&
+                      draggedField?.fieldIndex === fieldIndex
+                    " [class.replace]="
+                      replaceField?.sectionIndex === sectionIndex &&
+                      replaceField?.fieldIndex === fieldIndex
+                    ">
                     <div class="card-body">
                       <div class="row">
                         <div class="col-8">
@@ -230,7 +260,16 @@
                 </ng-container>
 
                 <ng-container *ngIf="element.type === fields[3] && element.selectBoxComponent">
-                  <div class="card m-1">
+                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
+                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
+                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
+                    [class.dragging]="
+                      draggedField?.sectionIndex === sectionIndex &&
+                      draggedField?.fieldIndex === fieldIndex
+                    " [class.replace]="
+                      replaceField?.sectionIndex === sectionIndex &&
+                      replaceField?.fieldIndex === fieldIndex
+                    ">
                     <div class="card-body">
                       <div class="row">
                         <div class="col-8">
@@ -297,7 +336,16 @@
                 </ng-container>
 
                 <ng-container *ngIf="element.type === fields[4] && element.checkBoxComponent">
-                  <div class="card m-1">
+                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
+                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
+                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
+                    [class.dragging]="
+                      draggedField?.sectionIndex === sectionIndex &&
+                      draggedField?.fieldIndex === fieldIndex
+                    " [class.replace]="
+                      replaceField?.sectionIndex === sectionIndex &&
+                      replaceField?.fieldIndex === fieldIndex
+                    ">
                     <div class="card-body">
                       <div class="row">
                         <div class="col-8">
@@ -358,7 +406,16 @@
                 </ng-container>
 
                 <ng-container *ngIf="element.type === fields[5] && element.radioButtonGroupComponent">
-                  <div class="card m-1">
+                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
+                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
+                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
+                    [class.dragging]="
+                      draggedField?.sectionIndex === sectionIndex &&
+                      draggedField?.fieldIndex === fieldIndex
+                    " [class.replace]="
+                      replaceField?.sectionIndex === sectionIndex &&
+                      replaceField?.fieldIndex === fieldIndex
+                    ">
                     <div class="card-body">
                       <div class="row">
                         <div class="col-8">
@@ -394,7 +451,16 @@
                 </ng-container>
 
                 <ng-container *ngIf="element.type === fields[6] && element.imageBoxComponent">
-                  <div class="card m-1">
+                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
+                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
+                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
+                    [class.dragging]="
+                      draggedField?.sectionIndex === sectionIndex &&
+                      draggedField?.fieldIndex === fieldIndex
+                    " [class.replace]="
+                      replaceField?.sectionIndex === sectionIndex &&
+                      replaceField?.fieldIndex === fieldIndex
+                    ">
                     <div class="card-body">
                       <div class="row">
                         <div class="col-8">
@@ -439,7 +505,16 @@
                 </ng-container>
 
                 <ng-container *ngIf="element.type === fields[7] && element.textComponent">
-                  <div class="card m-1">
+                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
+                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
+                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
+                    [class.dragging]="
+                      draggedField?.sectionIndex === sectionIndex &&
+                      draggedField?.fieldIndex === fieldIndex
+                    " [class.replace]="
+                      replaceField?.sectionIndex === sectionIndex &&
+                      replaceField?.fieldIndex === fieldIndex
+                    ">
                     <div class="card-body">
                       <div class="row">
                         <div class="col-8">
