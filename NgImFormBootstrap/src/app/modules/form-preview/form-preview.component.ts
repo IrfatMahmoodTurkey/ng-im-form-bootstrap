@@ -39,6 +39,7 @@ export class FormPreviewComponent implements OnInit {
   browsedFiles: Map<
     string,
     {
+      name: string;
       required: boolean;
       requiredMessage: string | null;
       files: any[];
@@ -181,6 +182,7 @@ export class FormPreviewComponent implements OnInit {
       for (const element of section.elements) {
         if (element.fileFieldComponent) {
           this.browsedFiles.set(element.fileFieldComponent.id, {
+            name: element.fileFieldComponent.name,
             files: [],
             hasFiles: false,
             required:
@@ -209,6 +211,7 @@ export class FormPreviewComponent implements OnInit {
   fileChangeEvent(event: any, props: IFileFieldModel): void {
     if (event.target.files.length <= 0) {
       this.browsedFiles.set(props.id, {
+        name: props.name,
         files: [],
         hasFiles: false,
         required:
@@ -229,6 +232,7 @@ export class FormPreviewComponent implements OnInit {
 
     let current:
       | {
+          name: string;
           required: boolean;
           requiredMessage: string | null;
           files: any[];
@@ -243,6 +247,7 @@ export class FormPreviewComponent implements OnInit {
 
     let toUpdate:
       | {
+          name: string;
           required: boolean;
           requiredMessage: string | null;
           files: any[];
