@@ -1,9 +1,23 @@
 <div class="container container-fluid">
     <div class="m-3">
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+        <ng-container *ngIf="response">
+            <ng-container *ngIf="response.isViewAlert">
+                <ng-container *ngIf="response.successMessage">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{response.successMessage}}
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="response.failedMessage">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{response.failedMessage.message}}
+                        <br>
+                        {{response.failedMessage.details}}
+                    </div>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+
     </div>
     <div class="m-3">
         <form [formGroup]="form" (ngSubmit)="submit()">
@@ -339,13 +353,18 @@
             <hr>
 
             <div class="d-flex justify-content-end">
-                <button class="btn btn-primary">Submit</button>
-
-                <ng-container *ngIf="preset">
-                    <ng-container *ngIf="preset.isResetButtonAvailable">
-                        <button class="btn btn-warning ms-1">Reset</button>
-                    </ng-container>
+                <ng-container *ngIf="isSubmitProcessing; else buttonSection">
+                    <app-button-spinner></app-button-spinner>
                 </ng-container>
+                <ng-template #buttonSection>
+                    <button class="btn btn-primary">Submit</button>
+
+                    <ng-container *ngIf="preset">
+                        <ng-container *ngIf="preset.isResetButtonAvailable">
+                            <button class="btn btn-warning ms-1">Reset</button>
+                        </ng-container>
+                    </ng-container>
+                </ng-template>
             </div>
         </form>
     </div>

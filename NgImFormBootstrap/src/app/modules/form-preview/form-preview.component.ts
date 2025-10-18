@@ -59,6 +59,24 @@ export class FormPreviewComponent implements OnInit {
 
   formSubscription: Subscription | undefined;
 
+  response: {
+    isViewAlert: boolean;
+    successMessage: string | undefined;
+    failedMessage:
+      | {
+          message: string | undefined;
+          details: string | undefined;
+        }
+      | undefined;
+  } = {
+    isViewAlert: false,
+    successMessage: undefined,
+    failedMessage: undefined,
+  };
+  messageTimeout: any;
+
+  isSubmitProcessing: boolean = false;
+
   constructor(private apiCallService: APICallService) {}
 
   ngOnInit() {
@@ -76,6 +94,20 @@ export class FormPreviewComponent implements OnInit {
     if (this.formSubscription) {
       this.formSubscription.unsubscribe();
     }
+
+    if (this.messageTimeout) {
+      clearTimeout(this.messageTimeout);
+    }
+  }
+
+  disapperResponseAlert(): void {
+    this.messageTimeout = setTimeout(() => {
+      this.response = {
+        isViewAlert: false,
+        successMessage: undefined,
+        failedMessage: undefined,
+      };
+    }, 5000);
   }
 
   submit(): void {
@@ -90,7 +122,28 @@ export class FormPreviewComponent implements OnInit {
     }
 
     this.isSubmitClicked = true;
-    this.extractFormData();
+
+    if (this.form.valid && this.isFilesValid()) {
+      this.extractFormData();
+    }
+  }
+
+  isFilesValid(): boolean {
+    const size: number = this.browsedFiles.size;
+
+    if (size <= 0) {
+      return true;
+    }
+
+    for (const pair of this.browsedFiles) {
+      const [key, value] = pair;
+
+      if (!value.everythingIsValid) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   private extractFormData() {
@@ -120,13 +173,7 @@ export class FormPreviewComponent implements OnInit {
       return;
     }
 
-    const {
-      submitAPIUrl,
-      method,
-      sendBodyAs,
-      authorization,
-      responseMessages,
-    } = this.preset;
+    const { submitAPIUrl, method, sendBodyAs, responseMessages } = this.preset;
 
     if (
       method === APIMethodsEnum.POST &&
@@ -150,14 +197,37 @@ export class FormPreviewComponent implements OnInit {
       };
     }
   ): void {
+    this.isSubmitProcessing = true;
+
     this.formSubscription = this.apiCallService
       .postJson(submitAPIUrl, object)
       .subscribe({
         next: (response: string) => {
+          this.response = {
+            isViewAlert: true,
+            successMessage: `${responseMessages.onSuccess.title}. ${responseMessages.onSuccess.subTitle}`,
+            failedMessage: undefined,
+          };
+
           this.scrollToTop();
+          this.disapperResponseAlert();
+
+          this.isSubmitProcessing = false;
         },
         error: (error: HttpErrorResponse) => {
+          this.response = {
+            isViewAlert: true,
+            successMessage: undefined,
+            failedMessage: {
+              message: `${responseMessages.onFailed.title}. ${responseMessages.onFailed.subTitle}`,
+              details: error.message,
+            },
+          };
+
           this.scrollToTop();
+          this.disapperResponseAlert();
+
+          this.isSubmitProcessing = false;
         },
       });
   }
