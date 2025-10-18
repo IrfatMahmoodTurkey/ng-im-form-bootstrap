@@ -31,7 +31,7 @@ function addRadioButtonGroup(
     id: generatedId,
     name: generatedId,
     label: `Radio Button Group ${order + 1}`,
-    class: 'form-control',
+    class: 'form-check-input',
     validationErrorClass: '',
     isReadOnly: false,
     isHidden: false,

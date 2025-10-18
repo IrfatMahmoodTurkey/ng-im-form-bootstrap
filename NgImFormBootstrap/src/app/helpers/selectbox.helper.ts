@@ -31,7 +31,7 @@ function addSelectbox(
     id: generatedId,
     name: generatedId,
     label: `Input Field ${order + 1}`,
-    class: 'form-control',
+    class: 'form-check-input',
     placeholder: `Select`,
     validationErrorClass: '',
     isMultiple: false,
