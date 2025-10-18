@@ -23,10 +23,11 @@
 
           <div class="form-group mb-2">
             <label class="mb-1"><b>Name*</b></label>
-            <input type="text" class="form-control" formControlName="name">
+            <input type="text" class="form-control" formControlName="name" (input)="checkNameExistance()">
             <small
               *ngIf="isSubmitClicked && form.controls['name']?.errors && form.controls['name']?.errors?.['required']"
               class="text-danger">Name is Required!</small>
+            <small *ngIf="isNameExists" class="text-danger">Name Exists!</small>
           </div>
 
           <div class="form-group mb-2">

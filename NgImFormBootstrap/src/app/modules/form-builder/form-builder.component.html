@@ -646,7 +646,7 @@
   [sectionProperties]="selectedForSectionPropertiesUpdate" (hidePanelEvent)="hideSectionPropertiesSidePanel()"
   (saveChangesEvent)="saveSectionProperties($event)"></app-section-properties-sidepanel>
 
-<app-textbox-properties-sidepanel *ngIf="isTextBoxPropertiesSidePanelOpen"
+<app-textbox-properties-sidepanel *ngIf="isTextBoxPropertiesSidePanelOpen" [horizontalForm]="horizontalForm"
   [textboxProperties]="selectedForTextboxPropertiesUpdate" (hidePanelEvent)="hideTextBoxPropertiesSidePanel()"
   (saveChangesEvent)="saveTextboxProperties($event)"></app-textbox-properties-sidepanel>
 

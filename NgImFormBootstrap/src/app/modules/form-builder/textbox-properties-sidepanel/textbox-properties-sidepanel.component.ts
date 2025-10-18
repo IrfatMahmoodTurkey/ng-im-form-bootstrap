@@ -6,8 +6,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ITextBoxModel } from '../../../models/horizontal-form.model';
+import {
+  IHorizontalFormModel,
+  ITextBoxModel,
+} from '../../../models/horizontal-form.model';
 import { TEXTBOX_UTILITIES } from '../../../constants/textbox-utilities.constant';
+import { checkNameExistance } from '../../../helpers/existance.helper';
 
 @Component({
   selector: 'app-textbox-properties-sidepanel',
@@ -17,6 +21,7 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
   textboxTypes: { type: string; validations: string[] }[] =
     TEXTBOX_UTILITIES.TEXTBOX_TYPES;
 
+  @Input() horizontalForm: IHorizontalFormModel | undefined;
   @Input() textboxProperties: ITextboxPropertiesInputEmitModel | undefined;
 
   @Output() hidePanelEvent: EventEmitter<null> = new EventEmitter();
@@ -42,10 +47,19 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
   canUseMaxLenValidation: boolean = false;
 
   isSubmitClicked: boolean = false;
+  isNameExists: boolean = false;
 
   constructor() {}
 
   ngOnInit() {
+    if (!this.horizontalForm) {
+      console.error('Horizontal Form object is required!');
+    }
+
+    if (!this.textboxProperties) {
+      console.error('Textbox Properties object is required!');
+    }
+
     this.initializeForm();
   }
 
@@ -211,7 +225,7 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
   saveChanges(): void {
     this.isSubmitClicked = true;
 
-    if (!this.form.valid) {
+    if (!this.form.valid || this.isNameExists) {
       return;
     }
 
@@ -358,5 +372,17 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
     });
 
     this.hide();
+  }
+
+  checkNameExistance(): void {
+    if (!this.horizontalForm) return;
+
+    const name: string = this.form.controls['name'].value;
+
+    this.isNameExists = checkNameExistance(
+      this.horizontalForm,
+      this.textboxProperties?.properties.name ?? '',
+      name
+    );
   }
 }
