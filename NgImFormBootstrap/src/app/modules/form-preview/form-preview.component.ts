@@ -18,6 +18,11 @@ import {
 } from '@angular/forms';
 import { TEXTBOX_UTILITIES } from '../../constants/textbox-utilities.constant';
 import { ALIGNMENTS } from '../../constants/alignments.constant';
+import { APICallService } from '../services/api-call.service';
+import { APIMethodsEnum } from '../../enums/api-methods.enum';
+import { SendBodyTypesEnum } from '../../enums/send-body-types.enum';
+import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-form-preview',
@@ -52,7 +57,9 @@ export class FormPreviewComponent implements OnInit {
     }
   > = new Map();
 
-  constructor() {}
+  formSubscription: Subscription | undefined;
+
+  constructor(private apiCallService: APICallService) {}
 
   ngOnInit() {
     if (!this.preset) {
@@ -63,6 +70,12 @@ export class FormPreviewComponent implements OnInit {
     this.sections = this.preset.sections;
     this.buildForm();
     this.initializeFileFieldUtilities();
+  }
+
+  ngOnDestroy(): void {
+    if (this.formSubscription) {
+      this.formSubscription.unsubscribe();
+    }
   }
 
   submit(): void {
@@ -95,7 +108,62 @@ export class FormPreviewComponent implements OnInit {
       toPost[value.name] = value.files;
     }
 
-    console.log(toPost);
+    this.post(toPost);
+  }
+
+  private post(toPost: any): void {
+    if (!toPost) {
+      return;
+    }
+
+    if (!this.preset) {
+      return;
+    }
+
+    const {
+      submitAPIUrl,
+      method,
+      sendBodyAs,
+      authorization,
+      responseMessages,
+    } = this.preset;
+
+    if (
+      method === APIMethodsEnum.POST &&
+      sendBodyAs === SendBodyTypesEnum.JSON
+    ) {
+      this.postJson(submitAPIUrl, toPost, responseMessages);
+    }
+  }
+
+  private postJson(
+    submitAPIUrl: string,
+    object: any,
+    responseMessages: {
+      onSuccess: {
+        title: string;
+        subTitle: string;
+      };
+      onFailed: {
+        title: string;
+        subTitle: string;
+      };
+    }
+  ): void {
+    this.formSubscription = this.apiCallService
+      .postJson(submitAPIUrl, object)
+      .subscribe({
+        next: (response: string) => {
+          this.scrollToTop();
+        },
+        error: (error: HttpErrorResponse) => {
+          this.scrollToTop();
+        },
+      });
+  }
+
+  private scrollToTop(): void {
+    window.scrollTo(0, 0);
   }
 
   private buildForm(): void {
