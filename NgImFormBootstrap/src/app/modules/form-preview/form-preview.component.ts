@@ -47,7 +47,7 @@ export class FormPreviewComponent implements OnInit {
       name: string;
       required: boolean;
       requiredMessage: string | null;
-      files: any[];
+      files: File[];
       hasFiles: boolean;
       sizeValid: boolean;
       sizeValidationMessage: string | null;
@@ -180,6 +180,11 @@ export class FormPreviewComponent implements OnInit {
       sendBodyAs === SendBodyTypesEnum.JSON
     ) {
       this.postJson(submitAPIUrl, toPost, responseMessages);
+    } else if (
+      method === APIMethodsEnum.POST &&
+      sendBodyAs === SendBodyTypesEnum.FORM_DATA
+    ) {
+      this.postFormData(submitAPIUrl, toPost, responseMessages);
     }
   }
 
@@ -201,6 +206,55 @@ export class FormPreviewComponent implements OnInit {
 
     this.formSubscription = this.apiCallService
       .postJson(submitAPIUrl, object)
+      .subscribe({
+        next: (response: string) => {
+          this.response = {
+            isViewAlert: true,
+            successMessage: `${responseMessages.onSuccess.title}. ${responseMessages.onSuccess.subTitle}`,
+            failedMessage: undefined,
+          };
+
+          this.scrollToTop();
+          this.disapperResponseAlert();
+
+          this.isSubmitProcessing = false;
+        },
+        error: (error: HttpErrorResponse) => {
+          this.response = {
+            isViewAlert: true,
+            successMessage: undefined,
+            failedMessage: {
+              message: `${responseMessages.onFailed.title}. ${responseMessages.onFailed.subTitle}`,
+              details: error.message,
+            },
+          };
+
+          this.scrollToTop();
+          this.disapperResponseAlert();
+
+          this.isSubmitProcessing = false;
+        },
+      });
+  }
+
+  private postFormData(
+    submitAPIUrl: string,
+    object: any,
+    responseMessages: {
+      onSuccess: {
+        title: string;
+        subTitle: string;
+      };
+      onFailed: {
+        title: string;
+        subTitle: string;
+      };
+    }
+  ): void {
+    this.isSubmitProcessing = true;
+
+    this.formSubscription = this.apiCallService
+      .postFormData(submitAPIUrl, object)
       .subscribe({
         next: (response: string) => {
           this.response = {
@@ -390,7 +444,7 @@ export class FormPreviewComponent implements OnInit {
           name: string;
           required: boolean;
           requiredMessage: string | null;
-          files: any[];
+          files: File[];
           hasFiles: boolean;
           sizeValid: boolean;
           sizeValidationMessage: string | null;
@@ -405,7 +459,7 @@ export class FormPreviewComponent implements OnInit {
           name: string;
           required: boolean;
           requiredMessage: string | null;
-          files: any[];
+          files: File[];
           hasFiles: boolean;
           sizeValid: boolean;
           sizeValidationMessage: string | null;

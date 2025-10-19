@@ -17,7 +17,7 @@ export class FormPropertiesSidepanelComponent implements OnInit {
 
   sendBodyTypes: string[] = [
     SendBodyTypesEnum.JSON,
-    SendBodyTypesEnum.X_WWW_FORM_URLENCODED,
+    SendBodyTypesEnum.FORM_DATA,
   ];
 
   @Input() formProperties: IHorizontalFormModel | undefined;
