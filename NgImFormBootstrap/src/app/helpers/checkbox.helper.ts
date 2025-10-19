@@ -31,7 +31,7 @@ function addCheckbox(
     id: generatedId,
     name: generatedId,
     label: `Checkbox ${order + 1}`,
-    class: '',
+    class: 'form-check-input',
     validationErrorClass: '',
     checked: false,
     isReadOnly: false,
