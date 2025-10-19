@@ -13,14 +13,18 @@ export class APICallService {
   }
 
   postFormData(url: string, object: any): Observable<string> {
-    const formData: any = new FormData();
+    const formData: FormData = new FormData();
 
     for (const key in object) {
-      formData.append(key, object[key]);
-    }
+      if (Array.isArray(object[key])) {
+        for (const element of object[key]) {
+          formData.append(key, element);
+        }
 
-    for (const pair of formData.entries()) {
-      console.log(pair[0] + ': ' + pair[1]);
+        continue;
+      }
+
+      formData.append(key, object[key]);
     }
 
     return this.http.post<string>(url, formData);

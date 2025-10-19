@@ -47,6 +47,7 @@ export class FormPreviewComponent implements OnInit {
       name: string;
       required: boolean;
       requiredMessage: string | null;
+      isMultiple: boolean;
       files: File[];
       hasFiles: boolean;
       sizeValid: boolean;
@@ -123,7 +124,8 @@ export class FormPreviewComponent implements OnInit {
 
     this.isSubmitClicked = true;
 
-    if (this.form.valid && this.isFilesValid()) {
+    const filesValid: boolean = this.isFilesValid();
+    if (this.form.valid && filesValid) {
       this.extractFormData();
     }
   }
@@ -158,7 +160,11 @@ export class FormPreviewComponent implements OnInit {
     for (const browsedFilePair of this.browsedFiles) {
       const [key, value] = browsedFilePair;
 
-      toPost[value.name] = value.files;
+      if (value.isMultiple) {
+        toPost[value.name] = value.files;
+      } else {
+        toPost[value.name] = value.files.length > 0 ? value.files[0] : null;
+      }
     }
 
     this.post(toPost);
@@ -393,6 +399,7 @@ export class FormPreviewComponent implements OnInit {
           this.browsedFiles.set(element.fileFieldComponent.id, {
             name: element.fileFieldComponent.name,
             files: [],
+            isMultiple: element.fileFieldComponent.isMultiple,
             hasFiles: false,
             required:
               !element.fileFieldComponent.isHidden &&
@@ -410,7 +417,9 @@ export class FormPreviewComponent implements OnInit {
               !element.fileFieldComponent.isHidden &&
               !element.fileFieldComponent.isReadOnly
                 ? element.fileFieldComponent.isRequired
-                : false,
+                  ? false
+                  : true
+                : true,
           });
         }
       }
@@ -422,6 +431,7 @@ export class FormPreviewComponent implements OnInit {
       this.browsedFiles.set(props.id, {
         name: props.name,
         files: [],
+        isMultiple: props.isMultiple,
         hasFiles: false,
         required:
           !props.isHidden && !props.isReadOnly ? props.isRequired : false,
@@ -433,7 +443,7 @@ export class FormPreviewComponent implements OnInit {
         extensionsValid: true,
         extendsionValidationMessages: [],
         everythingIsValid:
-          !props.isHidden && !props.isReadOnly ? props.isRequired : false,
+          !props.isHidden && !props.isReadOnly ? props.isRequired : true,
       });
 
       return;
@@ -445,6 +455,7 @@ export class FormPreviewComponent implements OnInit {
           required: boolean;
           requiredMessage: string | null;
           files: File[];
+          isMultiple: boolean;
           hasFiles: boolean;
           sizeValid: boolean;
           sizeValidationMessage: string | null;
@@ -460,6 +471,7 @@ export class FormPreviewComponent implements OnInit {
           required: boolean;
           requiredMessage: string | null;
           files: File[];
+          isMultiple: boolean;
           hasFiles: boolean;
           sizeValid: boolean;
           sizeValidationMessage: string | null;
@@ -583,7 +595,7 @@ export class FormPreviewComponent implements OnInit {
       }
     }
 
-    let everythingIsFine: boolean = false;
+    let everythingIsFine: boolean = true;
 
     if (props.isHidden || props.isReadOnly) {
       everythingIsFine = true;
