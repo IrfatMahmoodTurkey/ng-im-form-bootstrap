@@ -21,7 +21,7 @@ import { ALIGNMENTS } from '../../constants/alignments.constant';
 import { APICallService } from '../services/api-call.service';
 import { APIMethodsEnum } from '../../enums/api-methods.enum';
 import { SendBodyTypesEnum } from '../../enums/send-body-types.enum';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -179,24 +179,16 @@ export class FormPreviewComponent implements OnInit {
       return;
     }
 
-    const { submitAPIUrl, method, sendBodyAs, responseMessages } = this.preset;
+    const { submitAPIUrl, sendBodyAs, method, responseMessages } = this.preset;
 
-    if (
-      method === APIMethodsEnum.POST &&
-      sendBodyAs === SendBodyTypesEnum.JSON
-    ) {
-      this.postJson(submitAPIUrl, toPost, responseMessages);
-    } else if (
-      method === APIMethodsEnum.POST &&
-      sendBodyAs === SendBodyTypesEnum.FORM_DATA
-    ) {
-      this.postFormData(submitAPIUrl, toPost, responseMessages);
-    }
+    this.send(submitAPIUrl, toPost, sendBodyAs, method, responseMessages);
   }
 
-  private postJson(
+  private send(
     submitAPIUrl: string,
     object: any,
+    sendBodyAs: SendBodyTypesEnum,
+    method: APIMethodsEnum,
     responseMessages: {
       onSuccess: {
         title: string;
@@ -210,86 +202,51 @@ export class FormPreviewComponent implements OnInit {
   ): void {
     this.isSubmitProcessing = true;
 
-    this.formSubscription = this.apiCallService
-      .postJson(submitAPIUrl, object)
-      .subscribe({
-        next: (response: string) => {
-          this.response = {
-            isViewAlert: true,
-            successMessage: `${responseMessages.onSuccess.title}. ${responseMessages.onSuccess.subTitle}`,
-            failedMessage: undefined,
-          };
+    let observer: Observable<string> | undefined;
 
-          this.scrollToTop();
-          this.disapperResponseAlert();
-
-          this.isSubmitProcessing = false;
-        },
-        error: (error: HttpErrorResponse) => {
-          this.response = {
-            isViewAlert: true,
-            successMessage: undefined,
-            failedMessage: {
-              message: `${responseMessages.onFailed.title}. ${responseMessages.onFailed.subTitle}`,
-              details: error.message,
-            },
-          };
-
-          this.scrollToTop();
-          this.disapperResponseAlert();
-
-          this.isSubmitProcessing = false;
-        },
-      });
-  }
-
-  private postFormData(
-    submitAPIUrl: string,
-    object: any,
-    responseMessages: {
-      onSuccess: {
-        title: string;
-        subTitle: string;
-      };
-      onFailed: {
-        title: string;
-        subTitle: string;
-      };
+    if (sendBodyAs === SendBodyTypesEnum.JSON) {
+      observer = this.apiCallService.sendJSONOnly(submitAPIUrl, object, method);
+    } else if (sendBodyAs === SendBodyTypesEnum.FORM_DATA) {
+      observer = this.apiCallService.sendFormData(submitAPIUrl, object, method);
+    } else {
+      this.isSubmitProcessing = false;
+      return;
     }
-  ): void {
-    this.isSubmitProcessing = true;
 
-    this.formSubscription = this.apiCallService
-      .postFormData(submitAPIUrl, object)
-      .subscribe({
-        next: (response: string) => {
-          this.response = {
-            isViewAlert: true,
-            successMessage: `${responseMessages.onSuccess.title}. ${responseMessages.onSuccess.subTitle}`,
-            failedMessage: undefined,
-          };
+    if (!observer) {
+      this.isSubmitProcessing = false;
+      return;
+    }
 
-          this.scrollToTop();
-          this.disapperResponseAlert();
+    this.formSubscription = observer.subscribe({
+      next: (response: string) => {
+        this.response = {
+          isViewAlert: true,
+          successMessage: `${responseMessages.onSuccess.title}. ${responseMessages.onSuccess.subTitle}`,
+          failedMessage: undefined,
+        };
 
-          this.isSubmitProcessing = false;
-        },
-        error: (error: HttpErrorResponse) => {
-          this.response = {
-            isViewAlert: true,
-            successMessage: undefined,
-            failedMessage: {
-              message: `${responseMessages.onFailed.title}. ${responseMessages.onFailed.subTitle}`,
-              details: error.message,
-            },
-          };
+        this.scrollToTop();
+        this.disapperResponseAlert();
 
-          this.scrollToTop();
-          this.disapperResponseAlert();
+        this.isSubmitProcessing = false;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.response = {
+          isViewAlert: true,
+          successMessage: undefined,
+          failedMessage: {
+            message: `${responseMessages.onFailed.title}. ${responseMessages.onFailed.subTitle}`,
+            details: error.message,
+          },
+        };
 
-          this.isSubmitProcessing = false;
-        },
-      });
+        this.scrollToTop();
+        this.disapperResponseAlert();
+
+        this.isSubmitProcessing = false;
+      },
+    });
   }
 
   private scrollToTop(): void {

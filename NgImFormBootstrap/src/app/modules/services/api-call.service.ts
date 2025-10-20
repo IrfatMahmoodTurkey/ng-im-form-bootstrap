@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { APIMethodsEnum } from '../../enums/api-methods.enum';
 
 @Injectable({
   providedIn: 'any',
@@ -8,11 +9,25 @@ import { Observable } from 'rxjs';
 export class APICallService {
   constructor(private http: HttpClient) {}
 
-  postJson(url: string, jsonObject: any): Observable<string> {
-    return this.http.post<string>(url, jsonObject);
+  sendJSONOnly(
+    url: string,
+    jsonObject: any,
+    method: APIMethodsEnum
+  ): Observable<string> {
+    if (method === APIMethodsEnum.POST) {
+      return this.http.post<string>(url, jsonObject);
+    } else if (method === APIMethodsEnum.PATCH) {
+      return this.http.patch<string>(url, jsonObject);
+    } else {
+      return this.http.put<string>(url, jsonObject);
+    }
   }
 
-  postFormData(url: string, object: any): Observable<string> {
+  sendFormData(
+    url: string,
+    object: any,
+    method: APIMethodsEnum
+  ): Observable<string> {
     const formData: FormData = new FormData();
 
     for (const key in object) {
@@ -27,6 +42,12 @@ export class APICallService {
       formData.append(key, object[key]);
     }
 
-    return this.http.post<string>(url, formData);
+    if (method === APIMethodsEnum.POST) {
+      return this.http.post<string>(url, formData);
+    } else if (method === APIMethodsEnum.PUT) {
+      return this.http.put<string>(url, formData);
+    } else {
+      return this.http.patch<string>(url, formData);
+    }
   }
 }
