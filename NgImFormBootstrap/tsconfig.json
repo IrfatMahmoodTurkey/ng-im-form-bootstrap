@@ -11,6 +11,11 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "isolatedModules": true,
+    "paths": {
+      "ng-im-form": [
+        "./dist/ng-im-form"
+      ]
+    },
     "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
