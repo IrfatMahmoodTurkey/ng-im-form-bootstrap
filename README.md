@@ -1,7 +1,8 @@
 # 🧩 NG IM FORM powered by Bootstrap
 
-[![Angular](https://img.shields.io/badge/Angular-18+-DD0031?logo=angular&logoColor=white)](https://angular.io/)
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.x-7952B3?logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
+[![Angular](https://img.shields.io/badge/Angular-18.2.0-DD0031?logo=angular&logoColor=white)](https://angular.io/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952B3?logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
+[![Font Awesome](https://img.shields.io/badge/Font%20Awesome-7.1.0-339AF0?logo=fontawesome&logoColor=white)](https://fontawesome.com/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 A flexible and elegant **Angular UI library** for building **submittable dynamic forms** — powered by **Bootstrap styling** and **drag-and-drop** organization.  
