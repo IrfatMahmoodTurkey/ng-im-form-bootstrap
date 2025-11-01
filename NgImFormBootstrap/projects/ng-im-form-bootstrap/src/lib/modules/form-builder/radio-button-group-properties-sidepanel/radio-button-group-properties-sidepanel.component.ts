@@ -6,6 +6,7 @@ import { IRadioButtonGroupModel } from '../../../models/horizontal-form.model';
 @Component({
   selector: 'app-radio-button-group-properties-sidepanel',
   templateUrl: './radio-button-group-properties-sidepanel.component.html',
+  styleUrl: '../form-builder.component.scss',
 })
 export class RadioButtonGroupPropertiesSidepanelComponent implements OnInit {
   @Input() radioButtonGroupProperties:

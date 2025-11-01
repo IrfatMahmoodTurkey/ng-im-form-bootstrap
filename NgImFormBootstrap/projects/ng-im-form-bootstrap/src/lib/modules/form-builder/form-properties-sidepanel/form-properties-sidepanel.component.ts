@@ -7,6 +7,7 @@ import { SendBodyTypesEnum } from '../../../enums/send-body-types.enum';
 @Component({
   selector: 'app-form-properties-sidepanel',
   templateUrl: './form-properties-sidepanel.component.html',
+  styleUrl: '../form-builder.component.scss',
 })
 export class FormPropertiesSidepanelComponent implements OnInit {
   apiMethods: string[] = [
