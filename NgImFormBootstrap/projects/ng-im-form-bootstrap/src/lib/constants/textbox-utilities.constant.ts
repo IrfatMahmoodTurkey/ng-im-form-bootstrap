@@ -1,4 +1,4 @@
-enum TextboxTypesEnum {
+export enum TextboxTypesEnum {
   TEXT = 'text',
   EMAIL = 'email',
   NUMBER = 'number',
@@ -8,7 +8,7 @@ enum TextboxTypesEnum {
   TEL = 'tel',
 }
 
-enum TextboxValidationsEnum {
+export enum TextboxValidationsEnum {
   EMAIL = 'email',
   MIN = 'min',
   MAX = 'max',
@@ -16,7 +16,7 @@ enum TextboxValidationsEnum {
   MAX_LEN = 'max_len',
 }
 
-const TEXTBOX_TYPES: {
+export const TEXTBOX_TYPES: {
   type: TextboxTypesEnum;
   validations: TextboxValidationsEnum[];
 }[] = [
@@ -53,9 +53,3 @@ const TEXTBOX_TYPES: {
     validations: [],
   },
 ];
-
-export const TEXTBOX_UTILITIES = {
-  TextboxTypesEnum,
-  TextboxValidationsEnum,
-  TEXTBOX_TYPES,
-};
