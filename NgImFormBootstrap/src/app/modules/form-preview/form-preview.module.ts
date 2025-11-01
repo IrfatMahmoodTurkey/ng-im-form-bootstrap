@@ -4,12 +4,11 @@ import { FormPreviewComponent } from './form-preview.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { APICallService } from '../services/api-call.service';
 import { UISharedModule } from '../../shared/ui-shared.module';
-import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, UISharedModule],
   declarations: [FormPreviewComponent],
   exports: [FormPreviewComponent],
-  providers: [APICallService, provideHttpClient()],
+  providers: [APICallService],
 })
 export class FormPreviewModule {}
