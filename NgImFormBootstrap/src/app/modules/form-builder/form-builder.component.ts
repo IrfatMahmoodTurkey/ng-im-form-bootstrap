@@ -3,7 +3,6 @@ import {
   IElementModel,
   IHorizonatalFormSectionModel,
   IHorizontalFormModel,
-  ITextBoxModel,
 } from '../../models/horizontal-form.model';
 import { APIMethodsEnum } from '../../enums/api-methods.enum';
 import { SendBodyTypesEnum } from '../../enums/send-body-types.enum';
@@ -49,10 +48,6 @@ export class FormBuilderComponent implements OnInit {
     submitAPIUrl: '',
     method: APIMethodsEnum.POST,
     sendBodyAs: SendBodyTypesEnum.JSON,
-    authorization: {
-      willAuthorize: false,
-      bearerTokenStorageKey: '',
-    },
     responseMessages: {
       onSuccess: {
         title: 'Success',

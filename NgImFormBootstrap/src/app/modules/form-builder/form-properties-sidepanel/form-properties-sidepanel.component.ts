@@ -55,8 +55,6 @@ export class FormPropertiesSidepanelComponent implements OnInit {
       'sendBodyAs',
       new FormControl(this.sendBodyTypes[0], [Validators.required])
     );
-    this.form.addControl('authorization', new FormControl(false));
-    this.form.addControl('bearerTokenStorageKey', new FormControl(''));
     this.form.addControl('successTitle', new FormControl(''));
     this.form.addControl('successSubTitle', new FormControl(''));
     this.form.addControl('failedTitle', new FormControl(''));
@@ -77,12 +75,6 @@ export class FormPropertiesSidepanelComponent implements OnInit {
     this.form.controls['submitAPIUrl'].setValue(properties.submitAPIUrl);
     this.form.controls['method'].setValue(properties.method);
     this.form.controls['sendBodyAs'].setValue(properties.sendBodyAs);
-    this.form.controls['authorization'].setValue(
-      properties.authorization.willAuthorize
-    );
-    this.form.controls['bearerTokenStorageKey'].setValue(
-      properties.authorization.bearerTokenStorageKey
-    );
     this.form.controls['successTitle'].setValue(
       properties.responseMessages.onSuccess.title
     );
@@ -114,8 +106,6 @@ export class FormPropertiesSidepanelComponent implements OnInit {
       submitAPIUrl,
       method,
       sendBodyAs,
-      authorization,
-      bearerTokenStorageKey,
       successTitle,
       successSubTitle,
       failedTitle,
@@ -126,8 +116,6 @@ export class FormPropertiesSidepanelComponent implements OnInit {
       this.form.controls['submitAPIUrl'].value,
       this.form.controls['method'].value,
       this.form.controls['sendBodyAs'].value,
-      this.form.controls['authorization'].value,
-      this.form.controls['bearerTokenStorageKey'].value,
       this.form.controls['successTitle'].value,
       this.form.controls['successSubTitle'].value,
       this.form.controls['failedTitle'].value,
@@ -140,10 +128,6 @@ export class FormPropertiesSidepanelComponent implements OnInit {
       submitAPIUrl,
       method,
       sendBodyAs,
-      authorization: {
-        willAuthorize: authorization,
-        bearerTokenStorageKey,
-      },
       responseMessages: {
         onSuccess: {
           title: successTitle,
