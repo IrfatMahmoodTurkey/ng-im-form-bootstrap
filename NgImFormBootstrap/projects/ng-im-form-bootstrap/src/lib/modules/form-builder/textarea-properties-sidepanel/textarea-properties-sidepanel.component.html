@@ -1,0 +1,130 @@
+<aside class="details-sidebar card">
+  <div class="details-section">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <span>
+          <h4 class="modal-title">Textarea Properties</h4>
+        </span>
+        <span>
+          <button type="button" class="btn btn-outline-danger btn-sm" (click)="hide()">
+            <i class="fas fa-times"></i>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div class="card-body sidebar-card-body">
+      <form [formGroup]="form" (ngSubmit)="saveChanges()">
+        <div class="form-horizontal">
+          <div class="form-group">
+            <span><b>Component ID:</b></span>
+            <span class="ms-1">{{textareaProperties?.properties?.id}}</span>
+          </div>
+          <hr>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Name*</b></label>
+            <input type="text" class="form-control" formControlName="name">
+            <small
+              *ngIf="isSubmitClicked && form.controls['name']?.errors && form.controls['name']?.errors?.['required']"
+              class="text-danger">Name is Required!</small>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Label*</b></label>
+            <input type="text" class="form-control" formControlName="label">
+            <small
+              *ngIf="isSubmitClicked && form.controls['label']?.errors && form.controls['label']?.errors?.['required']"
+              class="text-danger">Label is Required!</small>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Rows*</b></label>
+            <input type="number" class="form-control" formControlName="rows">
+            <small
+              *ngIf="isSubmitClicked && form.controls['rows']?.errors && form.controls['rows']?.errors?.['required']"
+              class="text-danger">Rows is Required!</small>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Columns*</b></label>
+            <input type="" class="form-control" formControlName="columns">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Placeholder</b></label>
+            <input type="text" class="form-control" formControlName="placeholder">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Class</b></label>
+            <input type="text" class="form-control" formControlName="class">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Validation Error Class</b></label>
+            <input type="text" class="form-control" formControlName="validationErrorClass">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Value</b></label>
+            <input type="text" class="form-control" formControlName="value">
+          </div>
+
+          <div class="form-group mb-2">
+            <input type="checkbox" formControlName="isReadOnly"><span class="ms-1">Is Readonly</span>
+          </div>
+
+          <div class="form-group mb-2">
+            <input type="checkbox" formControlName="isHidden"><span class="ms-1">Is Hidden</span>
+          </div>
+
+          <div class="form-group mb-2">
+            <input type="checkbox" formControlName="isRequired"><span class="ms-1">Is Required</span>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Required Message</b></label>
+            <input type="text" class="form-control" formControlName="requiredMessage">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Min Count Validation</b></label>
+            <input type="number" class="form-control" formControlName="minLenValidate">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Min Count Validation Message</b></label>
+            <input type="text" class="form-control" formControlName="minLenValidateMessage">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Max Count Validation</b></label>
+            <input type="number" class="form-control" formControlName="maxLenValidate">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Max Count Validation Message</b></label>
+            <input type="text" class="form-control" formControlName="maxLenValidateMessage">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Regex Validation</b></label>
+            <input type="text" class="form-control" formControlName="regex">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Regex Validation Message</b></label>
+            <input type="text" class="form-control" formControlName="regexMessage">
+          </div>
+          <hr>
+
+          <div class="form-group">
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</aside>
