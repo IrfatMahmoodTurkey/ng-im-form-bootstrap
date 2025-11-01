@@ -1,5 +1,5 @@
 {
-  "name": "ng-im-form",
+  "name": "ng-im-form-bootstrap",
   "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": "^18.2.0",

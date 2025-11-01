@@ -7,10 +7,6 @@ export interface IHorizontalFormModel {
   submitAPIUrl: string;
   method: APIMethodsEnum;
   sendBodyAs: SendBodyTypesEnum;
-  authorization: {
-    willAuthorize: boolean;
-    bearerTokenStorageKey: string;
-  };
   responseMessages: {
     onSuccess: {
       title: string;
