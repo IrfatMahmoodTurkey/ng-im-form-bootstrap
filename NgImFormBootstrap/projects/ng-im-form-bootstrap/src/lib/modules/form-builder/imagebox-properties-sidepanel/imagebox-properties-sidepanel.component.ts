@@ -7,6 +7,7 @@ import { ALIGNMENTS } from '../../../constants/alignments.constant';
 @Component({
   selector: 'app-imagebox-properties-sidepanel',
   templateUrl: './imagebox-properties-sidepanel.component.html',
+  styleUrl: '../form-builder.component.scss',
 })
 export class ImageboxPropertiesSidepanelComponent implements OnInit {
   alignments: string[] = ALIGNMENTS;
