@@ -1,0 +1,60 @@
+<aside class="details-sidebar card">
+  <div class="card-header">
+    <div class="d-flex justify-content-between">
+      <span>
+        <h4 class="modal-title">Section Properties</h4>
+      </span>
+      <span>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="hide()">
+          <i class="fas fa-times"></i>
+        </button>
+      </span>
+    </div>
+  </div>
+  <div class="card-body sidebar-card-body">
+    <form [formGroup]="form" (ngSubmit)="saveChanges()">
+      <div class="form-horizontal">
+        <div class="form-group">
+          <span><b>Component ID:</b></span>
+          <span class="ms-1">{{sectionProperties?.properties?.id}}</span>
+        </div>
+        <hr>
+
+        <div class="form-group mb-2">
+          <label class="mb-1"><b>Title*</b></label>
+          <input type="text" class="form-control" formControlName="title">
+          <small
+            *ngIf="isSubmitClicked && form.controls['title']?.errors && form.controls['title']?.errors?.['required']"
+            class="text-danger">Title is Required!</small>
+        </div>
+
+        <div class="form-group mb-2">
+          <label class="mb-1"><b>Subtitle</b></label>
+          <input type="text" class="form-control" formControlName="subTitle">
+        </div>
+
+        <div class="form-group mb-2">
+          <label class="mb-1"><b>Class</b></label>
+          <input type="text" class="form-control" formControlName="class">
+        </div>
+
+        <div class="form-group mb-2">
+          <label class="mb-1"><b>Header Class</b></label>
+          <input type="text" class="form-control" formControlName="headerClass">
+        </div>
+
+        <div class="form-group mb-2">
+          <label class="mb-1"><b>Body Class</b></label>
+          <input type="text" class="form-control" formControlName="bodyClass">
+        </div>
+        <hr>
+
+        <div class="form-group">
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</aside>

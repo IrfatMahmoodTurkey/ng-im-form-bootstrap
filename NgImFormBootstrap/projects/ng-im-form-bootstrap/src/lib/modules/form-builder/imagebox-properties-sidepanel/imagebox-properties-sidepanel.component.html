@@ -1,0 +1,98 @@
+<aside class="details-sidebar card">
+  <div class="details-section">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <span>
+          <h4 class="modal-title">Image Box Properties</h4>
+        </span>
+        <span>
+          <button type="button" class="btn btn-outline-danger btn-sm" (click)="hide()">
+            <i class="fas fa-times"></i>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div class="card-body sidebar-card-body">
+      <form [formGroup]="form" (ngSubmit)="saveChanges()">
+        <div class="form-horizontal">
+          <div class="form-group">
+            <span><b>Component ID:</b></span>
+            <span class="ms-1">{{imageboxProperties?.properties?.id}}</span>
+          </div>
+          <hr>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Order*</b></label>
+            <input type="number" class="form-control" formControlName="order">
+            <small
+              *ngIf="isSubmitClicked && form.controls['order']?.errors && form.controls['order']?.errors?.['required']"
+              class="text-danger">Order is Required!</small>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Name*</b></label>
+            <input type="text" class="form-control" formControlName="name">
+            <small
+              *ngIf="isSubmitClicked && form.controls['name']?.errors && form.controls['name']?.errors?.['required']"
+              class="text-danger">Name is Required!</small>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Class</b></label>
+            <input type="text" class="form-control" formControlName="class">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>User Defined Id</b></label>
+            <input type="text" class="form-control" formControlName="userDefinedId">
+            <small
+              *ngIf="isSubmitClicked && form.controls['userDefinedId']?.errors && form.controls['userDefinedId']?.errors?.['required']"
+              class="text-danger">User Defined ID is Required!</small>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>URL*</b></label>
+            <input type="text" class="form-control" formControlName="url">
+            <small *ngIf="isSubmitClicked && form.controls['url']?.errors && form.controls['url']?.errors?.['required']"
+              class="text-danger">URL is Required!</small>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>ALT*</b></label>
+            <input type="text" class="form-control" formControlName="alt">
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Height*</b></label>
+            <input type="number" class="form-control" formControlName="height">
+            <small
+              *ngIf="isSubmitClicked && form.controls['height']?.errors && form.controls['height']?.errors?.['required']"
+              class="text-danger">Height is Required!</small>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Width*</b></label>
+            <input type="number" class="form-control" formControlName="width">
+            <small
+              *ngIf="isSubmitClicked && form.controls['width']?.errors && form.controls['width']?.errors?.['required']"
+              class="text-danger">Width is Required!</small>
+          </div>
+
+          <div class="form-group mb-2">
+            <label class="mb-1"><b>Alignment</b></label>
+            <select class="form-control" formControlName="alignment">
+              <option *ngFor="let alignment of alignments" value="{{alignment}}">{{alignment}}</option>
+            </select>
+          </div>
+          <hr>
+
+          <div class="form-group">
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,31 @@
+<aside class="details-sidebar card">
+  <div class="card-header">
+    <div class="d-flex justify-content-between">
+      <span>
+        <h4 class="modal-title">Select Field</h4>
+      </span>
+      <span>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="hide()">
+          <i class="fas fa-times"></i>
+        </button>
+      </span>
+    </div>
+  </div>
+  <div class="card-body sidebar-card-body">
+    <ng-container *ngFor="let field of fields; let i = index">
+      <button type="button" class="m-1 btn"
+        [ngClass]="selectedIndex !== undefined ? i === selectedIndex ? 'btn-success' : 'btn-outline-success' :'btn-outline-success'"
+        (click)="select(i)">
+        <ng-container *ngIf="i === selectedIndex">
+          <i class="fas fa-check-circle"></i>
+        </ng-container>
+        {{field}}</button>
+    </ng-container>
+
+    <hr>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-primary" (click)="add()"><i class="fas fa-plus-circle"></i> Add</button>
+    </div>
+  </div>
+</aside>
