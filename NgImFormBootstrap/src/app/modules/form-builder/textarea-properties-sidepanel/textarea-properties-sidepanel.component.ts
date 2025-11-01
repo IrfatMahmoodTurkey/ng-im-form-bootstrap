@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ITextareaPropertiesInputEmitModel } from '../../../models/textarea-properties-input-emit.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TEXTAREA_UTILITIES } from '../../../constants/textarea-utilities.constant';
+import { TextareaValidationsEnum } from '../../../constants/textarea-utilities.constant';
 import { ITextAreaModel } from '../../../models/horizontal-form.model';
 
 @Component({
@@ -18,8 +18,8 @@ export class TextareaPropertiesSidepanelComponent implements OnInit {
   form: FormGroup = new FormGroup({});
 
   availableValidations: string[] = [
-    TEXTAREA_UTILITIES.TextareaValidationsEnum.MIN_LEN,
-    TEXTAREA_UTILITIES.TextareaValidationsEnum.MAX_LEN,
+    TextareaValidationsEnum.MIN_LEN,
+    TextareaValidationsEnum.MAX_LEN,
   ];
 
   toUseValidations: string[] = [];
