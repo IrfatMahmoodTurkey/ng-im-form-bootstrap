@@ -10,7 +10,10 @@ import {
   IHorizontalFormModel,
   ITextBoxModel,
 } from '../../../models/horizontal-form.model';
-import { TEXTBOX_UTILITIES } from '../../../constants/textbox-utilities.constant';
+import {
+  TEXTBOX_TYPES,
+  TextboxValidationsEnum,
+} from '../../../constants/textbox-utilities.constant';
 import { checkNameExistance } from '../../../helpers/existance.helper';
 
 @Component({
@@ -18,8 +21,7 @@ import { checkNameExistance } from '../../../helpers/existance.helper';
   templateUrl: './textbox-properties-sidepanel.component.html',
 })
 export class TextboxPropertiesSidepanelComponent implements OnInit {
-  textboxTypes: { type: string; validations: string[] }[] =
-    TEXTBOX_UTILITIES.TEXTBOX_TYPES;
+  textboxTypes: { type: string; validations: string[] }[] = TEXTBOX_TYPES;
 
   @Input() horizontalForm: IHorizontalFormModel | undefined;
   @Input() textboxProperties: ITextboxPropertiesInputEmitModel | undefined;
@@ -31,11 +33,11 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
   form: FormGroup = new FormGroup({});
 
   availableValidations: string[] = [
-    TEXTBOX_UTILITIES.TextboxValidationsEnum.EMAIL,
-    TEXTBOX_UTILITIES.TextboxValidationsEnum.MIN,
-    TEXTBOX_UTILITIES.TextboxValidationsEnum.MAX,
-    TEXTBOX_UTILITIES.TextboxValidationsEnum.MIN_LEN,
-    TEXTBOX_UTILITIES.TextboxValidationsEnum.MAX_LEN,
+    TextboxValidationsEnum.EMAIL,
+    TextboxValidationsEnum.MIN,
+    TextboxValidationsEnum.MAX,
+    TextboxValidationsEnum.MIN_LEN,
+    TextboxValidationsEnum.MAX_LEN,
   ];
 
   toUseValidations: string[] = [];
@@ -180,7 +182,7 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
 
   private getToUseValidations(selectedType: string): string[] {
     const found: { type: string; validations: string[] } | undefined =
-      TEXTBOX_UTILITIES.TEXTBOX_TYPES.find(
+      TEXTBOX_TYPES.find(
         (value: { type: string; validations: string[] }) =>
           selectedType === value.type
       );

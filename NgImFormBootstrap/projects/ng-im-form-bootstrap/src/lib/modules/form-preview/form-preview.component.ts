@@ -16,7 +16,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { TEXTBOX_UTILITIES } from '../../constants/textbox-utilities.constant';
+import { TextboxValidationsEnum } from '../../constants/textbox-utilities.constant';
 import { ALIGNMENTS } from '../../constants/alignments.constant';
 import { APICallService } from '../services/api-call.service';
 import { APIMethodsEnum } from '../../enums/api-methods.enum';
@@ -39,7 +39,7 @@ export class FormPreviewComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   isSubmitClicked: boolean = false;
 
-  textboxValidationEnum = TEXTBOX_UTILITIES.TextboxValidationsEnum;
+  textboxValidationEnum = TextboxValidationsEnum;
 
   browsedFiles: Map<
     string,
