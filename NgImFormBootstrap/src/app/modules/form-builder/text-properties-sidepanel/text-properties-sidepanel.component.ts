@@ -7,6 +7,7 @@ import { ITextModel } from '../../../models/horizontal-form.model';
 @Component({
   selector: 'app-text-properties-sidepanel',
   templateUrl: './text-properties-sidepanel.component.html',
+  styleUrl: '../form-builder.component.scss',
 })
 export class TextPropertiesSidepanelComponent implements OnInit {
   alignments: string[] = ALIGNMENTS;

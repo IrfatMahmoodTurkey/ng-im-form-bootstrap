@@ -6,6 +6,7 @@ import { ISelectBoxModel } from '../../../models/horizontal-form.model';
 @Component({
   selector: 'app-selectbox-properties-sidepanel',
   templateUrl: './selectbox-properties-sidepanel.component.html',
+  styleUrl: '../form-builder.component.scss',
 })
 export class SelectboxPropertiesSidepanelComponent implements OnInit {
   @Input() selectBoxProperties: ISelectboxPropertiesInputEmitModel | undefined;

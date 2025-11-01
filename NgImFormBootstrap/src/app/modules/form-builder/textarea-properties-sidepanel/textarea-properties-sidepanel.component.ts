@@ -7,6 +7,7 @@ import { ITextAreaModel } from '../../../models/horizontal-form.model';
 @Component({
   selector: 'app-textarea-properties-sidepanel',
   templateUrl: './textarea-properties-sidepanel.component.html',
+  styleUrl: '../form-builder.component.scss',
 })
 export class TextareaPropertiesSidepanelComponent implements OnInit {
   @Input() textareaProperties: ITextareaPropertiesInputEmitModel | undefined;

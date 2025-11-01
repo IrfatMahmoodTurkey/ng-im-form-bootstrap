@@ -6,6 +6,7 @@ import { IFileFieldModel } from '../../../models/horizontal-form.model';
 @Component({
   selector: 'app-filefield-properties-sidepanel',
   templateUrl: './filefield-properties-sidepanel.component.html',
+  styleUrl: '../form-builder.component.scss',
 })
 export class FilefieldPropertiesSidepanelComponent implements OnInit {
   @Input() fileFieldProperties: IFileFieldPropertiesInputEmitModel | undefined;

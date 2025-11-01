@@ -4,6 +4,7 @@ import { FIELDS } from '../../../constants/field-types.constant';
 @Component({
   selector: 'app-field-selection-sidepanel',
   templateUrl: './field-selection-sidepanel.component.html',
+  styleUrl: '../form-builder.component.scss',
 })
 export class FieldSelectionSidePanelComponent implements OnInit {
   @Output() hidePanelEvent: EventEmitter<null> = new EventEmitter();

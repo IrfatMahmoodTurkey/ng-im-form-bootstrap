@@ -1,11 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ITextboxPropertiesInputEmitModel } from '../../../models/textbox-properties-input-emit.model';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   IHorizontalFormModel,
   ITextBoxModel,
@@ -19,6 +14,7 @@ import { checkNameExistance } from '../../../helpers/existance.helper';
 @Component({
   selector: 'app-textbox-properties-sidepanel',
   templateUrl: './textbox-properties-sidepanel.component.html',
+  styleUrl: '../form-builder.component.scss',
 })
 export class TextboxPropertiesSidepanelComponent implements OnInit {
   textboxTypes: { type: string; validations: string[] }[] = TEXTBOX_TYPES;

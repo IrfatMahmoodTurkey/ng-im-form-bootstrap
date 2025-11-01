@@ -5,6 +5,7 @@ import { ISectionPropertiesInputEmitModel } from '../../../models/section-proper
 @Component({
   selector: 'app-section-properties-sidepanel',
   templateUrl: './section-properties-sidepanel.component.html',
+  styleUrl: '../form-builder.component.scss',
 })
 export class SectionPropertiesSidepanelComponent implements OnInit {
   @Input() sectionProperties: ISectionPropertiesInputEmitModel | undefined;
