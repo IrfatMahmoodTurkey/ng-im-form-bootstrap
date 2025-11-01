@@ -36,8 +36,68 @@ Once the form is designed, it can be **submitted as JSON**, making it ideal for 
 ✅ **Reactive & Submittable** – Fully functional Angular Reactive Forms.  
 ✅ **JSON Export/Import** – Save or load form structures easily.  
 ✅ **Reusable Angular Library** – Designed for modular integration into any Angular project.  
-✅ **Lightweight & Extensible** – Add new field types or behaviors with minimal effort.
+✅ **Lightweight & Extensible** – Add new field types or behaviours with minimal effort.
 
 ---
 
+## 🛠️ Installation
+
+Install the library and its required peer dependencies via **npm**. Use the following commands: 
+
+```npm install @irfat/angular-dynamic-form-builder```
+```npm install bootstrap@5.3.8```
+```npm install @fortawesome/fontawesome-free@7.1.0```
+
+---
+
+## ⚙️ Configure Styles
+
+Add Bootstrap and Font Awesome styles to your global configuration in **angular.json**:
+
+```
+"styles": [
+  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+  "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+  "src/styles.css"
+],
+"scripts": []
+```
+Alternatively, if you prefer to import styles directly in your **global stylesheet** (styles.scss or styles.css):
+
+```
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+```
+
+---
+
+## 📦 Import the Library Module
+
+In your main app module ```(app.module.ts)```, import the ```FormBuilderModule``` or ```FormPreviewModule```:
+
+```
+import { DynamicFormBuilderModule } from '@irfat/angular-dynamic-form-builder';
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    DynamicFormBuilderModule
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
+
+---
+
+## ✅ Verify Installation
+
+Once installed, you can use the component selector in any template:
+
+```
+<app-form-builder [preset]="null"><app-form-builder>
+```
+
+If you see Bootstrap styling and Font Awesome icons properly rendered, your setup is complete 🎉
 #
