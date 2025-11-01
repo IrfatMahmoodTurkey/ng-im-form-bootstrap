@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { FormBuilderPageComponent } from './pages/form-builder-page/form-builder-page.component';
 import { FormPreviewPageComponent } from './pages/form-preview-page/form-preview-page.component';
-import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +36,7 @@ import { provideHttpClient } from '@angular/common/http';
       },
     ]),
   ],
-  providers: [provideHttpClient()],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
