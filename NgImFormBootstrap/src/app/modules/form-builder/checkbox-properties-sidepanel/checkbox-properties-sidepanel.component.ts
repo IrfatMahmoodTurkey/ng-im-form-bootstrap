@@ -6,6 +6,7 @@ import { ICheckBoxModel } from '../../../models/horizontal-form.model';
 @Component({
   selector: 'app-checkbox-properties-sidepanel',
   templateUrl: './checkbox-properties-sidepanel.component.html',
+  styleUrl: '../form-builder.component.scss',
 })
 export class CheckboxPropertiesSidepanelComponent implements OnInit {
   @Input() checkboxProperties: ICheckboxPropertiesInputEmitModel | undefined;
