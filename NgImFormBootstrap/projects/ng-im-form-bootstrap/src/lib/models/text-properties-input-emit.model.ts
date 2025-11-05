@@ -1,7 +1,7 @@
-import { ITextModel } from './horizontal-form.model';
+import { INgImFormTextModel } from './horizontal-form.model';
 
 export interface ITextPropertiesInputEmitModel {
   sectionId: string;
   textId: string;
-  properties: ITextModel;
+  properties: INgImFormTextModel;
 }

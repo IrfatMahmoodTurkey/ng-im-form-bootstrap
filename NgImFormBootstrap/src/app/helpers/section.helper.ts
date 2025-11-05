@@ -1,11 +1,11 @@
 import {
-  IHorizonatalFormSectionModel,
-  IHorizontalFormModel,
+  INgImHorizonatalFormSectionModel,
+  INgImHorizontalFormModel,
 } from '../models/horizontal-form.model';
 
 function addSection(
-  horizontalForm: IHorizontalFormModel
-): IHorizontalFormModel {
+  horizontalForm: INgImHorizontalFormModel
+): INgImHorizontalFormModel {
   const generatedId: string = String(Date.now());
 
   horizontalForm.sections.push({
@@ -23,14 +23,14 @@ function addSection(
 
 function removeSection(
   id: string,
-  horizontalForm: IHorizontalFormModel
-): IHorizontalFormModel | null {
+  horizontalForm: INgImHorizontalFormModel
+): INgImHorizontalFormModel | null {
   if (horizontalForm.sections.length <= 0) {
     return null;
   }
 
   const indexOf: number = horizontalForm.sections.findIndex(
-    (value: IHorizonatalFormSectionModel) => value.id === id
+    (value: INgImHorizonatalFormSectionModel) => value.id === id
   );
 
   if (indexOf < 0) {

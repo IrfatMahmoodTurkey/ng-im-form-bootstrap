@@ -1,7 +1,7 @@
-import { IFileFieldModel } from './horizontal-form.model';
+import { INgImFormFileFieldModel } from './horizontal-form.model';
 
 export interface IFileFieldPropertiesInputEmitModel {
   sectionId: string;
   fileFieldId: string;
-  properties: IFileFieldModel;
+  properties: INgImFormFileFieldModel;
 }

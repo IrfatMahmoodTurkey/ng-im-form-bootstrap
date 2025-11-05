@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ALIGNMENTS } from '../../../constants/alignments.constant';
 import { ITextPropertiesInputEmitModel } from '../../../models/text-properties-input-emit.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ITextModel } from '../../../models/horizontal-form.model';
+import { INgImFormTextModel } from '../../../models/horizontal-form.model';
 
 @Component({
   selector: 'app-text-properties-sidepanel',
@@ -50,7 +50,7 @@ export class TextPropertiesSidepanelComponent implements OnInit {
       return;
     }
 
-    const properties: ITextModel = this.textProperties.properties;
+    const properties: INgImFormTextModel = this.textProperties.properties;
 
     this.form.controls['order'].setValue(properties.order);
     this.form.controls['name'].setValue(properties.name);

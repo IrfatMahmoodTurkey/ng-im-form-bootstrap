@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ITextboxPropertiesInputEmitModel } from '../../../models/textbox-properties-input-emit.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
-  IHorizontalFormModel,
-  ITextBoxModel,
+  INgImHorizontalFormModel,
+  INgImFormTextBoxModel,
 } from '../../../models/horizontal-form.model';
 import {
   TEXTBOX_TYPES,
@@ -19,7 +19,7 @@ import { checkNameExistance } from '../../../helpers/existance.helper';
 export class TextboxPropertiesSidepanelComponent implements OnInit {
   textboxTypes: { type: string; validations: string[] }[] = TEXTBOX_TYPES;
 
-  @Input() horizontalForm: IHorizontalFormModel | undefined;
+  @Input() horizontalForm: INgImHorizontalFormModel | undefined;
   @Input() textboxProperties: ITextboxPropertiesInputEmitModel | undefined;
 
   @Output() hidePanelEvent: EventEmitter<null> = new EventEmitter();
@@ -100,7 +100,7 @@ export class TextboxPropertiesSidepanelComponent implements OnInit {
       return;
     }
 
-    const properties: ITextBoxModel = this.textboxProperties.properties;
+    const properties: INgImFormTextBoxModel = this.textboxProperties.properties;
 
     this.form.controls['name'].setValue(properties.name);
     this.form.controls['label'].setValue(properties.label);

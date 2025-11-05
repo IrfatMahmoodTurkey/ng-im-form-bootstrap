@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IHorizontalFormModel } from '../../../models/horizontal-form.model';
+import { INgImHorizontalFormModel } from '../../../models/horizontal-form.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { APIMethodsEnum } from '../../../enums/api-methods.enum';
 import { SendBodyTypesEnum } from '../../../enums/send-body-types.enum';
@@ -21,10 +21,10 @@ export class FormPropertiesSidepanelComponent implements OnInit {
     SendBodyTypesEnum.FORM_DATA,
   ];
 
-  @Input() formProperties: IHorizontalFormModel | undefined;
+  @Input() formProperties: INgImHorizontalFormModel | undefined;
 
   @Output() hidePanelEvent: EventEmitter<null> = new EventEmitter();
-  @Output() saveChangesEvent: EventEmitter<IHorizontalFormModel> =
+  @Output() saveChangesEvent: EventEmitter<INgImHorizontalFormModel> =
     new EventEmitter();
 
   form: FormGroup = new FormGroup({});
@@ -65,7 +65,7 @@ export class FormPropertiesSidepanelComponent implements OnInit {
       return;
     }
 
-    const properties: IHorizontalFormModel = this.formProperties;
+    const properties: INgImHorizontalFormModel = this.formProperties;
 
     this.form.controls['checkValidations'].setValue(
       properties.checkValidations

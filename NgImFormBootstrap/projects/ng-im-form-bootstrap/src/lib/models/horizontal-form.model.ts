@@ -1,7 +1,7 @@
 import { APIMethodsEnum } from '../enums/api-methods.enum';
 import { SendBodyTypesEnum } from '../enums/send-body-types.enum';
 
-export interface IHorizontalFormModel {
+export interface INgImHorizontalFormModel {
   checkValidations: boolean;
   isResetButtonAvailable: boolean;
   submitAPIUrl: string;
@@ -17,32 +17,32 @@ export interface IHorizontalFormModel {
       subTitle: string;
     };
   };
-  sections: IHorizonatalFormSectionModel[];
+  sections: INgImHorizonatalFormSectionModel[];
 }
 
-export interface IHorizonatalFormSectionModel {
+export interface INgImHorizonatalFormSectionModel {
   id: string;
   title: string;
   subTitle: string;
   class: string;
   headerClass: string;
   bodyClass: string;
-  elements: IElementModel[];
+  elements: INgImFormElementModel[];
 }
 
-export interface IElementModel {
+export interface INgImFormElementModel {
   type: string;
-  textBoxComponent?: ITextBoxModel | null;
-  textAreaComponent?: ITextAreaModel | null;
-  selectBoxComponent?: ISelectBoxModel | null;
-  fileFieldComponent?: IFileFieldModel | null;
-  checkBoxComponent?: ICheckBoxModel | null;
-  radioButtonGroupComponent?: IRadioButtonGroupModel | null;
-  imageBoxComponent?: IImageBoxModel | null;
-  textComponent?: ITextModel | null;
+  textBoxComponent?: INgImFormTextBoxModel | null;
+  textAreaComponent?: INgImFormTextAreaModel | null;
+  selectBoxComponent?: INgImFormSelectBoxModel | null;
+  fileFieldComponent?: INgImFormFileFieldModel | null;
+  checkBoxComponent?: INgImFormCheckBoxModel | null;
+  radioButtonGroupComponent?: INgImFormRadioButtonGroupModel | null;
+  imageBoxComponent?: INgImFormImageBoxModel | null;
+  textComponent?: INgImFormTextModel | null;
 }
 
-export interface ITextBoxModel {
+export interface INgImFormTextBoxModel {
   id: string;
   name: string;
   label: string;
@@ -71,7 +71,7 @@ export interface ITextBoxModel {
   } | null;
 }
 
-export interface ITextAreaModel {
+export interface INgImFormTextAreaModel {
   id: string;
   name: string;
   label: string;
@@ -99,7 +99,7 @@ export interface ITextAreaModel {
   } | null;
 }
 
-export interface IFileFieldModel {
+export interface INgImFormFileFieldModel {
   id: string;
   name: string;
   label: string;
@@ -123,7 +123,7 @@ export interface IFileFieldModel {
     | null;
 }
 
-export interface ISelectBoxModel {
+export interface INgImFormSelectBoxModel {
   id: string;
   name: string;
   label: string;
@@ -144,7 +144,7 @@ export interface ISelectBoxModel {
     | null;
 }
 
-export interface ICheckBoxModel {
+export interface INgImFormCheckBoxModel {
   id: string;
   name: string;
   label: string;
@@ -157,7 +157,7 @@ export interface ICheckBoxModel {
   requiredMessage: string | null;
 }
 
-export interface IRadioButtonGroupModel {
+export interface INgImFormRadioButtonGroupModel {
   id: string;
   name: string;
   label: string;
@@ -176,7 +176,7 @@ export interface IRadioButtonGroupModel {
     | null;
 }
 
-export interface IImageBoxModel {
+export interface INgImFormImageBoxModel {
   id: string;
   order: number;
   name: string;
@@ -189,7 +189,7 @@ export interface IImageBoxModel {
   alignment: string;
 }
 
-export interface ITextModel {
+export interface INgImFormTextModel {
   id: string;
   order: number;
   name: string;

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IRadioButtonGroupPropertiesInputEmitModel } from '../../../models/radio-button-group-properties-input-emit.model';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IRadioButtonGroupModel } from '../../../models/horizontal-form.model';
+import { INgImFormRadioButtonGroupModel } from '../../../models/horizontal-form.model';
 
 @Component({
   selector: 'app-radio-button-group-properties-sidepanel',
@@ -45,7 +45,7 @@ export class RadioButtonGroupPropertiesSidepanelComponent implements OnInit {
       return;
     }
 
-    const properties: IRadioButtonGroupModel =
+    const properties: INgImFormRadioButtonGroupModel =
       this.radioButtonGroupProperties.properties;
 
     this.form.controls['name'].setValue(properties.name);

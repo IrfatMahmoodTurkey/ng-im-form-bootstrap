@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IHorizontalFormModel } from '../../models/horizontal-form.model';
+import { INgImHorizontalFormModel } from '../../models/horizontal-form.model';
 
 @Component({
   selector: 'app-form-preview-page',
@@ -7,7 +7,7 @@ import { IHorizontalFormModel } from '../../models/horizontal-form.model';
   styleUrls: ['./form-preview-page.component.css'],
 })
 export class FormPreviewPageComponent implements OnInit {
-  form: IHorizontalFormModel | undefined | null;
+  form: INgImHorizontalFormModel | undefined | null;
 
   constructor() {}
 
