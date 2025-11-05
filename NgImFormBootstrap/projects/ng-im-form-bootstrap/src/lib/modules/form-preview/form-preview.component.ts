@@ -24,6 +24,10 @@ import { SendBodyTypesEnum } from '../../enums/send-body-types.enum';
 import { Observable, Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
+/**
+ * @internal
+ * Do not import directly. Use via FormPreviewModule and selector <ng-im-form-preview>.
+ */
 @Component({
   selector: 'ng-im-form-preview',
   templateUrl: './form-preview.component.html',
