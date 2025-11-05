@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
-  ICheckBoxModel,
-  IElementModel,
-  IFileFieldModel,
-  IHorizonatalFormSectionModel,
-  IHorizontalFormModel,
-  IRadioButtonGroupModel,
-  ISelectBoxModel,
-  ITextAreaModel,
-  ITextBoxModel,
+  INgImFormCheckBoxModel,
+  INgImFormElementModel,
+  INgImFormFileFieldModel,
+  INgImHorizonatalFormSectionModel,
+  INgImHorizontalFormModel,
+  INgImFormRadioButtonGroupModel,
+  INgImFormSelectBoxModel,
+  INgImFormTextAreaModel,
+  INgImFormTextBoxModel,
 } from '../../models/horizontal-form.model';
 import {
   FormControl,
@@ -24,17 +24,21 @@ import { SendBodyTypesEnum } from '../../enums/send-body-types.enum';
 import { Observable, Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
+/**
+ * @internal
+ * Do not import directly. Use via FormPreviewModule and selector <ng-im-form-preview>.
+ */
 @Component({
-  selector: 'app-form-preview',
+  selector: 'ng-im-form-preview',
   templateUrl: './form-preview.component.html',
   styleUrls: ['./form-preview.component.css'],
 })
 export class FormPreviewComponent implements OnInit {
   alignments: string[] = ALIGNMENTS;
 
-  @Input() preset: IHorizontalFormModel | null | undefined;
+  @Input() preset: INgImHorizontalFormModel | null | undefined;
 
-  sections: IHorizonatalFormSectionModel[] = [];
+  sections: INgImHorizonatalFormSectionModel[] = [];
 
   form: FormGroup = new FormGroup({});
   isSubmitClicked: boolean = false;
@@ -261,7 +265,7 @@ export class FormPreviewComponent implements OnInit {
     }
   }
 
-  private appendControl(element: IElementModel): void {
+  private appendControl(element: INgImFormElementModel): void {
     if (element.textBoxComponent) {
       this.appendTextBox(element.textBoxComponent);
     } else if (element.textAreaComponent) {
@@ -275,7 +279,7 @@ export class FormPreviewComponent implements OnInit {
     }
   }
 
-  private appendTextBox(textbox: ITextBoxModel): void {
+  private appendTextBox(textbox: INgImFormTextBoxModel): void {
     let validators: ValidatorFn[] = [];
 
     if (!textbox.isReadOnly && !textbox.isHidden) {
@@ -314,7 +318,7 @@ export class FormPreviewComponent implements OnInit {
     );
   }
 
-  private appendTextArea(textarea: ITextAreaModel): void {
+  private appendTextArea(textarea: INgImFormTextAreaModel): void {
     let validators: ValidatorFn[] = [];
 
     if (!textarea.isReadOnly && !textarea.isHidden) {
@@ -383,7 +387,7 @@ export class FormPreviewComponent implements OnInit {
     }
   }
 
-  fileChangeEvent(event: any, props: IFileFieldModel): void {
+  fileChangeEvent(event: any, props: INgImFormFileFieldModel): void {
     if (event.target.files.length <= 0) {
       this.browsedFiles.set(props.id, {
         name: props.name,
@@ -579,7 +583,7 @@ export class FormPreviewComponent implements OnInit {
     return extension === extensionToCompare;
   }
 
-  private appendSelectBox(selectBox: ISelectBoxModel): void {
+  private appendSelectBox(selectBox: INgImFormSelectBoxModel): void {
     let validators: ValidatorFn[] = [];
 
     if (!selectBox.isReadOnly && !selectBox.isHidden) {
@@ -626,7 +630,7 @@ export class FormPreviewComponent implements OnInit {
     );
   }
 
-  private appendCheckbox(checkbox: ICheckBoxModel): void {
+  private appendCheckbox(checkbox: INgImFormCheckBoxModel): void {
     let validators: ValidatorFn[] = [];
 
     if (!checkbox.isReadOnly && !checkbox.isHidden) {
@@ -655,7 +659,7 @@ export class FormPreviewComponent implements OnInit {
   }
 
   private appendRadioButtonGroup(
-    radioButtonGroup: IRadioButtonGroupModel
+    radioButtonGroup: INgImFormRadioButtonGroupModel
   ): void {
     let validators: ValidatorFn[] = [];
 

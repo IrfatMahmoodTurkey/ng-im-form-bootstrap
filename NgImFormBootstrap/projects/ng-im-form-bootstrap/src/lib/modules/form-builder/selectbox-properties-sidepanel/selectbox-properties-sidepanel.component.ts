@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ISelectboxPropertiesInputEmitModel } from '../../../models/selectbox-properties-input-emit.model';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ISelectBoxModel } from '../../../models/horizontal-form.model';
+import { INgImFormSelectBoxModel } from '../../../models/horizontal-form.model';
 
 @Component({
   selector: 'app-selectbox-properties-sidepanel',
@@ -44,7 +44,8 @@ export class SelectboxPropertiesSidepanelComponent implements OnInit {
       return;
     }
 
-    const properties: ISelectBoxModel = this.selectBoxProperties.properties;
+    const properties: INgImFormSelectBoxModel =
+      this.selectBoxProperties.properties;
 
     this.form.controls['name'].setValue(properties.name);
     this.form.controls['label'].setValue(properties.label);

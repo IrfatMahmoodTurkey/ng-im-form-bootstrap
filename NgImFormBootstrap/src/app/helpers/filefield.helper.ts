@@ -1,22 +1,23 @@
 import { FIELDS } from '../constants/field-types.constant';
 import {
-  IElementModel,
-  IFileFieldModel,
-  IHorizonatalFormSectionModel,
-  IHorizontalFormModel,
+  INgImFormElementModel,
+  INgImFormFileFieldModel,
+  INgImHorizonatalFormSectionModel,
+  INgImHorizontalFormModel,
 } from '../models/horizontal-form.model';
 
 function addFilefield(
   selectedSectionId: string | undefined,
-  horizontalForm: IHorizontalFormModel
-): IHorizontalFormModel | null {
+  horizontalForm: INgImHorizontalFormModel
+): INgImHorizontalFormModel | null {
   if (!selectedSectionId) {
     return null;
   }
 
-  let toModifySection: IHorizonatalFormSectionModel | undefined =
+  let toModifySection: INgImHorizonatalFormSectionModel | undefined =
     horizontalForm.sections.find(
-      (value: IHorizonatalFormSectionModel) => value.id === selectedSectionId
+      (value: INgImHorizonatalFormSectionModel) =>
+        value.id === selectedSectionId
     );
 
   if (!toModifySection) {
@@ -27,7 +28,7 @@ function addFilefield(
 
   const order: number = toModifySection.elements.length;
 
-  const toAddFileField: IFileFieldModel = {
+  const toAddFileField: INgImFormFileFieldModel = {
     id: generatedId,
     name: generatedId,
     label: `Input Field ${order + 1}`,
@@ -54,21 +55,21 @@ function addFilefield(
 function removeFilefield(
   sectionId: string,
   id: string,
-  horizontalForm: IHorizontalFormModel
-): IHorizontalFormModel | null {
-  let toModifySection: IHorizonatalFormSectionModel | undefined =
+  horizontalForm: INgImHorizontalFormModel
+): INgImHorizontalFormModel | null {
+  let toModifySection: INgImHorizonatalFormSectionModel | undefined =
     horizontalForm.sections.find(
-      (value: IHorizonatalFormSectionModel) => value.id === sectionId
+      (value: INgImHorizonatalFormSectionModel) => value.id === sectionId
     );
 
   if (!toModifySection) {
     return null;
   }
 
-  let elements: IElementModel[] = toModifySection.elements;
+  let elements: INgImFormElementModel[] = toModifySection.elements;
 
   const indexOf: number = elements.findIndex(
-    (value: IElementModel) =>
+    (value: INgImFormElementModel) =>
       value.type === FIELDS[2] && value.fileFieldComponent?.id === id
   );
 

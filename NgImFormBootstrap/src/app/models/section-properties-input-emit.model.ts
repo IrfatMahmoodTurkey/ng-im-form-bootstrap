@@ -1,6 +1,6 @@
-import { IHorizonatalFormSectionModel } from './horizontal-form.model';
+import { INgImHorizonatalFormSectionModel } from './horizontal-form.model';
 
 export interface ISectionPropertiesInputEmitModel {
   sectionId: string;
-  properties: IHorizonatalFormSectionModel;
+  properties: INgImHorizonatalFormSectionModel;
 }

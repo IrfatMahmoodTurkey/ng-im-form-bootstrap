@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  IElementModel,
-  IHorizonatalFormSectionModel,
-  IHorizontalFormModel,
+  INgImFormElementModel,
+  INgImHorizonatalFormSectionModel,
+  INgImHorizontalFormModel,
 } from '../../models/horizontal-form.model';
 import { APIMethodsEnum } from '../../enums/api-methods.enum';
 import { SendBodyTypesEnum } from '../../enums/send-body-types.enum';
@@ -28,13 +28,13 @@ import { IImageBoxPropertiesInputEmitModel } from '../../models/image-box-proper
 import { ITextPropertiesInputEmitModel } from '../../models/text-properties-input-emit.model';
 
 @Component({
-  selector: 'app-form-builder',
+  selector: 'ng-im-form-builder',
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.scss'],
 })
 export class FormBuilderComponent implements OnInit {
-  @Input() preset: IHorizontalFormModel | undefined | null;
-  @Output() publishFormEvent: EventEmitter<IHorizontalFormModel> =
+  @Input() preset: INgImHorizontalFormModel | undefined | null;
+  @Output() publishFormEvent: EventEmitter<INgImHorizontalFormModel> =
     new EventEmitter();
 
   @Input() isPublishing: boolean = false;
@@ -42,7 +42,7 @@ export class FormBuilderComponent implements OnInit {
   alignments: string[] = ALIGNMENTS;
   fields: string[] = FIELDS;
 
-  horizontalForm: IHorizontalFormModel = {
+  horizontalForm: INgImHorizontalFormModel = {
     checkValidations: true,
     isResetButtonAvailable: true,
     submitAPIUrl: '',
@@ -128,7 +128,7 @@ export class FormBuilderComponent implements OnInit {
   }
 
   removeSection(id: string): void {
-    let horizontalForm: IHorizontalFormModel | null =
+    let horizontalForm: INgImHorizontalFormModel | null =
       sectionHelpers.removeSection(id, this.horizontalForm);
 
     if (horizontalForm) {
@@ -146,9 +146,9 @@ export class FormBuilderComponent implements OnInit {
   }
 
   viewSectionPropertiesSidePanel(id: string): void {
-    let properties: IHorizonatalFormSectionModel | undefined =
+    let properties: INgImHorizonatalFormSectionModel | undefined =
       this.horizontalForm.sections.find(
-        (value: IHorizonatalFormSectionModel) => value.id === id
+        (value: INgImHorizonatalFormSectionModel) => value.id === id
       );
 
     if (!properties) {
@@ -169,14 +169,14 @@ export class FormBuilderComponent implements OnInit {
 
   addField(type: string): void {
     if (type === this.fields[0]) {
-      let horizontalForm: IHorizontalFormModel | null =
+      let horizontalForm: INgImHorizontalFormModel | null =
         textboxHelpers.addTextbox(this.selectedSectionId, this.horizontalForm);
 
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
       }
     } else if (type === this.fields[1]) {
-      let horizontalForm: IHorizontalFormModel | null =
+      let horizontalForm: INgImHorizontalFormModel | null =
         textareaHelpers.addTextArea(
           this.selectedSectionId,
           this.horizontalForm
@@ -186,7 +186,7 @@ export class FormBuilderComponent implements OnInit {
         this.horizontalForm = horizontalForm;
       }
     } else if (type === this.fields[2]) {
-      let horizontalForm: IHorizontalFormModel | null =
+      let horizontalForm: INgImHorizontalFormModel | null =
         filefieldHelpers.addFilefield(
           this.selectedSectionId,
           this.horizontalForm
@@ -196,7 +196,7 @@ export class FormBuilderComponent implements OnInit {
         this.horizontalForm = horizontalForm;
       }
     } else if (type === this.fields[3]) {
-      let horizontalForm: IHorizontalFormModel | null =
+      let horizontalForm: INgImHorizontalFormModel | null =
         selectboxHelpers.addSelectbox(
           this.selectedSectionId,
           this.horizontalForm
@@ -206,7 +206,7 @@ export class FormBuilderComponent implements OnInit {
         this.horizontalForm = horizontalForm;
       }
     } else if (type === this.fields[4]) {
-      let horizontalForm: IHorizontalFormModel | null =
+      let horizontalForm: INgImHorizontalFormModel | null =
         checkboxHelpers.addCheckbox(
           this.selectedSectionId,
           this.horizontalForm
@@ -216,7 +216,7 @@ export class FormBuilderComponent implements OnInit {
         this.horizontalForm = horizontalForm;
       }
     } else if (type === this.fields[5]) {
-      let horizontalForm: IHorizontalFormModel | null =
+      let horizontalForm: INgImHorizontalFormModel | null =
         radioButtonGroupHelpers.addRadioButtonGroup(
           this.selectedSectionId,
           this.horizontalForm
@@ -226,7 +226,7 @@ export class FormBuilderComponent implements OnInit {
         this.horizontalForm = horizontalForm;
       }
     } else if (type === this.fields[6]) {
-      let horizontalForm: IHorizontalFormModel | null =
+      let horizontalForm: INgImHorizontalFormModel | null =
         imageBoxHelpers.addImageBoxGroup(
           this.selectedSectionId,
           this.horizontalForm
@@ -236,7 +236,7 @@ export class FormBuilderComponent implements OnInit {
         this.horizontalForm = horizontalForm;
       }
     } else if (type === this.fields[7]) {
-      let horizontalForm: IHorizontalFormModel | null = textHelpers.addText(
+      let horizontalForm: INgImHorizontalFormModel | null = textHelpers.addText(
         this.selectedSectionId,
         this.horizontalForm
       );
@@ -249,42 +249,42 @@ export class FormBuilderComponent implements OnInit {
 
   removeField(type: string, sectionId: string, id: string): void {
     if (type === this.fields[0]) {
-      let horizontalForm: IHorizontalFormModel | null =
+      let horizontalForm: INgImHorizontalFormModel | null =
         textboxHelpers.removeTextbox(sectionId, id, this.horizontalForm);
 
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
       }
     } else if (type === this.fields[1]) {
-      let horizontalForm: IHorizontalFormModel | null =
+      let horizontalForm: INgImHorizontalFormModel | null =
         textareaHelpers.removeTextArea(sectionId, id, this.horizontalForm);
 
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
       }
     } else if (type === this.fields[2]) {
-      let horizontalForm: IHorizontalFormModel | null =
+      let horizontalForm: INgImHorizontalFormModel | null =
         filefieldHelpers.removeFilefield(sectionId, id, this.horizontalForm);
 
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
       }
     } else if (type === this.fields[3]) {
-      let horizontalForm: IHorizontalFormModel | null =
+      let horizontalForm: INgImHorizontalFormModel | null =
         selectboxHelpers.removeSelectBox(sectionId, id, this.horizontalForm);
 
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
       }
     } else if (type === this.fields[4]) {
-      let horizontalForm: IHorizontalFormModel | null =
+      let horizontalForm: INgImHorizontalFormModel | null =
         checkboxHelpers.removeCheckBox(sectionId, id, this.horizontalForm);
 
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
       }
     } else if (type === this.fields[5]) {
-      let horizontalForm: IHorizontalFormModel | null =
+      let horizontalForm: INgImHorizontalFormModel | null =
         radioButtonGroupHelpers.removeRadioButtonGroup(
           sectionId,
           id,
@@ -295,18 +295,15 @@ export class FormBuilderComponent implements OnInit {
         this.horizontalForm = horizontalForm;
       }
     } else if (type === this.fields[6]) {
-      let horizontalForm: IHorizontalFormModel | null =
+      let horizontalForm: INgImHorizontalFormModel | null =
         imageBoxHelpers.removeImageBox(sectionId, id, this.horizontalForm);
 
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
       }
     } else if (type === this.fields[7]) {
-      let horizontalForm: IHorizontalFormModel | null = textHelpers.removeText(
-        sectionId,
-        id,
-        this.horizontalForm
-      );
+      let horizontalForm: INgImHorizontalFormModel | null =
+        textHelpers.removeText(sectionId, id, this.horizontalForm);
 
       if (horizontalForm) {
         this.horizontalForm = horizontalForm;
@@ -316,7 +313,8 @@ export class FormBuilderComponent implements OnInit {
 
   saveSectionProperties(emitted: ISectionPropertiesInputEmitModel): void {
     const indexOf: number = this.horizontalForm.sections.findIndex(
-      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+      (value: INgImHorizonatalFormSectionModel) =>
+        value.id === emitted.sectionId
     );
 
     if (indexOf < 0) {
@@ -327,17 +325,17 @@ export class FormBuilderComponent implements OnInit {
   }
 
   viewTextBoxPropertiesSidePanel(sectionId: string, textboxId: string): void {
-    let properties: IHorizonatalFormSectionModel | undefined =
+    let properties: INgImHorizonatalFormSectionModel | undefined =
       this.horizontalForm.sections.find(
-        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+        (value: INgImHorizonatalFormSectionModel) => value.id === sectionId
       );
 
     if (!properties) {
       return;
     }
 
-    let element: IElementModel | undefined = properties.elements.find(
-      (value: IElementModel) =>
+    let element: INgImFormElementModel | undefined = properties.elements.find(
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[0] &&
         value.textBoxComponent &&
         value.textBoxComponent.id === textboxId
@@ -362,7 +360,8 @@ export class FormBuilderComponent implements OnInit {
 
   saveTextboxProperties(emitted: ITextboxPropertiesInputEmitModel): void {
     let foundSectionIndex: number = this.horizontalForm.sections.findIndex(
-      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+      (value: INgImHorizonatalFormSectionModel) =>
+        value.id === emitted.sectionId
     );
 
     if (foundSectionIndex < 0) {
@@ -372,7 +371,7 @@ export class FormBuilderComponent implements OnInit {
     const foundTextboxIndex: number = this.horizontalForm.sections[
       foundSectionIndex
     ].elements.findIndex(
-      (value: IElementModel) =>
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[0] &&
         value.textBoxComponent &&
         value.textBoxComponent.id === emitted.textboxId
@@ -388,17 +387,17 @@ export class FormBuilderComponent implements OnInit {
   }
 
   viewTextAreaPropertiesSidePanel(sectionId: string, textareaId: string): void {
-    let properties: IHorizonatalFormSectionModel | undefined =
+    let properties: INgImHorizonatalFormSectionModel | undefined =
       this.horizontalForm.sections.find(
-        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+        (value: INgImHorizonatalFormSectionModel) => value.id === sectionId
       );
 
     if (!properties) {
       return;
     }
 
-    let element: IElementModel | undefined = properties.elements.find(
-      (value: IElementModel) =>
+    let element: INgImFormElementModel | undefined = properties.elements.find(
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[1] &&
         value.textAreaComponent &&
         value.textAreaComponent.id === textareaId
@@ -423,7 +422,8 @@ export class FormBuilderComponent implements OnInit {
 
   saveTextareaProperties(emitted: ITextareaPropertiesInputEmitModel): void {
     let foundSectionIndex: number = this.horizontalForm.sections.findIndex(
-      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+      (value: INgImHorizonatalFormSectionModel) =>
+        value.id === emitted.sectionId
     );
 
     if (foundSectionIndex < 0) {
@@ -433,7 +433,7 @@ export class FormBuilderComponent implements OnInit {
     const foundTextboxIndex: number = this.horizontalForm.sections[
       foundSectionIndex
     ].elements.findIndex(
-      (value: IElementModel) =>
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[1] &&
         value.textAreaComponent &&
         value.textAreaComponent.id === emitted.textareaId
@@ -452,17 +452,17 @@ export class FormBuilderComponent implements OnInit {
     sectionId: string,
     fileFieldId: string
   ): void {
-    let properties: IHorizonatalFormSectionModel | undefined =
+    let properties: INgImHorizonatalFormSectionModel | undefined =
       this.horizontalForm.sections.find(
-        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+        (value: INgImHorizonatalFormSectionModel) => value.id === sectionId
       );
 
     if (!properties) {
       return;
     }
 
-    let element: IElementModel | undefined = properties.elements.find(
-      (value: IElementModel) =>
+    let element: INgImFormElementModel | undefined = properties.elements.find(
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[2] &&
         value.fileFieldComponent &&
         value.fileFieldComponent.id === fileFieldId
@@ -487,7 +487,8 @@ export class FormBuilderComponent implements OnInit {
 
   saveFileFieldProperties(emitted: IFileFieldPropertiesInputEmitModel): void {
     let foundSectionIndex: number = this.horizontalForm.sections.findIndex(
-      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+      (value: INgImHorizonatalFormSectionModel) =>
+        value.id === emitted.sectionId
     );
 
     if (foundSectionIndex < 0) {
@@ -497,7 +498,7 @@ export class FormBuilderComponent implements OnInit {
     const foundFileFieldIndex: number = this.horizontalForm.sections[
       foundSectionIndex
     ].elements.findIndex(
-      (value: IElementModel) =>
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[2] &&
         value.fileFieldComponent &&
         value.fileFieldComponent.id === emitted.fileFieldId
@@ -516,17 +517,17 @@ export class FormBuilderComponent implements OnInit {
     sectionId: string,
     selectboxId: string
   ): void {
-    let properties: IHorizonatalFormSectionModel | undefined =
+    let properties: INgImHorizonatalFormSectionModel | undefined =
       this.horizontalForm.sections.find(
-        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+        (value: INgImHorizonatalFormSectionModel) => value.id === sectionId
       );
 
     if (!properties) {
       return;
     }
 
-    let element: IElementModel | undefined = properties.elements.find(
-      (value: IElementModel) =>
+    let element: INgImFormElementModel | undefined = properties.elements.find(
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[3] &&
         value.selectBoxComponent &&
         value.selectBoxComponent.id === selectboxId
@@ -551,7 +552,8 @@ export class FormBuilderComponent implements OnInit {
 
   saveSelectboxProperties(emitted: ISelectboxPropertiesInputEmitModel): void {
     let foundSectionIndex: number = this.horizontalForm.sections.findIndex(
-      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+      (value: INgImHorizonatalFormSectionModel) =>
+        value.id === emitted.sectionId
     );
 
     if (foundSectionIndex < 0) {
@@ -561,7 +563,7 @@ export class FormBuilderComponent implements OnInit {
     const foundSelectboxIndex: number = this.horizontalForm.sections[
       foundSectionIndex
     ].elements.findIndex(
-      (value: IElementModel) =>
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[3] &&
         value.selectBoxComponent &&
         value.selectBoxComponent.id === emitted.selectBoxId
@@ -577,17 +579,17 @@ export class FormBuilderComponent implements OnInit {
   }
 
   viewCheckboxPropertiesSidePanel(sectionId: string, checkboxId: string): void {
-    let properties: IHorizonatalFormSectionModel | undefined =
+    let properties: INgImHorizonatalFormSectionModel | undefined =
       this.horizontalForm.sections.find(
-        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+        (value: INgImHorizonatalFormSectionModel) => value.id === sectionId
       );
 
     if (!properties) {
       return;
     }
 
-    let element: IElementModel | undefined = properties.elements.find(
-      (value: IElementModel) =>
+    let element: INgImFormElementModel | undefined = properties.elements.find(
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[4] &&
         value.checkBoxComponent &&
         value.checkBoxComponent.id === checkboxId
@@ -612,7 +614,8 @@ export class FormBuilderComponent implements OnInit {
 
   saveCheckboxProperties(emitted: ICheckboxPropertiesInputEmitModel): void {
     let foundSectionIndex: number = this.horizontalForm.sections.findIndex(
-      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+      (value: INgImHorizonatalFormSectionModel) =>
+        value.id === emitted.sectionId
     );
 
     if (foundSectionIndex < 0) {
@@ -622,7 +625,7 @@ export class FormBuilderComponent implements OnInit {
     const foundCheckboxIndex: number = this.horizontalForm.sections[
       foundSectionIndex
     ].elements.findIndex(
-      (value: IElementModel) =>
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[4] &&
         value.checkBoxComponent &&
         value.checkBoxComponent.id === emitted.checkboxId
@@ -641,17 +644,17 @@ export class FormBuilderComponent implements OnInit {
     sectionId: string,
     radioButtonGroupId: string
   ): void {
-    let properties: IHorizonatalFormSectionModel | undefined =
+    let properties: INgImHorizonatalFormSectionModel | undefined =
       this.horizontalForm.sections.find(
-        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+        (value: INgImHorizonatalFormSectionModel) => value.id === sectionId
       );
 
     if (!properties) {
       return;
     }
 
-    let element: IElementModel | undefined = properties.elements.find(
-      (value: IElementModel) =>
+    let element: INgImFormElementModel | undefined = properties.elements.find(
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[5] &&
         value.radioButtonGroupComponent &&
         value.radioButtonGroupComponent.id === radioButtonGroupId
@@ -678,7 +681,8 @@ export class FormBuilderComponent implements OnInit {
     emitted: IRadioButtonGroupPropertiesInputEmitModel
   ): void {
     let foundSectionIndex: number = this.horizontalForm.sections.findIndex(
-      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+      (value: INgImHorizonatalFormSectionModel) =>
+        value.id === emitted.sectionId
     );
 
     if (foundSectionIndex < 0) {
@@ -688,7 +692,7 @@ export class FormBuilderComponent implements OnInit {
     const foundRadioButtonGroupIndex: number = this.horizontalForm.sections[
       foundSectionIndex
     ].elements.findIndex(
-      (value: IElementModel) =>
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[5] &&
         value.radioButtonGroupComponent &&
         value.radioButtonGroupComponent.id === emitted.radioButtonGroupId
@@ -704,17 +708,17 @@ export class FormBuilderComponent implements OnInit {
   }
 
   viewImageboxPropertiesSidePanel(sectionId: string, imageBoxId: string): void {
-    let properties: IHorizonatalFormSectionModel | undefined =
+    let properties: INgImHorizonatalFormSectionModel | undefined =
       this.horizontalForm.sections.find(
-        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+        (value: INgImHorizonatalFormSectionModel) => value.id === sectionId
       );
 
     if (!properties) {
       return;
     }
 
-    let element: IElementModel | undefined = properties.elements.find(
-      (value: IElementModel) =>
+    let element: INgImFormElementModel | undefined = properties.elements.find(
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[6] &&
         value.imageBoxComponent &&
         value.imageBoxComponent.id === imageBoxId
@@ -739,7 +743,8 @@ export class FormBuilderComponent implements OnInit {
 
   saveImageboxProperties(emitted: IImageBoxPropertiesInputEmitModel): void {
     let foundSectionIndex: number = this.horizontalForm.sections.findIndex(
-      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+      (value: INgImHorizonatalFormSectionModel) =>
+        value.id === emitted.sectionId
     );
 
     if (foundSectionIndex < 0) {
@@ -749,7 +754,7 @@ export class FormBuilderComponent implements OnInit {
     const foundImageboxId: number = this.horizontalForm.sections[
       foundSectionIndex
     ].elements.findIndex(
-      (value: IElementModel) =>
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[6] &&
         value.imageBoxComponent &&
         value.imageBoxComponent.id === emitted.imageBoxId
@@ -765,17 +770,17 @@ export class FormBuilderComponent implements OnInit {
   }
 
   viewTextPropertiesSidePanel(sectionId: string, textId: string): void {
-    let properties: IHorizonatalFormSectionModel | undefined =
+    let properties: INgImHorizonatalFormSectionModel | undefined =
       this.horizontalForm.sections.find(
-        (value: IHorizonatalFormSectionModel) => value.id === sectionId
+        (value: INgImHorizonatalFormSectionModel) => value.id === sectionId
       );
 
     if (!properties) {
       return;
     }
 
-    let element: IElementModel | undefined = properties.elements.find(
-      (value: IElementModel) =>
+    let element: INgImFormElementModel | undefined = properties.elements.find(
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[7] &&
         value.textComponent &&
         value.textComponent.id === textId
@@ -800,7 +805,8 @@ export class FormBuilderComponent implements OnInit {
 
   saveTextProperties(emitted: ITextPropertiesInputEmitModel): void {
     let foundSectionIndex: number = this.horizontalForm.sections.findIndex(
-      (value: IHorizonatalFormSectionModel) => value.id === emitted.sectionId
+      (value: INgImHorizonatalFormSectionModel) =>
+        value.id === emitted.sectionId
     );
 
     if (foundSectionIndex < 0) {
@@ -810,7 +816,7 @@ export class FormBuilderComponent implements OnInit {
     const foundTextId: number = this.horizontalForm.sections[
       foundSectionIndex
     ].elements.findIndex(
-      (value: IElementModel) =>
+      (value: INgImFormElementModel) =>
         value.type === FIELDS[7] &&
         value.textComponent &&
         value.textComponent.id === emitted.textId
@@ -833,7 +839,7 @@ export class FormBuilderComponent implements OnInit {
     this.isFormPropertiesSidePanelOpen = false;
   }
 
-  saveFormProperties(emitted: IHorizontalFormModel): void {
+  saveFormProperties(emitted: INgImHorizontalFormModel): void {
     this.horizontalForm = emitted;
   }
 
@@ -867,7 +873,7 @@ export class FormBuilderComponent implements OnInit {
       return;
     }
 
-    const draggedSection: IHorizonatalFormSectionModel =
+    const draggedSection: INgImHorizonatalFormSectionModel =
       this.horizontalForm.sections[this.draggedSectionIndex];
 
     this.horizontalForm.sections.splice(this.draggedSectionIndex, 1);
@@ -917,7 +923,7 @@ export class FormBuilderComponent implements OnInit {
       return;
     }
 
-    const draggedField: IElementModel =
+    const draggedField: INgImFormElementModel =
       this.horizontalForm.sections[sectionIndex].elements[
         this.draggedField.fieldIndex
       ];

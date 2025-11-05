@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IImageBoxPropertiesInputEmitModel } from '../../../models/image-box-properties-input-emit.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IImageBoxModel } from '../../../models/horizontal-form.model';
+import { INgImFormImageBoxModel } from '../../../models/horizontal-form.model';
 import { ALIGNMENTS } from '../../../constants/alignments.constant';
 
 @Component({
@@ -62,7 +62,8 @@ export class ImageboxPropertiesSidepanelComponent implements OnInit {
       return;
     }
 
-    const properties: IImageBoxModel = this.imageboxProperties.properties;
+    const properties: INgImFormImageBoxModel =
+      this.imageboxProperties.properties;
 
     this.form.controls['order'].setValue(properties.order);
     this.form.controls['name'].setValue(properties.name);

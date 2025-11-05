@@ -1,11 +1,11 @@
 import {
-  IElementModel,
-  IHorizonatalFormSectionModel,
-  IHorizontalFormModel,
+  INgImFormElementModel,
+  INgImHorizonatalFormSectionModel,
+  INgImHorizontalFormModel,
 } from '../models/horizontal-form.model';
 
 export function checkNameExistance(
-  horizontalForm: IHorizontalFormModel,
+  horizontalForm: INgImHorizontalFormModel,
   currentName: string,
   newName: string
 ): boolean {
@@ -13,12 +13,14 @@ export function checkNameExistance(
     return false;
   }
 
-  const sections: IHorizonatalFormSectionModel[] = horizontalForm.sections;
+  const sections: INgImHorizonatalFormSectionModel[] = horizontalForm.sections;
 
   let names: (string | undefined)[] = [];
 
   for (const section of sections) {
-    const elements: IElementModel[] = section.elements.map((value) => value);
+    const elements: INgImFormElementModel[] = section.elements.map(
+      (value) => value
+    );
 
     names = elements.map(
       (value) =>

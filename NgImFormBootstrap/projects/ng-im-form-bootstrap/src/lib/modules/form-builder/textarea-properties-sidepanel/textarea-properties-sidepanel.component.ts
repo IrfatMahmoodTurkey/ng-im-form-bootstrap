@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ITextareaPropertiesInputEmitModel } from '../../../models/textarea-properties-input-emit.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TextareaValidationsEnum } from '../../../constants/textarea-utilities.constant';
-import { ITextAreaModel } from '../../../models/horizontal-form.model';
+import { INgImFormTextAreaModel } from '../../../models/horizontal-form.model';
 
 @Component({
   selector: 'app-textarea-properties-sidepanel',
@@ -63,7 +63,8 @@ export class TextareaPropertiesSidepanelComponent implements OnInit {
       return;
     }
 
-    const properties: ITextAreaModel = this.textareaProperties.properties;
+    const properties: INgImFormTextAreaModel =
+      this.textareaProperties.properties;
 
     this.form.controls['name'].setValue(properties.name);
     this.form.controls['label'].setValue(properties.label);

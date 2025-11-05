@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IFileFieldPropertiesInputEmitModel } from '../../../models/filefield-properties-input-emit.model';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IFileFieldModel } from '../../../models/horizontal-form.model';
+import { INgImFormFileFieldModel } from '../../../models/horizontal-form.model';
 
 @Component({
   selector: 'app-filefield-properties-sidepanel',
@@ -46,7 +46,8 @@ export class FilefieldPropertiesSidepanelComponent implements OnInit {
       return;
     }
 
-    const properties: IFileFieldModel = this.fileFieldProperties.properties;
+    const properties: INgImFormFileFieldModel =
+      this.fileFieldProperties.properties;
 
     this.form.controls['name'].setValue(properties.name);
     this.form.controls['label'].setValue(properties.label);

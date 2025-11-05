@@ -1,22 +1,23 @@
 import { FIELDS } from '../constants/field-types.constant';
 import {
-  IElementModel,
-  IHorizonatalFormSectionModel,
-  IHorizontalFormModel,
-  ISelectBoxModel,
+  INgImFormElementModel,
+  INgImHorizonatalFormSectionModel,
+  INgImHorizontalFormModel,
+  INgImFormSelectBoxModel,
 } from '../models/horizontal-form.model';
 
 function addSelectbox(
   selectedSectionId: string | undefined,
-  horizontalForm: IHorizontalFormModel
-): IHorizontalFormModel | null {
+  horizontalForm: INgImHorizontalFormModel
+): INgImHorizontalFormModel | null {
   if (!selectedSectionId) {
     return null;
   }
 
-  let toModifySection: IHorizonatalFormSectionModel | undefined =
+  let toModifySection: INgImHorizonatalFormSectionModel | undefined =
     horizontalForm.sections.find(
-      (value: IHorizonatalFormSectionModel) => value.id === selectedSectionId
+      (value: INgImHorizonatalFormSectionModel) =>
+        value.id === selectedSectionId
     );
 
   if (!toModifySection) {
@@ -27,7 +28,7 @@ function addSelectbox(
 
   const order: number = toModifySection.elements.length;
 
-  const toAddSelectBox: ISelectBoxModel = {
+  const toAddSelectBox: INgImFormSelectBoxModel = {
     id: generatedId,
     name: generatedId,
     label: `Input Field ${order + 1}`,
@@ -53,21 +54,21 @@ function addSelectbox(
 function removeSelectBox(
   sectionId: string,
   id: string,
-  horizontalForm: IHorizontalFormModel
-): IHorizontalFormModel | null {
-  let toModifySection: IHorizonatalFormSectionModel | undefined =
+  horizontalForm: INgImHorizontalFormModel
+): INgImHorizontalFormModel | null {
+  let toModifySection: INgImHorizonatalFormSectionModel | undefined =
     horizontalForm.sections.find(
-      (value: IHorizonatalFormSectionModel) => value.id === sectionId
+      (value: INgImHorizonatalFormSectionModel) => value.id === sectionId
     );
 
   if (!toModifySection) {
     return null;
   }
 
-  let elements: IElementModel[] = toModifySection.elements;
+  let elements: INgImFormElementModel[] = toModifySection.elements;
 
   const indexOf: number = elements.findIndex(
-    (value: IElementModel) =>
+    (value: INgImFormElementModel) =>
       value.type === FIELDS[3] && value.selectBoxComponent?.id === id
   );
 

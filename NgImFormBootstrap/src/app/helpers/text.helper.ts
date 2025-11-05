@@ -1,23 +1,24 @@
 import { ALIGNMENTS } from '../constants/alignments.constant';
 import { FIELDS } from '../constants/field-types.constant';
 import {
-  IElementModel,
-  IHorizonatalFormSectionModel,
-  IHorizontalFormModel,
-  ITextModel,
+  INgImFormElementModel,
+  INgImHorizonatalFormSectionModel,
+  INgImHorizontalFormModel,
+  INgImFormTextModel,
 } from '../models/horizontal-form.model';
 
 function addText(
   selectedSectionId: string | undefined,
-  horizontalForm: IHorizontalFormModel
-): IHorizontalFormModel | null {
+  horizontalForm: INgImHorizontalFormModel
+): INgImHorizontalFormModel | null {
   if (!selectedSectionId) {
     return null;
   }
 
-  let toModifySection: IHorizonatalFormSectionModel | undefined =
+  let toModifySection: INgImHorizonatalFormSectionModel | undefined =
     horizontalForm.sections.find(
-      (value: IHorizonatalFormSectionModel) => value.id === selectedSectionId
+      (value: INgImHorizonatalFormSectionModel) =>
+        value.id === selectedSectionId
     );
 
   if (!toModifySection) {
@@ -28,7 +29,7 @@ function addText(
 
   const order: number = toModifySection.elements.length;
 
-  const toText: ITextModel = {
+  const toText: INgImFormTextModel = {
     id: generatedId,
     order: order + 1,
     name: generatedId,
@@ -49,21 +50,21 @@ function addText(
 function removeText(
   sectionId: string,
   id: string,
-  horizontalForm: IHorizontalFormModel
-): IHorizontalFormModel | null {
-  let toModifySection: IHorizonatalFormSectionModel | undefined =
+  horizontalForm: INgImHorizontalFormModel
+): INgImHorizontalFormModel | null {
+  let toModifySection: INgImHorizonatalFormSectionModel | undefined =
     horizontalForm.sections.find(
-      (value: IHorizonatalFormSectionModel) => value.id === sectionId
+      (value: INgImHorizonatalFormSectionModel) => value.id === sectionId
     );
 
   if (!toModifySection) {
     return null;
   }
 
-  let elements: IElementModel[] = toModifySection.elements;
+  let elements: INgImFormElementModel[] = toModifySection.elements;
 
   const indexOf: number = elements.findIndex(
-    (value: IElementModel) =>
+    (value: INgImFormElementModel) =>
       value.type === FIELDS[7] && value.textComponent?.id === id
   );
 
