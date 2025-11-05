@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { INgImHorizontalFormModel } from '../../models/horizontal-form.model';
 
 @Component({
-  selector: 'app-form-preview-page',
+  selector: 'ng-im-form-preview-page',
   templateUrl: './form-preview-page.component.html',
   styleUrls: ['./form-preview-page.component.css'],
 })

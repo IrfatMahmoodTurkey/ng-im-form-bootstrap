@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { INgImHorizontalFormModel } from '../../models/horizontal-form.model';
 
 @Component({
-  selector: 'app-form-builder-page',
+  selector: 'ng-im-form-builder-page',
   templateUrl: './form-builder-page.component.html',
 })
 export class FormBuilderPageComponent implements OnInit {

@@ -28,7 +28,7 @@ import { IImageBoxPropertiesInputEmitModel } from '../../models/image-box-proper
 import { ITextPropertiesInputEmitModel } from '../../models/text-properties-input-emit.model';
 
 @Component({
-  selector: 'app-form-builder',
+  selector: 'ng-im-form-builder',
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.scss'],
 })

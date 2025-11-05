@@ -25,7 +25,7 @@ import { Observable, Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-form-preview',
+  selector: 'ng-im-form-preview',
   templateUrl: './form-preview.component.html',
   styleUrls: ['./form-preview.component.css'],
 })
