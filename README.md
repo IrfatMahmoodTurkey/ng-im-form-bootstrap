@@ -141,3 +141,19 @@ To use the **Form Builder Component**, include the `ng-im-form-builder` selector
   (publishFormEvent)="storeNewForm($event)">
 </ng-im-form-builder>
 ```
+## ⚙️ Component Details
+
+### 🧩 Inputs
+
+| **Input Name** | **Type** | **Description** |
+|----------------|-----------|-----------------|
+| `preset` | `INgImHorizontalFormModel` | The form structure object. Use this when editing or updating an existing form. |
+| `isPublishing` | `boolean` | Controls whether a loading spinner is shown while publishing (saving) the form. |
+
+---
+
+### 📤 Output
+
+| **Output Event** | **Emit Type** | **Description** |
+|------------------|-----------|-----------------|
+| `publishFormEvent` | `INgImHorizontalFormModel` | Emits the created form structure. You can handle this event to save the form data to your backend. |
