@@ -100,4 +100,31 @@ Once installed, you can use the component selector in any template:
 ```
 
 If you see Bootstrap styling and Font Awesome icons properly rendered, your setup is complete 🎉
-#
+
+# 🧩 Form Builder Module — ng-im-form-bootstrap
+
+The **Form Builder Module** helps you build fully customizable, dynamic forms with ease.  
+It is a part of the **`ng-im-form-bootstrap`** library.
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Import the Module
+
+To use the form builder, import `FormBuilderModule` into your application’s module where you want to use it.
+
+**Example – `app.module.ts`:**
+
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormBuilderModule } from 'ng-im-form-bootstrap';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, FormBuilderModule],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
