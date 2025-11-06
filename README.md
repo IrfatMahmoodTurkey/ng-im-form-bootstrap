@@ -116,7 +116,7 @@ To use the form builder, import `FormBuilderModule` into your application’s mo
 
 **Example – `app.module.ts`:**
 
-```typescript
+```
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormBuilderModule } from 'ng-im-form-bootstrap';
@@ -128,3 +128,16 @@ import { AppComponent } from './app.component';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+```
+## 2️⃣ Use the Component
+
+To use the **Form Builder Component**, include the `ng-im-form-builder` selector in your component’s HTML file.
+
+### Example – `app.component.html`
+
+```
+<ng-im-form-builder
+  [preset]="null"
+  (publishFormEvent)="storeNewForm($event)">
+</ng-im-form-builder>
+```
