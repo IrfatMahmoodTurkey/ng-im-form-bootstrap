@@ -405,3 +405,74 @@ export interface INgImFormTextModel {
   alignment: string;
 }
 ```
+
+## 🧾 Using Form Preview
+
+To **view and use** the form created by the Form Builder, you need to use the **Form Preview Module**.
+
+---
+
+### ⚙️ Step 1: Import the Module
+
+First, import the `FormPreviewModule` into the module where you want to use the Form Preview feature.
+
+**Example – `app.module.ts`**
+
+```
+import { FormBuilderModule, FormPreviewModule } from 'ng-im-form-bootstrap';
+
+@NgModule({
+  imports: [
+    FormPreviewModule,
+  ],
+  providers: [
+    provideHttpClient(),
+  ]
+})
+export class AppModule { }
+```
+💡 Note:
+You must provide Angular’s built-in HTTP Client because it’s required to submit the created form.
+
+### 🧩 Step 2: Use the Component
+Now, use the **Form Preview Component** Selector in your component’s HTML file.
+
+**Example – `app.component.html`**
+
+```
+<ng-im-form-preview [preset]="form"></ng-im-form-preview>
+```
+
+✅ You’re now ready to preview and submit the forms created using the Form Builder!
+
+## ⚙️ Component Details
+
+### 🧩 Inputs
+
+| **Input Name** | **Type** | **Description** |
+|----------------|-----------|-----------------|
+| `preset` | `INgImHorizontalFormModel` | The form structure object. Use this to view the created form. |
+
+---
+
+## 🏁 Final Notes
+
+🎉 Congratulations! You’ve successfully learned how to **build**, **preview**, and **publish** dynamic forms using the `ng-im-form-bootstrap` library.  
+
+With just a few simple steps, you can now:
+- ✅ **Create** fully customizable forms using the Form Builder module.  
+- 👀 **Preview** and **interact** with those forms using the Form Preview module.  
+- 💾 **Handle** and **save** form data seamlessly through your backend API.
+
+---
+
+### 💡 Next Steps
+- Contribute or report issues on GitHub to help improve this project.  
+- Stay tuned for upcoming modules and enhancements!
+
+---
+
+### ❤️ Thank You for Using `ng-im-form-bootstrap`
+
+If you find this library helpful, please consider giving it a ⭐ on [GitHub](https://github.com/IrfatMahmoodTurkey/ng-im-form-bootstrap)!  
+Your support helps make it better for everyone. 🙌
