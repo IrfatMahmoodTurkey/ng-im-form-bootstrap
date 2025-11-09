@@ -354,14 +354,14 @@
 
             <div class="d-flex justify-content-end">
                 <ng-container *ngIf="isSubmitProcessing; else buttonSection">
-                    <app-button-spinner></app-button-spinner>
+                    <app-button-spinner [isLargeButton]="true"></app-button-spinner>
                 </ng-container>
                 <ng-template #buttonSection>
-                    <button class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary btn-lg">Submit</button>
 
                     <ng-container *ngIf="preset">
                         <ng-container *ngIf="preset.isResetButtonAvailable">
-                            <button class="btn btn-warning ms-1">Reset</button>
+                            <button class="btn btn-danger btn-lg ms-1">Reset</button>
                         </ng-container>
                     </ng-container>
                 </ng-template>
