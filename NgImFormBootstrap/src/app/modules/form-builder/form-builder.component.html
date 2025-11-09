@@ -5,8 +5,8 @@
         <app-spinner-disabled-button></app-spinner-disabled-button>
       </ng-container>
       <ng-template #publishButtonSection>
-        <button class="btn btn-primary" type="button" (click)="publishForm()">
-          <i class="fas fa-check"></i>
+        <button class="btn btn-success btn-lg" type="button" (click)="publishForm()">
+          <i class="fas fa-check-circle"></i>
           Publish Form</button>
       </ng-template>
     </div>
@@ -19,8 +19,9 @@
           <h3>Horizontal Form Generator</h3>
         </div>
         <div>
-          <button class="btn btn-success btn-sm me-1" (click)="viewFormPropertiesSidePanel()"><i
-              class="fas fa-edit"></i> Properties</button>
+          <button class="btn btn-outline-dark me-1" (click)="viewFormPropertiesSidePanel()"><i
+              class="fas fa-sliders"></i>
+            Form Properties</button>
         </div>
       </div>
     </div>
@@ -46,9 +47,10 @@
                   <small>{{section.subTitle}}</small>
                 </div>
                 <div>
-                  <button class="btn btn-success btn-sm me-1" (click)="viewSectionPropertiesSidePanel(section.id)"><i
-                      class="fas fa-edit"></i> Section Properties</button>
-                  <button class="btn btn-danger btn-sm" (click)="removeSection(section.id)"><i class="fas fa-trash"></i>
+                  <button class="btn btn-outline-dark me-1" (click)="viewSectionPropertiesSidePanel(section.id)"><i
+                      class="fas fa-sliders"></i> Section Properties</button>
+                  <button class="btn btn-outline-danger" (click)="removeSection(section.id)"><i
+                      class="fas fa-trash"></i>
                     Remove
                     Section</button>
                 </div>
@@ -120,12 +122,12 @@
 
                         <div class="col-4">
                           <div class="d-flex align-items-end" style="height: 100%;">
-                            <button class="btn btn-success btn-sm me-1"
+                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
                               (click)="viewTextBoxPropertiesSidePanel(section.id, element.textBoxComponent.id)"><i
-                                class="fas fa-edit"></i> Properties</button>
-                            <button class="btn btn-danger btn-sm"
+                                class="fas fa-sliders"></i></button>
+                            <button title="Remove" class="btn btn-outline-danger btn-sm"
                               (click)="removeField(element.type, section.id, element.textBoxComponent.id)"><i
-                                class="fas fa-trash"></i> Remove</button>
+                                class="fas fa-trash"></i></button>
                           </div>
                         </div>
                       </div>
@@ -198,12 +200,12 @@
 
                         <div class="col-4">
                           <div class="d-flex align-items-end" style="height: 100%;">
-                            <button class="btn btn-success btn-sm me-1"
+                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
                               (click)="viewTextAreaPropertiesSidePanel(section.id, element.textAreaComponent.id)"><i
-                                class="fas fa-edit"></i> Properties</button>
-                            <button class="btn btn-danger btn-sm"
+                                class="fas fa-sliders"></i></button>
+                            <button title="Remove" class="btn btn-outline-danger btn-sm"
                               (click)="removeField(element.type, section.id, element.textAreaComponent.id)"><i
-                                class="fas fa-trash"></i> Remove</button>
+                                class="fas fa-trash"></i></button>
                           </div>
                         </div>
                       </div>
@@ -274,12 +276,12 @@
 
                         <div class="col-4">
                           <div class="d-flex align-items-end" style="height: 100%;">
-                            <button class="btn btn-success btn-sm me-1"
+                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
                               (click)="viewFileFieldPropertiesSidePanel(section.id, element.fileFieldComponent.id)"><i
-                                class="fas fa-edit"></i> Properties</button>
-                            <button class="btn btn-danger btn-sm"
+                                class="fas fa-sliders"></i></button>
+                            <button title="Remove" class="btn btn-outline-danger btn-sm"
                               (click)="removeField(element.type, section.id, element.fileFieldComponent.id)"><i
-                                class="fas fa-trash"></i> Remove</button>
+                                class="fas fa-trash"></i></button>
                           </div>
                         </div>
                       </div>
@@ -357,12 +359,12 @@
                         </div>
                         <div class="col-4">
                           <div class="d-flex align-items-end" style="height: 100%;">
-                            <button class="btn btn-success btn-sm me-1"
+                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
                               (click)="viewSelectboxPropertiesSidePanel(section.id, element.selectBoxComponent.id)"><i
-                                class="fas fa-edit"></i> Properties</button>
-                            <button class="btn btn-danger btn-sm"
+                                class="fas fa-sliders"></i></button>
+                            <button title="Remove" class="btn btn-outline-danger btn-sm"
                               (click)="removeField(element.type, section.id, element.selectBoxComponent.id)"><i
-                                class="fas fa-trash"></i> Remove</button>
+                                class="fas fa-trash"></i></button>
                           </div>
                         </div>
                       </div>
@@ -434,12 +436,12 @@
 
                         <div class="col-4">
                           <div class="d-flex align-items-end" style="height: 100%;">
-                            <button class="btn btn-success btn-sm me-1"
+                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
                               (click)="viewCheckboxPropertiesSidePanel(section.id, element.checkBoxComponent.id)"><i
-                                class="fas fa-edit"></i> Properties</button>
-                            <button class="btn btn-danger btn-sm"
+                                class="fas fa-sliders"></i></button>
+                            <button title="Remove" class="btn btn-outline-danger btn-sm"
                               (click)="removeField(element.type, section.id, element.checkBoxComponent.id)"><i
-                                class="fas fa-trash"></i> Remove</button>
+                                class="fas fa-trash"></i></button>
                           </div>
                         </div>
                       </div>
@@ -486,12 +488,12 @@
 
                         <div class="col-4">
                           <div class="d-flex align-items-end" style="height: 100%;">
-                            <button class="btn btn-success btn-sm me-1"
+                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
                               (click)="viewRadioButtonGroupPropertiesSidePanel(section.id, element.radioButtonGroupComponent.id)"><i
-                                class="fas fa-edit"></i> Properties</button>
-                            <button class="btn btn-danger btn-sm"
+                                class="fas fa-sliders"></i></button>
+                            <button title="Remove" class="btn btn-outline-danger btn-sm"
                               (click)="removeField(element.type, section.id, element.radioButtonGroupComponent.id)"><i
-                                class="fas fa-trash"></i> Remove</button>
+                                class="fas fa-trash"></i></button>
                           </div>
                         </div>
                       </div>
@@ -547,12 +549,12 @@
 
                         <div class="col-4">
                           <div class="d-flex align-items-end" style="height: 100%;">
-                            <button class="btn btn-success btn-sm me-1"
+                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
                               (click)="viewImageboxPropertiesSidePanel(section.id, element.imageBoxComponent.id)"><i
-                                class="fas fa-edit"></i> Properties</button>
-                            <button class="btn btn-danger btn-sm"
+                                class="fas fa-sliders"></i></button>
+                            <button title="Remove" class="btn btn-outline-danger btn-sm"
                               (click)="removeField(element.type, section.id, element.imageBoxComponent.id)"><i
-                                class="fas fa-trash"></i> Remove</button>
+                                class="fas fa-trash"></i></button>
                           </div>
                         </div>
                       </div>
@@ -608,12 +610,12 @@
 
                         <div class="col-4">
                           <div class="d-flex align-items-end" style="height: 100%;">
-                            <button class="btn btn-success btn-sm me-1"
+                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
                               (click)="viewTextPropertiesSidePanel(section.id, element.textComponent.id)"><i
-                                class="fas fa-edit"></i> Properties</button>
-                            <button class="btn btn-danger btn-sm"
+                                class="fas fa-sliders"></i></button>
+                            <button title="Remove" class="btn btn-outline-danger btn-sm"
                               (click)="removeField(element.type, section.id, element.textComponent.id)"><i
-                                class="fas fa-trash"></i> Remove</button>
+                                class="fas fa-trash"></i></button>
                           </div>
                         </div>
                       </div>
@@ -622,9 +624,9 @@
                 </ng-container>
               </ng-container>
 
-              <div class="mt-2 d-flex justify-content-start">
-                <button class="btn btn-primary btn-sm" (click)="viewFieldSelectionSidePanel(section.id)"><i
-                    class="fas fa-plus-circle"></i> Add Field</button>
+              <div class="m-3 d-flex justify-content-center">
+                <button title="Add New Field" class="btn btn-outline-dark btn-lg btn-block"
+                  (click)="viewFieldSelectionSidePanel(section.id)"><i class="fas fa-plus"></i></button>
               </div>
             </div>
           </div>
@@ -632,8 +634,8 @@
       </ng-container>
 
       <div class="d-flex justify-content-end">
-        <button class="btn btn-primary btn-sm" (click)="addSection()"><i class="fas fa-plus-circle"></i> Add
-          Section</button>
+        <button class="btn btn-outline-dark btn-lg" (click)="addSection()"><i class="fas fa-plus"></i> Add
+          New Section</button>
       </div>
     </div>
   </div>
