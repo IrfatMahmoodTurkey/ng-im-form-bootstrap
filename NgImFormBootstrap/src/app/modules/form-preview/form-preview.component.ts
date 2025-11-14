@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   INgImFormCheckBoxModel,
   INgImFormElementModel,
@@ -33,6 +33,12 @@ export class FormPreviewComponent implements OnInit {
   alignments: string[] = ALIGNMENTS;
 
   @Input() preset: INgImHorizontalFormModel | null | undefined;
+  @Input() queryParams: Map<string, string> | null | undefined;
+
+  @Output() onSubmitEvent: EventEmitter<any> = new EventEmitter();
+  @Output() onSubmitProcessing: EventEmitter<any> = new EventEmitter();
+  @Output() onSubmitSuccess: EventEmitter<any> = new EventEmitter();
+  @Output() onSubmitError: EventEmitter<HttpErrorResponse> = new EventEmitter();
 
   sections: INgImHorizonatalFormSectionModel[] = [];
 
@@ -117,8 +123,11 @@ export class FormPreviewComponent implements OnInit {
       return;
     }
 
+    const toPost: any = this.extractFormData();
+    this.onSubmitEvent.emit(toPost);
+
     if (!this.preset.checkValidations) {
-      this.extractFormData();
+      this.post(toPost);
       return;
     }
 
@@ -126,7 +135,7 @@ export class FormPreviewComponent implements OnInit {
 
     const filesValid: boolean = this.isFilesValid();
     if (this.form.valid && filesValid) {
-      this.extractFormData();
+      this.post(toPost);
     }
   }
 
@@ -148,7 +157,7 @@ export class FormPreviewComponent implements OnInit {
     return true;
   }
 
-  private extractFormData() {
+  private extractFormData(): any {
     let toPost: any = {};
 
     for (const key in this.form.controls) {
@@ -167,7 +176,7 @@ export class FormPreviewComponent implements OnInit {
       }
     }
 
-    this.post(toPost);
+    return toPost;
   }
 
   private post(toPost: any): void {
@@ -201,13 +210,24 @@ export class FormPreviewComponent implements OnInit {
     }
   ): void {
     this.isSubmitProcessing = true;
+    this.onSubmitProcessing.emit(object);
 
     let observer: Observable<string> | undefined;
 
     if (sendBodyAs === SendBodyTypesEnum.JSON) {
-      observer = this.apiCallService.sendJSONOnly(submitAPIUrl, object, method);
+      observer = this.apiCallService.sendJSONOnly(
+        submitAPIUrl,
+        this.queryParams,
+        object,
+        method
+      );
     } else if (sendBodyAs === SendBodyTypesEnum.FORM_DATA) {
-      observer = this.apiCallService.sendFormData(submitAPIUrl, object, method);
+      observer = this.apiCallService.sendFormData(
+        submitAPIUrl,
+        this.queryParams,
+        object,
+        method
+      );
     } else {
       this.isSubmitProcessing = false;
       return;
@@ -230,6 +250,7 @@ export class FormPreviewComponent implements OnInit {
         this.disapperResponseAlert();
 
         this.isSubmitProcessing = false;
+        this.onSubmitSuccess.emit(object);
       },
       error: (error: HttpErrorResponse) => {
         this.response = {
@@ -245,6 +266,7 @@ export class FormPreviewComponent implements OnInit {
         this.disapperResponseAlert();
 
         this.isSubmitProcessing = false;
+        this.onSubmitError.emit(error);
       },
     });
   }
