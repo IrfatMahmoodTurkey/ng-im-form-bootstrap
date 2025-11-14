@@ -33,6 +33,7 @@ export class FormPreviewComponent implements OnInit {
   alignments: string[] = ALIGNMENTS;
 
   @Input() preset: INgImHorizontalFormModel | null | undefined;
+  @Input() queryParams: Map<string, string> | null | undefined;
 
   sections: INgImHorizonatalFormSectionModel[] = [];
 
@@ -205,9 +206,19 @@ export class FormPreviewComponent implements OnInit {
     let observer: Observable<string> | undefined;
 
     if (sendBodyAs === SendBodyTypesEnum.JSON) {
-      observer = this.apiCallService.sendJSONOnly(submitAPIUrl, object, method);
+      observer = this.apiCallService.sendJSONOnly(
+        submitAPIUrl,
+        this.queryParams,
+        object,
+        method
+      );
     } else if (sendBodyAs === SendBodyTypesEnum.FORM_DATA) {
-      observer = this.apiCallService.sendFormData(submitAPIUrl, object, method);
+      observer = this.apiCallService.sendFormData(
+        submitAPIUrl,
+        this.queryParams,
+        object,
+        method
+      );
     } else {
       this.isSubmitProcessing = false;
       return;
