@@ -3,4 +3,10 @@
 </div>
 <hr />
 
-<ng-im-form-preview [preset]="form"></ng-im-form-preview>
+<ng-im-form-preview
+  [preset]="form"
+  (onSubmitEvent)="onSubmit($event)"
+  (onSubmitProcessing)="onSubmitProcessing($event)"
+  (onSubmitSuccess)="onSubmitSuccess($event)"
+  (onSubmitError)="onSubmitError($event)"
+></ng-im-form-preview>
