@@ -1,4 +1,4 @@
-\# Contributing Guidelines
+# Contributing Guidelines
 
 
 
@@ -6,11 +6,11 @@ Thank you for your interest in contributing to this project! Please read the fol
 
 
 
-\## 🚀 How to Contribute
+## 🚀 How to Contribute
 
 
 
-\### 1. \*\*Fork the Repository\*\*
+### 1. **Fork the Repository**
 
 
 
@@ -18,7 +18,7 @@ Start by forking the repository to your own GitHub account.
 
 
 
-\### 2. \*\*Work on the `development` Branch\*\*
+### 2. **Work on the `development` Branch**
 
 
 
@@ -26,9 +26,9 @@ All contributions must be based on the `development` branch.
 
 
 
-\* If you are adding new features, fixing bugs, or making UI changes, always create your branch from `development`.
+- If you are adding new features, fixing bugs, or making UI changes, always create your branch from `development`.
 
-\* \*\*Any change submitted to the `main` branch will be rejected.\*\*
+- **Any change submitted to the `main` branch will be rejected.**
 
 
 
@@ -48,7 +48,7 @@ git checkout -b feature/your-feature-name
 
 
 
-\### 3. \*\*Contribution Process\*\*
+### 3. **Contribution Process**
 
 
 
@@ -56,7 +56,7 @@ Don't build the project — just code, test, and create a new PR. We will review
 
 
 
-\## 📝 Writing a Proper PR Description
+## 📝 Writing a Proper PR Description
 
 
 
@@ -64,73 +64,73 @@ When submitting a Pull Request, please ensure your description is clear and comp
 
 
 
-Your PR description \*\*must include\*\*:
+Your PR description **must include**:
 
 
 
-1\. \*\*What changes were made\*\* – Describe clearly what you added, removed, or modified.
+1. **What changes were made** – Describe clearly what you added, removed, or modified.
 
-2\. \*\*Why the changes were needed\*\* – Mention the reason, issue, or context.
+2. **Why the changes were needed** – Mention the reason, issue, or context.
 
-3\. \*\*Screenshots (if UI-related)\*\* – Before/after screenshots are highly recommended.
+3. **Screenshots (if UI-related)** – Before/after screenshots are highly recommended.
 
-4\. \*\*Steps to test the changes\*\* – Help reviewers verify your contribution.
+4. **Steps to test the changes** – Help reviewers verify your contribution.
 
 
 
-\### Example PR Description
+### Example PR Description
 
 
 
 ```
 
-\### Changes Made
+### Changes Made
 
-\- Added a new sidebar component to improve navigation.
+- Added a new sidebar component to improve navigation.
 
-\- Updated the color scheme of the header section.
+- Updated the color scheme of the header section.
 
 
 
-\### Reason
+### Reason
 
 The previous header UI did not match the new design guidelines.
 
 
 
-\### Screenshots
+### Screenshots
 
 (Insert before/after images)
 
 
 
-\### Testing Steps
+### Testing Steps
 
-1\. Run the project
+1. Run the project
 
-2\. Navigate to the dashboard
+2. Navigate to the dashboard
 
-3\. Verify the new sidebar and updated header styles
+3. Verify the new sidebar and updated header styles
 
 ```
 
 
 
-\## ❌ What Will Be Rejected
+## ❌ What Will Be Rejected
 
 
 
-\* Pull requests created on the `main` branch.
+- Pull requests created on the `main` branch.
 
-\* Changes that are not clearly documented in the PR description.
+- Changes that are not clearly documented in the PR description.
 
-\* UI changes without screenshots.
+- UI changes without screenshots.
 
-\* Unnecessary modifications (formatting-only PRs without reason).
+- Unnecessary modifications (formatting-only PRs without reason).
 
 
 
-\## ✅ Thank You!
+## ✅ Thank You!
 
 
 
