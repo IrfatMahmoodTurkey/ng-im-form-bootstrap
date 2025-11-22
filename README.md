@@ -478,4 +478,4 @@ If you find this library helpful, please consider giving it a ⭐ on [GitHub](ht
 Your support helps make it better for everyone. 🙌
 
 ---
-➡️ Please read the '''CONTRIBUTION.md''' file before contributing to this project.
+➡️ Please read the `CONTRIBUTION.md` file before contributing to this project.
