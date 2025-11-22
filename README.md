@@ -44,7 +44,7 @@ Once the form is designed, it can be **submitted as JSON**, making it ideal for 
 
 Install the library and its required peer dependencies via **npm**. Use the following commands: 
 
-```npm install @irfat/angular-dynamic-form-builder```
+```npm install ng-im-form-bootstrap```
 ```npm install bootstrap@5.3.8```
 ```npm install @fortawesome/fontawesome-free@7.1.0```
 
@@ -76,13 +76,13 @@ Alternatively, if you prefer to import styles directly in your **global styleshe
 In your main app module ```(app.module.ts)```, import the ```FormBuilderModule``` or ```FormPreviewModule```:
 
 ```
-import { DynamicFormBuilderModule } from '@irfat/angular-dynamic-form-builder';
+import { FormBuilderModule  } from 'ng-im-form-bootstrap';
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    DynamicFormBuilderModule
+    FormBuilderModule
   ],
   bootstrap: [AppComponent]
 })
@@ -96,7 +96,7 @@ export class AppModule {}
 Once installed, you can use the component selector in any template:
 
 ```
-<app-form-builder [preset]="null"><app-form-builder>
+<ng-im-form-builder [preset]="null"><ng-im-form-builder>
 ```
 
 If you see Bootstrap styling and Font Awesome icons properly rendered, your setup is complete 🎉
