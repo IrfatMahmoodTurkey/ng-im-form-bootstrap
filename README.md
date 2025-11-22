@@ -476,3 +476,6 @@ With just a few simple steps, you can now:
 
 If you find this library helpful, please consider giving it a ⭐ on [GitHub](https://github.com/IrfatMahmoodTurkey/ng-im-form-bootstrap)!  
 Your support helps make it better for everyone. 🙌
+
+---
+➡️ Please read the '''CONTRIBUTION.md''' file before contributing to this project.
