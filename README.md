@@ -453,6 +453,14 @@ Now, use the **Form Preview Component** Selector in your component’s HTML file
 |----------------|-----------|-----------------|
 | `preset` | `INgImHorizontalFormModel` | The form structure object. Use this to view the created form. |
 
+### 📤 Output
+
+| **Output Event** | **Emit Type** | **Description** |
+|------------------|-----------|-----------------|
+| `onSubmitEvent` | `any` | Emits the Submit object when the Submit button is clicked. |
+| `onSubmitProcessing` | `any` | Emits the Submit object when the submission process begins. |
+| `onSubmitSuccess` | `any` | Emits the Submit object when the submission process succeeds. |
+| `onSubmitError` | `HttpErrorResponse` | Emits Angular's HttpErrorResponse object when the submission process encounters any error returned from the API. |
 ---
 
 ## 🏁 Final Notes
