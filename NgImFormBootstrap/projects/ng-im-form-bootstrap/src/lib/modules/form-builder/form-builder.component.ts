@@ -31,6 +31,7 @@ import { ITextPropertiesInputEmitModel } from '../../models/text-properties-inpu
  * @internal
  * Do not import directly. Use via FormBuilderModule and selector <ng-im-form-builder>.
  */
+
 @Component({
   selector: 'ng-im-form-builder',
   templateUrl: './form-builder.component.html',

@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-button-spinner',
-  template: `<button class="btn btn-primary" type="button" disabled>
+  template: `<button
+    class="btn btn-primary"
+    [ngClass]="isLargeButton ? 'btn-lg' : ''"
+    type="button"
+    disabled
+  >
     <span
       class="spinner-grow spinner-grow-sm"
       role="status"
@@ -12,6 +17,8 @@ import { Component, OnInit } from '@angular/core';
   </button>`,
 })
 export class ButtonSpinnerComponent implements OnInit {
+  @Input() isLargeButton: boolean = false;
+
   constructor() {}
 
   ngOnInit() {}
