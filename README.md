@@ -452,6 +452,7 @@ Now, use the **Form Preview Component** Selector in your component’s HTML file
 | **Input Name** | **Type** | **Description** |
 |----------------|-----------|-----------------|
 | `preset` | `INgImHorizontalFormModel` | The form structure object. Use this to view the created form. |
+| `queryParams` | `Map<string, string>` | If you want to pass dynamic query parameters through the form’s submit URL. |
 
 ### 📤 Output
 
