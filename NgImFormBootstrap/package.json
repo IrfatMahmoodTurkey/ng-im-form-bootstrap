@@ -1,6 +1,14 @@
 {
   "name": "ng-im-form-bootstrap",
   "version": "1.0.0",
+  "author": {
+    "name": "Irfat Mahmood Turkey"
+  },
+  "homepage": "https://irfatmahmoodturkey.github.io/ng-im-form-bootstrap-official-website/",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/IrfatMahmoodTurkey/ng-im-form-bootstrap"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

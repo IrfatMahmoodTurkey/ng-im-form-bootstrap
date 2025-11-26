@@ -44,7 +44,7 @@ Once the form is designed, it can be **submitted as JSON**, making it ideal for 
 
 Install the library and its required peer dependencies via **npm**. Use the following commands: 
 
-```npm install @irfat/angular-dynamic-form-builder```
+```npm install ng-im-form-bootstrap```
 ```npm install bootstrap@5.3.8```
 ```npm install @fortawesome/fontawesome-free@7.1.0```
 
@@ -76,13 +76,13 @@ Alternatively, if you prefer to import styles directly in your **global styleshe
 In your main app module ```(app.module.ts)```, import the ```FormBuilderModule``` or ```FormPreviewModule```:
 
 ```
-import { DynamicFormBuilderModule } from '@irfat/angular-dynamic-form-builder';
+import { FormBuilderModule  } from 'ng-im-form-bootstrap';
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    DynamicFormBuilderModule
+    FormBuilderModule
   ],
   bootstrap: [AppComponent]
 })
@@ -96,7 +96,7 @@ export class AppModule {}
 Once installed, you can use the component selector in any template:
 
 ```
-<app-form-builder [preset]="null"><app-form-builder>
+<ng-im-form-builder [preset]="null"><ng-im-form-builder>
 ```
 
 If you see Bootstrap styling and Font Awesome icons properly rendered, your setup is complete 🎉
@@ -405,3 +405,86 @@ export interface INgImFormTextModel {
   alignment: string;
 }
 ```
+
+## 🧾 Using Form Preview
+
+To **view and use** the form created by the Form Builder, you need to use the **Form Preview Module**.
+
+---
+
+### ⚙️ Step 1: Import the Module
+
+First, import the `FormPreviewModule` into the module where you want to use the Form Preview feature.
+
+**Example – `app.module.ts`**
+
+```
+import { FormBuilderModule, FormPreviewModule } from 'ng-im-form-bootstrap';
+
+@NgModule({
+  imports: [
+    FormPreviewModule,
+  ],
+  providers: [
+    provideHttpClient(),
+  ]
+})
+export class AppModule { }
+```
+💡 Note:
+You must provide Angular’s built-in HTTP Client because it’s required to submit the created form.
+
+### 🧩 Step 2: Use the Component
+Now, use the **Form Preview Component** Selector in your component’s HTML file.
+
+**Example – `app.component.html`**
+
+```
+<ng-im-form-preview [preset]="form"></ng-im-form-preview>
+```
+
+✅ You’re now ready to preview and submit the forms created using the Form Builder!
+
+## ⚙️ Component Details
+
+### 🧩 Inputs
+
+| **Input Name** | **Type** | **Description** |
+|----------------|-----------|-----------------|
+| `preset` | `INgImHorizontalFormModel` | The form structure object. Use this to view the created form. |
+| `queryParams` | `Map<string, string>` | If you want to pass dynamic query parameters through the form’s submit URL. |
+
+### 📤 Output
+
+| **Output Event** | **Emit Type** | **Description** |
+|------------------|-----------|-----------------|
+| `onSubmitEvent` | `any` | Emits the Submit object when the Submit button is clicked. |
+| `onSubmitProcessing` | `any` | Emits the Submit object when the submission process begins. |
+| `onSubmitSuccess` | `any` | Emits the Submit object when the submission process succeeds. |
+| `onSubmitError` | `HttpErrorResponse` | Emits Angular's HttpErrorResponse object when the submission process encounters any error returned from the API. |
+---
+
+## 🏁 Final Notes
+
+🎉 Congratulations! You’ve successfully learned how to **build**, **preview**, and **publish** dynamic forms using the `ng-im-form-bootstrap` library.  
+
+With just a few simple steps, you can now:
+- ✅ **Create** fully customizable forms using the Form Builder module.  
+- 👀 **Preview** and **interact** with those forms using the Form Preview module.  
+- 💾 **Handle** and **save** form data seamlessly through your backend API.
+
+---
+
+### 💡 Next Steps
+- Contribute or report issues on GitHub to help improve this project.  
+- Stay tuned for upcoming modules and enhancements!
+
+---
+
+### ❤️ Thank You for Using `ng-im-form-bootstrap`
+
+If you find this library helpful, please consider giving it a ⭐ on [GitHub](https://github.com/IrfatMahmoodTurkey/ng-im-form-bootstrap)!  
+Your support helps make it better for everyone. 🙌
+
+---
+➡️ Please read the `CONTRIBUTION.md` file before contributing to this project.
