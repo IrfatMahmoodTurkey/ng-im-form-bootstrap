@@ -42,6 +42,7 @@ function addCheckbox(
   };
 
   toModifySection.elements.push({
+    id: generatedId,
     type: FIELDS[4],
     checkBoxComponent: toAddCheckBox,
   });
