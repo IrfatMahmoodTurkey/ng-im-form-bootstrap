@@ -109,8 +109,11 @@ export class FormBuilderComponent implements OnInit {
 
   isFormPropertiesSidePanelOpen: boolean = false;
 
-  draggedSectionIndex: number | null = null;
-  replaceSectionIndex: number | null = null;
+  onDraggingSectionId: string | null = null;
+  onHoverSectionId: string | null = null;
+  keepSectionSpaceIndex: number | null = null;
+  draggedSection: INgImHorizonatalFormSectionModel | null | undefined;
+  isSectionDragging: boolean = false;
 
   draggedField: { sectionIndex: number; fieldIndex: number } | null = null;
   replaceField: { sectionIndex: number; fieldIndex: number } | null = null;
@@ -847,44 +850,84 @@ export class FormBuilderComponent implements OnInit {
     this.publishFormEvent.emit(this.horizontalForm);
   }
 
-  onSectionDragStart(sectionIndex: number) {
-    this.draggedSectionIndex = sectionIndex;
+  onSectionDragStart(event: DragEvent, sectionId: string) {
+    this.onDraggingSectionId = sectionId;
+    this.isSectionDragging = true;
+
+    this.draggedSection = this.horizontalForm.sections.find(
+      (value: INgImHorizonatalFormSectionModel) => value.id === sectionId
+    );
   }
 
-  onSectionDragOver(sectionEvent: DragEvent, sectionIndex: number) {
-    sectionEvent.preventDefault();
-
-    if (sectionIndex === this.draggedSectionIndex) {
-      return;
-    }
-
-    this.replaceSectionIndex = sectionIndex;
-  }
-
-  onSectionDrop(event: DragEvent, sectionIndex: number) {
+  onSectionDragOver(event: DragEvent, sectionId: string, hoverIndex: number) {
     event.preventDefault();
 
-    if (this.draggedSectionIndex === null) {
+    if (this.onDraggingSectionId && this.onDraggingSectionId === sectionId) {
       return;
     }
 
-    if (this.draggedSectionIndex === sectionIndex) {
-      this.draggedSectionIndex = null;
-      return;
-    }
+    const filter = this.horizontalForm.sections.filter(
+      (value: INgImHorizonatalFormSectionModel) => value.id
+    );
+    this.horizontalForm.sections = [...filter];
 
-    const draggedSection: INgImHorizonatalFormSectionModel =
-      this.horizontalForm.sections[this.draggedSectionIndex];
+    this.horizontalForm.sections.splice(hoverIndex, 0, {
+      id: '',
+      title: '',
+      subTitle: '',
+      class: '',
+      headerClass: '',
+      bodyClass: '',
+      elements: [],
+    });
 
-    this.horizontalForm.sections.splice(this.draggedSectionIndex, 1);
-    this.horizontalForm.sections.splice(sectionIndex, 0, draggedSection);
-    this.draggedSectionIndex = null;
-    this.replaceSectionIndex = null;
+    this.onHoverSectionId = sectionId;
+    this.keepSectionSpaceIndex = hoverIndex;
   }
 
-  onSectionDragEnd(): void {
-    this.draggedSectionIndex = null;
-    this.replaceSectionIndex = null;
+  onSectionDrop(event: DragEvent, sectionId: string) {
+    event.preventDefault();
+
+    this.onDraggingSectionId = null;
+    this.onHoverSectionId = null;
+    this.keepSectionSpaceIndex = null;
+    this.draggedSection = null;
+    this.isSectionDragging = false;
+  }
+
+  onSectionDragEnd(event: DragEvent): void {
+    event.preventDefault();
+
+    this.onDraggingSectionId = null;
+    this.onHoverSectionId = null;
+    this.keepSectionSpaceIndex = null;
+    this.draggedSection = null;
+    this.isSectionDragging = false;
+  }
+
+  onDragOverSectionSpace(event: DragEvent): void {
+    event.preventDefault();
+  }
+
+  onDropOverSectionSpace(event: DragEvent): void {
+    event.preventDefault();
+
+    if (!this.draggedSection) return;
+
+    const { id } = this.draggedSection;
+
+    const nullIndex: number = this.horizontalForm.sections.findIndex(
+      (value: INgImHorizonatalFormSectionModel) => !value.id
+    );
+    const elementIndex: number = this.horizontalForm.sections.findIndex(
+      (value: INgImHorizonatalFormSectionModel) => value.id === id
+    );
+
+    if (elementIndex >= 0 && nullIndex >= 0) {
+      this.horizontalForm.sections[nullIndex] =
+        this.horizontalForm.sections[elementIndex];
+      this.horizontalForm.sections.splice(elementIndex, 1);
+    }
   }
 
   onFieldDragStart(sectionIndex: number, fieldIndex: number) {

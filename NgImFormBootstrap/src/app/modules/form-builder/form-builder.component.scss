@@ -2,7 +2,6 @@
   user-select: none;
 }
 
-/* You can add global styles to this file, and also import other style files */
 .details-sidebar {
   position: fixed;
   top: 0;
@@ -33,12 +32,12 @@
 .section.dragging {
   opacity: 0.6;
   transform: scale(0.98);
-  border: 2px dashed #999;
+  border: 2px dashed #dc3545;
 }
 
 .section.replace {
   transform: scale(0.98);
-  border: 2px dashed blue;
+  border: 2px dashed #0d6efd;
 }
 
 .field:hover {
@@ -59,4 +58,24 @@
 
 .top-grip-section {
   color: rgb(168, 168, 168);
+}
+
+.space {
+  height: 300px !important;
+  transform: scale(0.98);
+  border: 2px dashed #0d6efd;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeInAnim 0.5s ease-in forwards;
+}
+
+@keyframes fadeInAnim {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
