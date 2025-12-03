@@ -1,3 +1,15 @@
+<div class="overlay-dark" [class.show]="isFieldSelectionSidePanelOpen ||
+        isSectionPropertiesSidePanelOpen ||
+        isTextBoxPropertiesSidePanelOpen || 
+        isTextAreaPropertiesSidePanelOpen ||
+        isFileFieldPropertiesSidePanelOpen ||
+        isSelectboxPropertiesSidePanelOpen || 
+        isCheckboxPropertiesSidePanelOpen || 
+        isRadioButtonGroupPropertiesSidePanelOpen || 
+        isImageboxPropertiesSidePanelOpen || 
+        isTextPropertiesSidePanelOpen || 
+        isFormPropertiesSidePanelOpen"></div>
+
 <div class="m-3">
   <div class="mb-2">
     <div class="d-flex justify-content-end">
@@ -626,46 +638,48 @@
   </div>
 </div>
 
-<app-field-selection-sidepanel *ngIf="isFieldSelectionSidePanelOpen" (hidePanelEvent)="hideFieldSelectionSidePanel()"
-  (selectedTypeEvent)="addField($event)"></app-field-selection-sidepanel>
+<div class="sidebar-overlay">
+  <app-field-selection-sidepanel *ngIf="isFieldSelectionSidePanelOpen" (hidePanelEvent)="hideFieldSelectionSidePanel()"
+    (selectedTypeEvent)="addField($event)"></app-field-selection-sidepanel>
 
-<app-section-properties-sidepanel *ngIf="isSectionPropertiesSidePanelOpen"
-  [sectionProperties]="selectedForSectionPropertiesUpdate" (hidePanelEvent)="hideSectionPropertiesSidePanel()"
-  (saveChangesEvent)="saveSectionProperties($event)"></app-section-properties-sidepanel>
+  <app-section-properties-sidepanel *ngIf="isSectionPropertiesSidePanelOpen"
+    [sectionProperties]="selectedForSectionPropertiesUpdate" (hidePanelEvent)="hideSectionPropertiesSidePanel()"
+    (saveChangesEvent)="saveSectionProperties($event)"></app-section-properties-sidepanel>
 
-<app-textbox-properties-sidepanel *ngIf="isTextBoxPropertiesSidePanelOpen" [horizontalForm]="horizontalForm"
-  [textboxProperties]="selectedForTextboxPropertiesUpdate" (hidePanelEvent)="hideTextBoxPropertiesSidePanel()"
-  (saveChangesEvent)="saveTextboxProperties($event)"></app-textbox-properties-sidepanel>
+  <app-textbox-properties-sidepanel *ngIf="isTextBoxPropertiesSidePanelOpen" [horizontalForm]="horizontalForm"
+    [textboxProperties]="selectedForTextboxPropertiesUpdate" (hidePanelEvent)="hideTextBoxPropertiesSidePanel()"
+    (saveChangesEvent)="saveTextboxProperties($event)"></app-textbox-properties-sidepanel>
 
-<app-textarea-properties-sidepanel *ngIf="isTextAreaPropertiesSidePanelOpen"
-  [textareaProperties]="selectedForTextareaPropertiesUpdate" (hidePanelEvent)="hideTextAreaPropertiesSidePanel()"
-  (saveChangesEvent)="saveTextareaProperties($event)"></app-textarea-properties-sidepanel>
+  <app-textarea-properties-sidepanel *ngIf="isTextAreaPropertiesSidePanelOpen"
+    [textareaProperties]="selectedForTextareaPropertiesUpdate" (hidePanelEvent)="hideTextAreaPropertiesSidePanel()"
+    (saveChangesEvent)="saveTextareaProperties($event)"></app-textarea-properties-sidepanel>
 
-<app-filefield-properties-sidepanel *ngIf="isFileFieldPropertiesSidePanelOpen"
-  [fileFieldProperties]="selectedForFileFieldPropertiesUpdate" (hidePanelEvent)="hideFileFieldPropertiesSidePanel()"
-  (saveChangesEvent)="saveFileFieldProperties($event)"></app-filefield-properties-sidepanel>
+  <app-filefield-properties-sidepanel *ngIf="isFileFieldPropertiesSidePanelOpen"
+    [fileFieldProperties]="selectedForFileFieldPropertiesUpdate" (hidePanelEvent)="hideFileFieldPropertiesSidePanel()"
+    (saveChangesEvent)="saveFileFieldProperties($event)"></app-filefield-properties-sidepanel>
 
-<app-selectbox-properties-sidepanel *ngIf="isSelectboxPropertiesSidePanelOpen"
-  [selectBoxProperties]="selectedForSelectboxPropertiesUpdate" (hidePanelEvent)="hideSelectboxPropertiesSidePanel()"
-  (saveChangesEvent)="saveSelectboxProperties($event)"></app-selectbox-properties-sidepanel>
+  <app-selectbox-properties-sidepanel *ngIf="isSelectboxPropertiesSidePanelOpen"
+    [selectBoxProperties]="selectedForSelectboxPropertiesUpdate" (hidePanelEvent)="hideSelectboxPropertiesSidePanel()"
+    (saveChangesEvent)="saveSelectboxProperties($event)"></app-selectbox-properties-sidepanel>
 
-<app-checkbox-properties-sidepanel *ngIf="isCheckboxPropertiesSidePanelOpen"
-  [checkboxProperties]="selectedForCheckboxPropertiesUpdate" (hidePanelEvent)="hideCheckboxPropertiesSidePanel()"
-  (saveChangesEvent)="saveCheckboxProperties($event)"></app-checkbox-properties-sidepanel>
+  <app-checkbox-properties-sidepanel *ngIf="isCheckboxPropertiesSidePanelOpen"
+    [checkboxProperties]="selectedForCheckboxPropertiesUpdate" (hidePanelEvent)="hideCheckboxPropertiesSidePanel()"
+    (saveChangesEvent)="saveCheckboxProperties($event)"></app-checkbox-properties-sidepanel>
 
-<app-radio-button-group-properties-sidepanel *ngIf="isRadioButtonGroupPropertiesSidePanelOpen"
-  [radioButtonGroupProperties]="selectedForRadioButtonGroupPropertiesUpdate"
-  (hidePanelEvent)="hideRadioButtonGroupPropertiesSidePanel()"
-  (saveChangesEvent)="saveRadioButtonGroupProperties($event)"></app-radio-button-group-properties-sidepanel>
+  <app-radio-button-group-properties-sidepanel *ngIf="isRadioButtonGroupPropertiesSidePanelOpen"
+    [radioButtonGroupProperties]="selectedForRadioButtonGroupPropertiesUpdate"
+    (hidePanelEvent)="hideRadioButtonGroupPropertiesSidePanel()"
+    (saveChangesEvent)="saveRadioButtonGroupProperties($event)"></app-radio-button-group-properties-sidepanel>
 
-<app-imagebox-properties-sidepanel *ngIf="isImageboxPropertiesSidePanelOpen"
-  [imageboxProperties]="selectedForImageboxPropertiesUpdate" (hidePanelEvent)="hideImageboxPropertiesSidePanel()"
-  (saveChangesEvent)="saveImageboxProperties($event)"></app-imagebox-properties-sidepanel>
+  <app-imagebox-properties-sidepanel *ngIf="isImageboxPropertiesSidePanelOpen"
+    [imageboxProperties]="selectedForImageboxPropertiesUpdate" (hidePanelEvent)="hideImageboxPropertiesSidePanel()"
+    (saveChangesEvent)="saveImageboxProperties($event)"></app-imagebox-properties-sidepanel>
 
-<app-text-properties-sidepanel *ngIf="isTextPropertiesSidePanelOpen" [textProperties]="selectedForTextPropertiesUpdate"
-  (hidePanelEvent)="hideTextPropertiesSidePanel()"
-  (saveChangesEvent)="saveTextProperties($event)"></app-text-properties-sidepanel>
+  <app-text-properties-sidepanel *ngIf="isTextPropertiesSidePanelOpen"
+    [textProperties]="selectedForTextPropertiesUpdate" (hidePanelEvent)="hideTextPropertiesSidePanel()"
+    (saveChangesEvent)="saveTextProperties($event)"></app-text-properties-sidepanel>
 
-<app-form-properties-sidepanel *ngIf="isFormPropertiesSidePanelOpen" [formProperties]="horizontalForm"
-  (hidePanelEvent)="hideFormPropertiesSidePanel()"
-  (saveChangesEvent)="saveFormProperties($event)"></app-form-properties-sidepanel>
+  <app-form-properties-sidepanel *ngIf="isFormPropertiesSidePanelOpen" [formProperties]="horizontalForm"
+    (hidePanelEvent)="hideFormPropertiesSidePanel()"
+    (saveChangesEvent)="saveFormProperties($event)"></app-form-properties-sidepanel>
+</div>

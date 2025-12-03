@@ -79,3 +79,25 @@
     opacity: 1;
   }
 }
+
+.overlay-dark {
+  transition: width 10s;
+  z-index: 10;
+  transition: background 0.4s ease;
+}
+
+.overlay-dark.show {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  pointer-events: auto;
+}
+
+.sidebar-overlay {
+  position: absolute;
+  z-index: 11;
+}
