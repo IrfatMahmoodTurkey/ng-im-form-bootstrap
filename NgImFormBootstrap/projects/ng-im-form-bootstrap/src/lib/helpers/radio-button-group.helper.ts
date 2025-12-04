@@ -48,6 +48,7 @@ function addRadioButtonGroup(
   };
 
   toModifySection.elements.push({
+    id: generatedId,
     type: FIELDS[5],
     radioButtonGroupComponent: toAddRadioButtonGroup,
   });
