@@ -1,31 +1,118 @@
 <aside class="details-sidebar card">
-  <div class="card-header">
-    <div class="d-flex justify-content-between">
-      <span>
-        <h4 class="modal-title">Select Field</h4>
-      </span>
-      <span>
-        <button type="button" class="btn btn-light btn-sm" (click)="hide()">
-          <i class="fas fa-times"></i>
-        </button>
-      </span>
+  <div class="details-section">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <span>
+          <h4 class="modal-title">Select Field</h4>
+        </span>
+        <span>
+          <button type="button" class="btn btn-light btn-sm" (click)="hide()">
+            <i class="fas fa-times"></i>
+          </button>
+        </span>
+      </div>
     </div>
-  </div>
-  <div class="card-body sidebar-card-body">
-    <ng-container *ngFor="let field of fields; let i = index">
-      <button type="button" class="m-1 btn"
-        [ngClass]="selectedIndex !== undefined ? i === selectedIndex ? 'btn-success' : 'btn-outline-success' :'btn-outline-success'"
-        (click)="select(i)">
-        <ng-container *ngIf="i === selectedIndex">
-          <i class="fas fa-check-circle"></i>
+    <div class="card-body sidebar-card-body">
+      <div class="row">
+        <ng-container *ngFor="let field of fields; let i = index">
+          <div class="col-12 col-md-6 col-lg-6 mb-2">
+            <div class="card field-selection-card" (click)="select(i)"
+              [ngClass]="i === selectedIndex ? 'field-selection-card-selected' : ''">
+              <!-- <ng-container *ngIf="i === selectedIndex">
+                <div class="text-success m-1">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+              </ng-container> -->
+
+              <div class="card-body">
+                <div class="d-flex justify-content-center align-items-center text-center field-element-content">
+                  <div class="field-element-section">
+                    <ng-container *ngIf="i === 0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none"
+                        stroke="#198754" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-type">
+                        <polyline points="4 7 4 4 20 4 20 7"></polyline>
+                        <line x1="9" y1="20" x2="15" y2="20"></line>
+                        <line x1="12" y1="4" x2="12" y2="20"></line>
+                      </svg>
+                    </ng-container>
+                    <ng-container *ngIf="i === 1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none"
+                        stroke="#198754" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-align-left">
+                        <line x1="17" y1="10" x2="3" y2="10"></line>
+                        <line x1="21" y1="6" x2="3" y2="6"></line>
+                        <line x1="21" y1="14" x2="3" y2="14"></line>
+                        <line x1="17" y1="18" x2="3" y2="18"></line>
+                      </svg>
+                    </ng-container>
+                    <ng-container *ngIf="i === 2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none"
+                        stroke="#198754" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-upload">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                      </svg>
+                    </ng-container>
+                    <ng-container *ngIf="i === 3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none"
+                        stroke="#198754" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-chevron-down">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </ng-container>
+                    <ng-container *ngIf="i === 4">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none"
+                        stroke="#198754" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-check-square">
+                        <polyline points="9 11 12 14 22 4"></polyline>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                      </svg>
+                    </ng-container>
+                    <ng-container *ngIf="i === 5">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none"
+                        stroke="#198754" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-disc">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                    </ng-container>
+                    <ng-container *ngIf="i === 6">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none"
+                        stroke="#198754" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-image">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                        <polyline points="21 15 16 10 5 21"></polyline>
+                      </svg>
+                    </ng-container>
+                    <ng-container *ngIf="i === 7">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none"
+                        stroke="#198754" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-tag">
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                        <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                      </svg>
+                    </ng-container>
+
+                    <br>
+                    <div class="mt-2">
+                      <b>{{field}}</b>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </ng-container>
-        {{field}}</button>
-    </ng-container>
+      </div>
 
-    <hr>
+      <hr>
 
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-success" (click)="add()"><i class="fas fa-plus-circle"></i> Add Selected Field</button>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-success" (click)="add()"><i class="fas fa-plus-circle"></i> Add Selected Field</button>
+      </div>
     </div>
   </div>
 </aside>

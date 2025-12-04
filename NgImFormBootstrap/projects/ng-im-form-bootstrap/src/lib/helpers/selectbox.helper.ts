@@ -32,7 +32,7 @@ function addSelectbox(
     id: generatedId,
     name: generatedId,
     label: `Input Field ${order + 1}`,
-    class: 'form-check-input',
+    class: 'form-control',
     placeholder: `Select`,
     validationErrorClass: '',
     isMultiple: false,
@@ -44,6 +44,7 @@ function addSelectbox(
   };
 
   toModifySection.elements.push({
+    id: generatedId,
     type: FIELDS[3],
     selectBoxComponent: toAddSelectBox,
   });

@@ -31,6 +31,7 @@ export interface INgImHorizonatalFormSectionModel {
 }
 
 export interface INgImFormElementModel {
+  id: string;
   type: string;
   textBoxComponent?: INgImFormTextBoxModel | null;
   textAreaComponent?: INgImFormTextAreaModel | null;

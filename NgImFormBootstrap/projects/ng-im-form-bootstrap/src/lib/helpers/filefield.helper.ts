@@ -45,6 +45,7 @@ function addFilefield(
   };
 
   toModifySection.elements.push({
+    id: generatedId,
     type: FIELDS[2],
     fileFieldComponent: toAddFileField,
   });

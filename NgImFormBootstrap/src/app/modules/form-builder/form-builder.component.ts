@@ -109,11 +109,18 @@ export class FormBuilderComponent implements OnInit {
 
   isFormPropertiesSidePanelOpen: boolean = false;
 
-  draggedSectionIndex: number | null = null;
-  replaceSectionIndex: number | null = null;
+  isSectionDragging: boolean = false;
+  isFieldDragging: boolean = false;
 
-  draggedField: { sectionIndex: number; fieldIndex: number } | null = null;
-  replaceField: { sectionIndex: number; fieldIndex: number } | null = null;
+  onDraggingSectionId: string | null = null;
+  onHoverSectionId: string | null = null;
+  keepSectionSpaceIndex: number | null = null;
+  draggedSection: INgImHorizonatalFormSectionModel | null | undefined;
+
+  onDraggingFieldId: string | null = null;
+  onHoverFieldId: string | null = null;
+  keepFieldSpaceIndex: number | null = null;
+  draggedField: INgImFormElementModel | null | undefined;
 
   constructor() {}
 
@@ -847,104 +854,233 @@ export class FormBuilderComponent implements OnInit {
     this.publishFormEvent.emit(this.horizontalForm);
   }
 
-  onSectionDragStart(sectionIndex: number) {
-    this.draggedSectionIndex = sectionIndex;
+  private dragable(event: DragEvent, checkAlias: string): boolean {
+    const target: HTMLElement = event.target as HTMLElement;
+    const className: string = target.className;
+
+    console.log(className);
+    return className.endsWith(checkAlias);
   }
 
-  onSectionDragOver(sectionEvent: DragEvent, sectionIndex: number) {
-    sectionEvent.preventDefault();
-
-    if (sectionIndex === this.draggedSectionIndex) {
+  onSectionDragStart(event: DragEvent, sectionId: string) {
+    if (this.isFieldDragging) {
       return;
     }
 
-    this.replaceSectionIndex = sectionIndex;
+    this.onDraggingSectionId = sectionId;
+    this.isSectionDragging = true;
+
+    this.draggedSection = this.horizontalForm.sections.find(
+      (value: INgImHorizonatalFormSectionModel) => value.id === sectionId
+    );
   }
 
-  onSectionDrop(event: DragEvent, sectionIndex: number) {
+  onSectionDragOver(event: DragEvent, sectionId: string, hoverIndex: number) {
     event.preventDefault();
 
-    if (this.draggedSectionIndex === null) {
+    if (this.isFieldDragging) {
       return;
     }
 
-    if (this.draggedSectionIndex === sectionIndex) {
-      this.draggedSectionIndex = null;
+    if (this.onDraggingSectionId && this.onDraggingSectionId === sectionId) {
       return;
     }
 
-    const draggedSection: INgImHorizonatalFormSectionModel =
-      this.horizontalForm.sections[this.draggedSectionIndex];
+    const filter = this.horizontalForm.sections.filter(
+      (value: INgImHorizonatalFormSectionModel) => value.id
+    );
+    this.horizontalForm.sections = [...filter];
 
-    this.horizontalForm.sections.splice(this.draggedSectionIndex, 1);
-    this.horizontalForm.sections.splice(sectionIndex, 0, draggedSection);
-    this.draggedSectionIndex = null;
-    this.replaceSectionIndex = null;
+    this.horizontalForm.sections.splice(hoverIndex, 0, {
+      id: '',
+      title: '',
+      subTitle: '',
+      class: '',
+      headerClass: '',
+      bodyClass: '',
+      elements: [],
+    });
+
+    this.onHoverSectionId = sectionId;
+    this.keepSectionSpaceIndex = hoverIndex;
   }
 
-  onSectionDragEnd(): void {
-    this.draggedSectionIndex = null;
-    this.replaceSectionIndex = null;
-  }
-
-  onFieldDragStart(sectionIndex: number, fieldIndex: number) {
-    this.draggedField = { sectionIndex, fieldIndex };
-  }
-
-  onFieldDragOver(event: DragEvent, sectionIndex: number, fieldIndex: number) {
+  onSectionDrop(event: DragEvent, sectionId: string) {
     event.preventDefault();
 
-    if (!this.draggedField) {
+    if (this.isFieldDragging) {
       return;
     }
 
-    if (
-      sectionIndex === this.draggedField.sectionIndex &&
-      fieldIndex === this.draggedField.fieldIndex
-    ) {
-      return;
-    }
-
-    this.replaceField = {
-      sectionIndex,
-      fieldIndex,
-    };
+    this.onDraggingSectionId = null;
+    this.onHoverSectionId = null;
+    this.keepSectionSpaceIndex = null;
+    this.draggedSection = null;
+    this.isSectionDragging = false;
   }
 
-  onFieldDrop(event: DragEvent, sectionIndex: number, fieldIndex: number) {
+  onSectionDragEnd(event: DragEvent): void {
     event.preventDefault();
-    if (!this.draggedField || this.draggedField.sectionIndex !== sectionIndex) {
-      this.draggedField = null;
+
+    if (this.isFieldDragging) {
       return;
     }
 
-    if (!this.draggedField && this.draggedField === fieldIndex) {
-      this.draggedField = null;
+    this.onDraggingSectionId = null;
+    this.onHoverSectionId = null;
+    this.keepSectionSpaceIndex = null;
+    this.draggedSection = null;
+    this.isSectionDragging = false;
+  }
+
+  onDragOverSectionSpace(event: DragEvent): void {
+    event.preventDefault();
+
+    if (this.isFieldDragging) {
+      return;
+    }
+  }
+
+  onDropOverSectionSpace(event: DragEvent): void {
+    event.preventDefault();
+
+    if (this.isFieldDragging) {
       return;
     }
 
-    const draggedField: INgImFormElementModel =
-      this.horizontalForm.sections[sectionIndex].elements[
-        this.draggedField.fieldIndex
-      ];
+    if (!this.draggedSection) return;
 
-    this.horizontalForm.sections[sectionIndex].elements.splice(
-      this.draggedField.fieldIndex,
-      1
+    const { id } = this.draggedSection;
+
+    const nullIndex: number = this.horizontalForm.sections.findIndex(
+      (value: INgImHorizonatalFormSectionModel) => !value.id
+    );
+    const elementIndex: number = this.horizontalForm.sections.findIndex(
+      (value: INgImHorizonatalFormSectionModel) => value.id === id
     );
 
-    this.horizontalForm.sections[sectionIndex].elements.splice(
-      fieldIndex,
-      0,
-      draggedField
-    );
-
-    this.draggedField = null;
-    this.replaceField = null;
+    if (elementIndex >= 0 && nullIndex >= 0) {
+      this.horizontalForm.sections[nullIndex] =
+        this.horizontalForm.sections[elementIndex];
+      this.horizontalForm.sections.splice(elementIndex, 1);
+    }
   }
 
-  onFieldDragEnd(): void {
+  onFieldDragStart(event: DragEvent, sectionIndex: number, fieldId: string) {
+    if (this.isSectionDragging) {
+      return;
+    }
+
+    this.onDraggingFieldId = fieldId;
+    this.isFieldDragging = true;
+
+    this.draggedField = this.horizontalForm.sections[
+      sectionIndex
+    ].elements.find((value: INgImFormElementModel) => value.id === fieldId);
+  }
+
+  onFieldDragOver(
+    event: DragEvent,
+    sectionIndex: number,
+    fieldId: string,
+    hoverIndex: number
+  ) {
+    event.preventDefault();
+
+    if (this.isSectionDragging) {
+      return;
+    }
+
+    if (this.onDraggingFieldId && this.onDraggingFieldId === fieldId) {
+      return;
+    }
+
+    const filter = this.horizontalForm.sections[sectionIndex].elements.filter(
+      (value: INgImFormElementModel) => value.id
+    );
+
+    this.horizontalForm.sections[sectionIndex].elements = [...filter];
+
+    this.horizontalForm.sections[sectionIndex].elements.splice(hoverIndex, 0, {
+      id: '',
+      type: '',
+      textBoxComponent: null,
+      textAreaComponent: null,
+      selectBoxComponent: null,
+      fileFieldComponent: null,
+      checkBoxComponent: null,
+      radioButtonGroupComponent: null,
+      imageBoxComponent: null,
+      textComponent: null,
+    });
+
+    this.onHoverFieldId = fieldId;
+    this.keepFieldSpaceIndex = hoverIndex;
+  }
+
+  onFieldDrop(event: DragEvent) {
+    event.preventDefault();
+
+    if (this.isSectionDragging) {
+      return;
+    }
+
+    this.onDraggingFieldId = null;
+    this.onHoverFieldId = null;
+    this.keepFieldSpaceIndex = null;
     this.draggedField = null;
-    this.replaceField = null;
+    this.isFieldDragging = false;
+  }
+
+  onFieldDragEnd(event: DragEvent): void {
+    event.preventDefault();
+
+    if (this.isSectionDragging) {
+      return;
+    }
+
+    this.onDraggingFieldId = null;
+    this.onHoverFieldId = null;
+    this.keepFieldSpaceIndex = null;
+    this.draggedField = null;
+    this.isFieldDragging = false;
+  }
+
+  onDragOverFieldSpace(event: DragEvent): void {
+    event.preventDefault();
+
+    if (this.isSectionDragging) {
+      return;
+    }
+  }
+
+  onDropOverFieldSpace(event: DragEvent, sectionIndex: number): void {
+    event.preventDefault();
+
+    if (this.isSectionDragging) {
+      return;
+    }
+
+    if (!this.draggedField) return;
+
+    const { id } = this.draggedField;
+
+    const nullIndex: number = this.horizontalForm.sections[
+      sectionIndex
+    ].elements.findIndex((value: INgImFormElementModel) => !value.id);
+
+    const elementIndex: number = this.horizontalForm.sections[
+      sectionIndex
+    ].elements.findIndex((value: INgImFormElementModel) => value.id === id);
+
+    if (elementIndex >= 0 && nullIndex >= 0) {
+      this.horizontalForm.sections[sectionIndex].elements[nullIndex] =
+        this.horizontalForm.sections[sectionIndex].elements[elementIndex];
+
+      this.horizontalForm.sections[sectionIndex].elements.splice(
+        elementIndex,
+        1
+      );
+    }
   }
 }

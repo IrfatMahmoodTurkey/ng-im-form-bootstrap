@@ -43,6 +43,7 @@ function addImageBoxGroup(
   };
 
   toModifySection.elements.push({
+    id: generatedId,
     type: FIELDS[6],
     imageBoxComponent: toImageBox,
   });

@@ -2,9 +2,9 @@ export const FIELDS: string[] = [
   'Textbox',
   'Textarea',
   'File Upload',
-  'Dropdown Select Box',
+  'Dropdown',
   'Check Box',
-  'Radio Button Group',
-  'Image View Box',
-  'Text',
+  'Radio Buttons',
+  'Image View',
+  'Text Label',
 ];

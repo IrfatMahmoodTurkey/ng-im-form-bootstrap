@@ -40,6 +40,7 @@ function addText(
   };
 
   toModifySection.elements.push({
+    id: generatedId,
     type: FIELDS[7],
     textComponent: toText,
   });

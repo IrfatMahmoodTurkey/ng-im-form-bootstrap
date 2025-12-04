@@ -1,3 +1,15 @@
+<div class="overlay-dark" [class.show]="isFieldSelectionSidePanelOpen ||
+        isSectionPropertiesSidePanelOpen ||
+        isTextBoxPropertiesSidePanelOpen || 
+        isTextAreaPropertiesSidePanelOpen ||
+        isFileFieldPropertiesSidePanelOpen ||
+        isSelectboxPropertiesSidePanelOpen || 
+        isCheckboxPropertiesSidePanelOpen || 
+        isRadioButtonGroupPropertiesSidePanelOpen || 
+        isImageboxPropertiesSidePanelOpen || 
+        isTextPropertiesSidePanelOpen || 
+        isFormPropertiesSidePanelOpen"></div>
+
 <div class="m-3">
   <div class="mb-2">
     <div class="d-flex justify-content-end">
@@ -28,608 +40,593 @@
 
     <div class="card-body">
       <ng-container *ngFor="let section of horizontalForm.sections; let sectionIndex = index">
-        <div class="mb-4">
-          <div class="card bg-body-secondary section" draggable="true" (dragstart)="onSectionDragStart(sectionIndex)"
-            (dragover)="onSectionDragOver($event, sectionIndex)" (drop)="onSectionDrop($event, sectionIndex)"
-            (dragend)="onSectionDragEnd()" [class.dragging]="draggedSectionIndex === sectionIndex"
-            [class.replace]="replaceSectionIndex === sectionIndex">
-            <div class="top-grip-section">
-              <div class="m-2">
-                <div class="d-flex justify-content-center">
-                  <i class="fas fa-grip"></i>
+        <div class="mb-4 fade-in">
+          <ng-container *ngIf="section.id; else emptySectionCard">
+            <div class="card bg-body-secondary section" [draggable]="!isFieldDragging"
+              (dragstart)="onSectionDragStart($event, section.id)"
+              (dragover)="onSectionDragOver($event, section.id, sectionIndex)" (dragend)="onSectionDragEnd($event)"
+              [class.dragging]="onDraggingSectionId === section.id">
+              <div class="top-grip-section">
+                <div class="m-2">
+                  <div class="d-flex justify-content-center">
+                    <i class="fas fa-grip"></i>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="card-header">
-              <div class="d-flex justify-content-between">
-                <div>
-                  <h3>{{section.title}}</h3>
-                  <small>{{section.subTitle}}</small>
-                </div>
-                <div>
-                  <button class="btn btn-outline-dark me-1" (click)="viewSectionPropertiesSidePanel(section.id)"><i
-                      class="fas fa-sliders"></i> Section Properties</button>
-                  <button class="btn btn-outline-danger" (click)="removeSection(section.id)"><i
-                      class="fas fa-trash"></i>
-                    Remove
-                    Section</button>
+              <div class="card-header">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h3>{{section.title}}</h3>
+                    <small>{{section.subTitle}}</small>
+                  </div>
+                  <div>
+                    <button class="btn btn-outline-dark me-1" (click)="viewSectionPropertiesSidePanel(section.id)"><i
+                        class="fas fa-sliders"></i> Section Properties</button>
+                    <button class="btn btn-outline-danger" (click)="removeSection(section.id)"><i
+                        class="fas fa-trash"></i>
+                      Remove
+                      Section</button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="card-body">
-              <ng-container *ngFor="let element of section.elements; let fieldIndex = index">
-                <ng-container *ngIf="element.type === fields[0] && element.textBoxComponent">
-                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
-                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
-                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
-                    [class.dragging]="
-                      draggedField?.sectionIndex === sectionIndex &&
-                      draggedField?.fieldIndex === fieldIndex
-                    " [class.replace]="
-                      replaceField?.sectionIndex === sectionIndex &&
-                      replaceField?.fieldIndex === fieldIndex
-                    ">
-                    <div class="top-grip-section">
-                      <div class="m-2">
-                        <div class="d-flex justify-content-center">
-                          <i class="fas fa-grip"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-8">
-                          <div class="form-group">
-                            <div class="mb-1">
-                              <div class="d-flex justify-content-between">
-                                <div>
-                                  <label><b>{{element.textBoxComponent.label}}</b></label>
-                                </div>
-
-                                <div>
-                                  <ng-container *ngIf="element.textBoxComponent.isHidden; else tbNotHidden">
-                                    <span class="badge bg-danger">Hidden</span>
-                                  </ng-container>
-                                  <ng-template #tbNotHidden>
-                                    <span class="badge bg-success">Not Hidden</span>
-                                  </ng-template>
-
-                                  <span class="ms-1"></span>
-
-                                  <ng-container *ngIf="element.textBoxComponent.isReadOnly; else tbNotReadonly">
-                                    <span class="badge bg-danger">Readonly</span>
-                                  </ng-container>
-                                  <ng-template #tbNotReadonly>
-                                    <span class="badge bg-success">Not Readonly</span>
-                                  </ng-template>
-
-                                  <span class="ms-1"></span>
-
-                                  <ng-container *ngIf="element.textBoxComponent.isRequired; else tbNotRequired">
-                                    <span class="badge bg-success">Required</span>
-                                  </ng-container>
-                                  <ng-template #tbNotRequired>
-                                    <span class="badge bg-danger">Not Required</span>
-                                  </ng-template>
-                                </div>
-                              </div>
-                            </div>
-                            <input type="{{element.textBoxComponent.type}}" class="{{element.textBoxComponent.class}}"
-                              placeholder="{{element.textBoxComponent.placeholder}}" style="width: 100%;"
-                              [readOnly]="element.textBoxComponent.isReadOnly">
-                          </div>
-                        </div>
-
-                        <div class="col-4">
-                          <div class="d-flex align-items-end" style="height: 100%;">
-                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
-                              (click)="viewTextBoxPropertiesSidePanel(section.id, element.textBoxComponent.id)"><i
-                                class="fas fa-sliders"></i></button>
-                            <button title="Remove" class="btn btn-outline-danger btn-sm"
-                              (click)="removeField(element.type, section.id, element.textBoxComponent.id)"><i
-                                class="fas fa-trash"></i></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-container>
-
-                <ng-container *ngIf="element.type === fields[1] && element.textAreaComponent">
-                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
-                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
-                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
-                    [class.dragging]="
-                      draggedField?.sectionIndex === sectionIndex &&
-                      draggedField?.fieldIndex === fieldIndex
-                    " [class.replace]="
-                      replaceField?.sectionIndex === sectionIndex &&
-                      replaceField?.fieldIndex === fieldIndex
-                    ">
-                    <div class="top-grip-section">
-                      <div class="m-2">
-                        <div class="d-flex justify-content-center">
-                          <i class="fas fa-grip"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-8">
-                          <div class="form-group">
-                            <div class="mb-1">
-                              <div class="d-flex justify-content-between">
-                                <div>
-                                  <label><b>{{element.textAreaComponent.label}}</b></label>
-                                </div>
-
-                                <div>
-                                  <ng-container *ngIf="element.textAreaComponent.isHidden; else taNotHidden">
-                                    <span class="badge bg-danger">Hidden</span>
-                                  </ng-container>
-                                  <ng-template #taNotHidden>
-                                    <span class="badge bg-success">Not Hidden</span>
-                                  </ng-template>
-
-                                  <span class="ms-1"></span>
-
-                                  <ng-container *ngIf="element.textAreaComponent.isReadOnly; else taNotReadonly">
-                                    <span class="badge bg-danger">Readonly</span>
-                                  </ng-container>
-                                  <ng-template #taNotReadonly>
-                                    <span class="badge bg-success">Not Readonly</span>
-                                  </ng-template>
-
-                                  <span class="ms-1"></span>
-
-                                  <ng-container *ngIf="element.textAreaComponent.isRequired; else taNotRequired">
-                                    <span class="badge bg-success">Required</span>
-                                  </ng-container>
-                                  <ng-template #taNotRequired>
-                                    <span class="badge bg-danger">Not Required</span>
-                                  </ng-template>
-                                </div>
-                              </div>
-                            </div>
-                            <textarea class="{{element.textAreaComponent.class}}"
-                              placeholder="{{element.textAreaComponent.placeholder}}"
-                              rows="{{element.textAreaComponent.rows}}" cols="{{element.textAreaComponent.columns}}"
-                              style="width: 100%;" [readOnly]="element.textAreaComponent.isReadOnly"></textarea>
-                          </div>
-                        </div>
-
-                        <div class="col-4">
-                          <div class="d-flex align-items-end" style="height: 100%;">
-                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
-                              (click)="viewTextAreaPropertiesSidePanel(section.id, element.textAreaComponent.id)"><i
-                                class="fas fa-sliders"></i></button>
-                            <button title="Remove" class="btn btn-outline-danger btn-sm"
-                              (click)="removeField(element.type, section.id, element.textAreaComponent.id)"><i
-                                class="fas fa-trash"></i></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-container>
-
-                <ng-container *ngIf="element.type === fields[2] && element.fileFieldComponent">
-                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
-                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
-                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
-                    [class.dragging]="
-                      draggedField?.sectionIndex === sectionIndex &&
-                      draggedField?.fieldIndex === fieldIndex
-                    " [class.replace]="
-                      replaceField?.sectionIndex === sectionIndex &&
-                      replaceField?.fieldIndex === fieldIndex
-                    ">
-                    <div class="top-grip-section">
-                      <div class="m-2">
-                        <div class="d-flex justify-content-center">
-                          <i class="fas fa-grip"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-8">
-                          <div class="form-group">
-                            <div class="mb-1">
-                              <div class="d-flex justify-content-between">
-                                <div>
-                                  <label><b>{{element.fileFieldComponent.label}}</b></label>
-                                </div>
-
-                                <div>
-                                  <ng-container *ngIf="element.fileFieldComponent.isHidden; else fNotHidden">
-                                    <span class="badge bg-danger">Hidden</span>
-                                  </ng-container>
-                                  <ng-template #fNotHidden>
-                                    <span class="badge bg-success">Not Hidden</span>
-                                  </ng-template>
-
-                                  <span class="ms-1"></span>
-
-                                  <ng-container *ngIf="element.fileFieldComponent.isReadOnly; else fNotReadonly">
-                                    <span class="badge bg-danger">Readonly</span>
-                                  </ng-container>
-                                  <ng-template #fNotReadonly>
-                                    <span class="badge bg-success">Not Readonly</span>
-                                  </ng-template>
-
-                                  <span class="ms-1"></span>
-
-                                  <ng-container *ngIf="element.fileFieldComponent.isRequired; else fNotRequired">
-                                    <span class="badge bg-success">Required</span>
-                                  </ng-container>
-                                  <ng-template #fNotRequired>
-                                    <span class="badge bg-danger">Not Required</span>
-                                  </ng-template>
-                                </div>
-                              </div>
-                            </div>
-
-                            <input type="file" class="{{element.fileFieldComponent.class}}" style="width: 100%;">
-                          </div>
-                        </div>
-
-                        <div class="col-4">
-                          <div class="d-flex align-items-end" style="height: 100%;">
-                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
-                              (click)="viewFileFieldPropertiesSidePanel(section.id, element.fileFieldComponent.id)"><i
-                                class="fas fa-sliders"></i></button>
-                            <button title="Remove" class="btn btn-outline-danger btn-sm"
-                              (click)="removeField(element.type, section.id, element.fileFieldComponent.id)"><i
-                                class="fas fa-trash"></i></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-container>
-
-                <ng-container *ngIf="element.type === fields[3] && element.selectBoxComponent">
-                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
-                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
-                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
-                    [class.dragging]="
-                      draggedField?.sectionIndex === sectionIndex &&
-                      draggedField?.fieldIndex === fieldIndex
-                    " [class.replace]="
-                      replaceField?.sectionIndex === sectionIndex &&
-                      replaceField?.fieldIndex === fieldIndex
-                    ">
-                    <div class="top-grip-section">
-                      <div class="m-2">
-                        <div class="d-flex justify-content-center">
-                          <i class="fas fa-grip"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-8">
-                          <div class="form-group">
-                            <div class="mb-1">
-                              <div class="d-flex justify-content-between">
-                                <div>
-                                  <label><b>{{element.selectBoxComponent.label}}</b></label>
-                                </div>
-
-                                <div>
-                                  <ng-container *ngIf="element.selectBoxComponent.isHidden; else slNotHidden">
-                                    <span class="badge bg-danger">Hidden</span>
-                                  </ng-container>
-                                  <ng-template #slNotHidden>
-                                    <span class="badge bg-success">Not Hidden</span>
-                                  </ng-template>
-
-                                  <span class="ms-1"></span>
-
-                                  <ng-container *ngIf="element.selectBoxComponent.isReadOnly; else slNotReadonly">
-                                    <span class="badge bg-danger">Readonly</span>
-                                  </ng-container>
-                                  <ng-template #slNotReadonly>
-                                    <span class="badge bg-success">Not Readonly</span>
-                                  </ng-template>
-
-                                  <span class="ms-1"></span>
-
-                                  <ng-container *ngIf="element.selectBoxComponent.isRequired; else slNotRequired">
-                                    <span class="badge bg-success">Required</span>
-                                  </ng-container>
-                                  <ng-template #slNotRequired>
-                                    <span class="badge bg-danger">Not Required</span>
-                                  </ng-template>
-                                </div>
-                              </div>
-                            </div>
-
-                            <select class="{{element.selectBoxComponent.class}}"
-                              [multiple]="element.selectBoxComponent.isMultiple">
-                              <option *ngIf="element.selectBoxComponent.placeholder" value=""
-                                [selected]="!element.selectBoxComponent.isMultiple">
-                                {{element.selectBoxComponent.placeholder}}</option>
-                              <ng-container *ngFor="let option of element.selectBoxComponent.options">
-                                <option value="{{option.value}}" [selected]="option.selected">{{option.text}}</option>
-                              </ng-container>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col-4">
-                          <div class="d-flex align-items-end" style="height: 100%;">
-                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
-                              (click)="viewSelectboxPropertiesSidePanel(section.id, element.selectBoxComponent.id)"><i
-                                class="fas fa-sliders"></i></button>
-                            <button title="Remove" class="btn btn-outline-danger btn-sm"
-                              (click)="removeField(element.type, section.id, element.selectBoxComponent.id)"><i
-                                class="fas fa-trash"></i></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-container>
-
-                <ng-container *ngIf="element.type === fields[4] && element.checkBoxComponent">
-                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
-                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
-                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
-                    [class.dragging]="
-                      draggedField?.sectionIndex === sectionIndex &&
-                      draggedField?.fieldIndex === fieldIndex
-                    " [class.replace]="
-                      replaceField?.sectionIndex === sectionIndex &&
-                      replaceField?.fieldIndex === fieldIndex
-                    ">
-                    <div class="top-grip-section">
-                      <div class="m-2">
-                        <div class="d-flex justify-content-center">
-                          <i class="fas fa-grip"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-8">
-                          <div class="form-group">
-                            <div class="d-flex justify-content-between">
-                              <div>
-                                <input type="checkbox" class="{{element.checkBoxComponent.class}}"
-                                  [checked]="element.checkBoxComponent.checked">
-
-                                <ng-container *ngIf="element.checkBoxComponent.label">
-                                  <span class="ms-1"><b>{{element.checkBoxComponent.label}}</b></span>
-                                </ng-container>
-                              </div>
-
-                              <div>
-                                <ng-container *ngIf="element.checkBoxComponent.isHidden; else cbNotHidden">
-                                  <span class="badge bg-danger">Hidden</span>
-                                </ng-container>
-                                <ng-template #cbNotHidden>
-                                  <span class="badge bg-success">Not Hidden</span>
-                                </ng-template>
-
-                                <span class="ms-1"></span>
-
-                                <ng-container *ngIf="element.checkBoxComponent.isReadOnly; else cbNotReadonly">
-                                  <span class="badge bg-danger">Readonly</span>
-                                </ng-container>
-                                <ng-template #cbNotReadonly>
-                                  <span class="badge bg-success">Not Readonly</span>
-                                </ng-template>
-
-                                <span class="ms-1"></span>
-
-                                <ng-container *ngIf="element.checkBoxComponent.isRequired; else cbNotRequired">
-                                  <span class="badge bg-success">Required</span>
-                                </ng-container>
-                                <ng-template #cbNotRequired>
-                                  <span class="badge bg-danger">Not Required</span>
-                                </ng-template>
-                              </div>
+              <div class="card-body" *ngIf="!isSectionDragging">
+                <ng-container *ngFor="let element of section.elements; let fieldIndex = index">
+                  <ng-container *ngIf="element.id; else emptyFieldCard">
+                    <ng-container *ngIf="element.type === fields[0] && element.textBoxComponent">
+                      <div class="card m-1 field" [draggable]="!isSectionDragging"
+                        (dragstart)="onFieldDragStart($event, sectionIndex, element.id)"
+                        (dragover)="onFieldDragOver($event, sectionIndex, element.id, fieldIndex)"
+                        (drop)="onFieldDrop($event)" (dragend)="onFieldDragEnd($event)"
+                        [class.dragging]="onDraggingFieldId === element.id">
+                        <div class="top-grip-section">
+                          <div class="m-2">
+                            <div class="d-flex justify-content-center">
+                              <i class="fas fa-grip"></i>
                             </div>
                           </div>
                         </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-8">
+                              <div class="form-group">
+                                <div class="mb-1">
+                                  <div class="d-flex justify-content-between">
+                                    <div>
+                                      <label><b>{{element.textBoxComponent.label}}</b></label>
+                                    </div>
 
-                        <div class="col-4">
-                          <div class="d-flex align-items-end" style="height: 100%;">
-                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
-                              (click)="viewCheckboxPropertiesSidePanel(section.id, element.checkBoxComponent.id)"><i
-                                class="fas fa-sliders"></i></button>
-                            <button title="Remove" class="btn btn-outline-danger btn-sm"
-                              (click)="removeField(element.type, section.id, element.checkBoxComponent.id)"><i
-                                class="fas fa-trash"></i></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-container>
+                                    <div>
+                                      <ng-container *ngIf="element.textBoxComponent.isHidden; else tbNotHidden">
+                                        <span class="badge bg-danger">Hidden</span>
+                                      </ng-container>
+                                      <ng-template #tbNotHidden>
+                                        <span class="badge bg-success">Not Hidden</span>
+                                      </ng-template>
 
-                <ng-container *ngIf="element.type === fields[5] && element.radioButtonGroupComponent">
-                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
-                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
-                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
-                    [class.dragging]="
-                      draggedField?.sectionIndex === sectionIndex &&
-                      draggedField?.fieldIndex === fieldIndex
-                    " [class.replace]="
-                      replaceField?.sectionIndex === sectionIndex &&
-                      replaceField?.fieldIndex === fieldIndex
-                    ">
-                    <div class="top-grip-section">
-                      <div class="m-2">
-                        <div class="d-flex justify-content-center">
-                          <i class="fas fa-grip"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-8">
-                          <div class="form-group">
-                            <div class="row">
-                              <ng-container *ngFor="let radioButton of element.radioButtonGroupComponent.radioButtons">
-                                <div class="col-sm-12 col-md-3 col-lg-3">
-                                  <div class="form-group">
-                                    <input type="radio" name="{{element.radioButtonGroupComponent.name}}"
-                                      id="{{element.radioButtonGroupComponent.id}}" [checked]="radioButton.checked"
-                                      value="{{radioButton.value}}">
-                                    <span class="ms-1">{{radioButton.text}}</span>
+                                      <span class="ms-1"></span>
+
+                                      <ng-container *ngIf="element.textBoxComponent.isReadOnly; else tbNotReadonly">
+                                        <span class="badge bg-danger">Readonly</span>
+                                      </ng-container>
+                                      <ng-template #tbNotReadonly>
+                                        <span class="badge bg-success">Not Readonly</span>
+                                      </ng-template>
+
+                                      <span class="ms-1"></span>
+
+                                      <ng-container *ngIf="element.textBoxComponent.isRequired; else tbNotRequired">
+                                        <span class="badge bg-success">Required</span>
+                                      </ng-container>
+                                      <ng-template #tbNotRequired>
+                                        <span class="badge bg-danger">Not Required</span>
+                                      </ng-template>
+                                    </div>
                                   </div>
                                 </div>
+                                <input type="{{element.textBoxComponent.type}}"
+                                  class="{{element.textBoxComponent.class}}"
+                                  placeholder="{{element.textBoxComponent.placeholder}}" style="width: 100%;"
+                                  [readOnly]="element.textBoxComponent.isReadOnly">
+                              </div>
+                            </div>
+
+                            <div class="col-4">
+                              <div class="d-flex align-items-end" style="height: 100%;">
+                                <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
+                                  (click)="viewTextBoxPropertiesSidePanel(section.id, element.textBoxComponent.id)"><i
+                                    class="fas fa-sliders"></i></button>
+                                <button title="Remove" class="btn btn-outline-danger btn-sm"
+                                  (click)="removeField(element.type, section.id, element.textBoxComponent.id)"><i
+                                    class="fas fa-trash"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="element.type === fields[1] && element.textAreaComponent">
+                      <div class="card m-1 field" [draggable]="!isSectionDragging"
+                        (dragstart)="onFieldDragStart($event, sectionIndex, element.id)"
+                        (dragover)="onFieldDragOver($event, sectionIndex, element.id, fieldIndex)"
+                        (drop)="onFieldDrop($event)" (dragend)="onFieldDragEnd($event)"
+                        [class.dragging]="onDraggingFieldId === element.id">
+                        <div class="top-grip-section">
+                          <div class="m-2">
+                            <div class="d-flex justify-content-center">
+                              <i class="fas fa-grip"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-8">
+                              <div class="form-group">
+                                <div class="mb-1">
+                                  <div class="d-flex justify-content-between">
+                                    <div>
+                                      <label><b>{{element.textAreaComponent.label}}</b></label>
+                                    </div>
+
+                                    <div>
+                                      <ng-container *ngIf="element.textAreaComponent.isHidden; else taNotHidden">
+                                        <span class="badge bg-danger">Hidden</span>
+                                      </ng-container>
+                                      <ng-template #taNotHidden>
+                                        <span class="badge bg-success">Not Hidden</span>
+                                      </ng-template>
+
+                                      <span class="ms-1"></span>
+
+                                      <ng-container *ngIf="element.textAreaComponent.isReadOnly; else taNotReadonly">
+                                        <span class="badge bg-danger">Readonly</span>
+                                      </ng-container>
+                                      <ng-template #taNotReadonly>
+                                        <span class="badge bg-success">Not Readonly</span>
+                                      </ng-template>
+
+                                      <span class="ms-1"></span>
+
+                                      <ng-container *ngIf="element.textAreaComponent.isRequired; else taNotRequired">
+                                        <span class="badge bg-success">Required</span>
+                                      </ng-container>
+                                      <ng-template #taNotRequired>
+                                        <span class="badge bg-danger">Not Required</span>
+                                      </ng-template>
+                                    </div>
+                                  </div>
+                                </div>
+                                <textarea class="{{element.textAreaComponent.class}}"
+                                  placeholder="{{element.textAreaComponent.placeholder}}"
+                                  rows="{{element.textAreaComponent.rows}}" cols="{{element.textAreaComponent.columns}}"
+                                  style="width: 100%;" [readOnly]="element.textAreaComponent.isReadOnly"></textarea>
+                              </div>
+                            </div>
+
+                            <div class="col-4">
+                              <div class="d-flex align-items-end" style="height: 100%;">
+                                <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
+                                  (click)="viewTextAreaPropertiesSidePanel(section.id, element.textAreaComponent.id)"><i
+                                    class="fas fa-sliders"></i></button>
+                                <button title="Remove" class="btn btn-outline-danger btn-sm"
+                                  (click)="removeField(element.type, section.id, element.textAreaComponent.id)"><i
+                                    class="fas fa-trash"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="element.type === fields[2] && element.fileFieldComponent">
+                      <div class="card m-1 field" [draggable]="!isSectionDragging"
+                        (dragstart)="onFieldDragStart($event, sectionIndex, element.id)"
+                        (dragover)="onFieldDragOver($event, sectionIndex, element.id, fieldIndex)"
+                        (drop)="onFieldDrop($event)" (dragend)="onFieldDragEnd($event)"
+                        [class.dragging]="onDraggingFieldId === element.id">
+                        <div class="top-grip-section">
+                          <div class="m-2">
+                            <div class="d-flex justify-content-center">
+                              <i class="fas fa-grip"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-8">
+                              <div class="form-group">
+                                <div class="mb-1">
+                                  <div class="d-flex justify-content-between">
+                                    <div>
+                                      <label><b>{{element.fileFieldComponent.label}}</b></label>
+                                    </div>
+
+                                    <div>
+                                      <ng-container *ngIf="element.fileFieldComponent.isHidden; else fNotHidden">
+                                        <span class="badge bg-danger">Hidden</span>
+                                      </ng-container>
+                                      <ng-template #fNotHidden>
+                                        <span class="badge bg-success">Not Hidden</span>
+                                      </ng-template>
+
+                                      <span class="ms-1"></span>
+
+                                      <ng-container *ngIf="element.fileFieldComponent.isReadOnly; else fNotReadonly">
+                                        <span class="badge bg-danger">Readonly</span>
+                                      </ng-container>
+                                      <ng-template #fNotReadonly>
+                                        <span class="badge bg-success">Not Readonly</span>
+                                      </ng-template>
+
+                                      <span class="ms-1"></span>
+
+                                      <ng-container *ngIf="element.fileFieldComponent.isRequired; else fNotRequired">
+                                        <span class="badge bg-success">Required</span>
+                                      </ng-container>
+                                      <ng-template #fNotRequired>
+                                        <span class="badge bg-danger">Not Required</span>
+                                      </ng-template>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <input type="file" class="{{element.fileFieldComponent.class}}" style="width: 100%;">
+                              </div>
+                            </div>
+
+                            <div class="col-4">
+                              <div class="d-flex align-items-end" style="height: 100%;">
+                                <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
+                                  (click)="viewFileFieldPropertiesSidePanel(section.id, element.fileFieldComponent.id)"><i
+                                    class="fas fa-sliders"></i></button>
+                                <button title="Remove" class="btn btn-outline-danger btn-sm"
+                                  (click)="removeField(element.type, section.id, element.fileFieldComponent.id)"><i
+                                    class="fas fa-trash"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="element.type === fields[3] && element.selectBoxComponent">
+                      <div class="card m-1 field" [draggable]="!isSectionDragging"
+                        (dragstart)="onFieldDragStart($event, sectionIndex, element.id)"
+                        (dragover)="onFieldDragOver($event, sectionIndex, element.id, fieldIndex)"
+                        (drop)="onFieldDrop($event)" (dragend)="onFieldDragEnd($event)"
+                        [class.dragging]="onDraggingFieldId === element.id">
+                        <div class="top-grip-section">
+                          <div class="m-2">
+                            <div class="d-flex justify-content-center">
+                              <i class="fas fa-grip"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-8">
+                              <div class="form-group">
+                                <div class="mb-1">
+                                  <div class="d-flex justify-content-between">
+                                    <div>
+                                      <label><b>{{element.selectBoxComponent.label}}</b></label>
+                                    </div>
+
+                                    <div>
+                                      <ng-container *ngIf="element.selectBoxComponent.isHidden; else slNotHidden">
+                                        <span class="badge bg-danger">Hidden</span>
+                                      </ng-container>
+                                      <ng-template #slNotHidden>
+                                        <span class="badge bg-success">Not Hidden</span>
+                                      </ng-template>
+
+                                      <span class="ms-1"></span>
+
+                                      <ng-container *ngIf="element.selectBoxComponent.isReadOnly; else slNotReadonly">
+                                        <span class="badge bg-danger">Readonly</span>
+                                      </ng-container>
+                                      <ng-template #slNotReadonly>
+                                        <span class="badge bg-success">Not Readonly</span>
+                                      </ng-template>
+
+                                      <span class="ms-1"></span>
+
+                                      <ng-container *ngIf="element.selectBoxComponent.isRequired; else slNotRequired">
+                                        <span class="badge bg-success">Required</span>
+                                      </ng-container>
+                                      <ng-template #slNotRequired>
+                                        <span class="badge bg-danger">Not Required</span>
+                                      </ng-template>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <select class="{{element.selectBoxComponent.class}}"
+                                  [multiple]="element.selectBoxComponent.isMultiple">
+                                  <option *ngIf="element.selectBoxComponent.placeholder" value=""
+                                    [selected]="!element.selectBoxComponent.isMultiple">
+                                    {{element.selectBoxComponent.placeholder}}</option>
+                                  <ng-container *ngFor="let option of element.selectBoxComponent.options">
+                                    <option value="{{option.value}}" [selected]="option.selected">{{option.text}}
+                                    </option>
+                                  </ng-container>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-4">
+                              <div class="d-flex align-items-end" style="height: 100%;">
+                                <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
+                                  (click)="viewSelectboxPropertiesSidePanel(section.id, element.selectBoxComponent.id)"><i
+                                    class="fas fa-sliders"></i></button>
+                                <button title="Remove" class="btn btn-outline-danger btn-sm"
+                                  (click)="removeField(element.type, section.id, element.selectBoxComponent.id)"><i
+                                    class="fas fa-trash"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="element.type === fields[4] && element.checkBoxComponent">
+                      <div class="card m-1 field" [draggable]="!isSectionDragging"
+                        (dragstart)="onFieldDragStart($event, sectionIndex, element.id)"
+                        (dragover)="onFieldDragOver($event, sectionIndex, element.id, fieldIndex)"
+                        (drop)="onFieldDrop($event)" (dragend)="onFieldDragEnd($event)"
+                        [class.dragging]="onDraggingFieldId === element.id">
+                        <div class="top-grip-section">
+                          <div class="m-2">
+                            <div class="d-flex justify-content-center">
+                              <i class="fas fa-grip"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-8">
+                              <div class="form-group">
+                                <div class="d-flex justify-content-between">
+                                  <div>
+                                    <input type="checkbox" class="{{element.checkBoxComponent.class}}"
+                                      [checked]="element.checkBoxComponent.checked">
+
+                                    <ng-container *ngIf="element.checkBoxComponent.label">
+                                      <span class="ms-1"><b>{{element.checkBoxComponent.label}}</b></span>
+                                    </ng-container>
+                                  </div>
+
+                                  <div>
+                                    <ng-container *ngIf="element.checkBoxComponent.isHidden; else cbNotHidden">
+                                      <span class="badge bg-danger">Hidden</span>
+                                    </ng-container>
+                                    <ng-template #cbNotHidden>
+                                      <span class="badge bg-success">Not Hidden</span>
+                                    </ng-template>
+
+                                    <span class="ms-1"></span>
+
+                                    <ng-container *ngIf="element.checkBoxComponent.isReadOnly; else cbNotReadonly">
+                                      <span class="badge bg-danger">Readonly</span>
+                                    </ng-container>
+                                    <ng-template #cbNotReadonly>
+                                      <span class="badge bg-success">Not Readonly</span>
+                                    </ng-template>
+
+                                    <span class="ms-1"></span>
+
+                                    <ng-container *ngIf="element.checkBoxComponent.isRequired; else cbNotRequired">
+                                      <span class="badge bg-success">Required</span>
+                                    </ng-container>
+                                    <ng-template #cbNotRequired>
+                                      <span class="badge bg-danger">Not Required</span>
+                                    </ng-template>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-4">
+                              <div class="d-flex align-items-end" style="height: 100%;">
+                                <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
+                                  (click)="viewCheckboxPropertiesSidePanel(section.id, element.checkBoxComponent.id)"><i
+                                    class="fas fa-sliders"></i></button>
+                                <button title="Remove" class="btn btn-outline-danger btn-sm"
+                                  (click)="removeField(element.type, section.id, element.checkBoxComponent.id)"><i
+                                    class="fas fa-trash"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="element.type === fields[5] && element.radioButtonGroupComponent">
+                      <div class="card m-1 field" [draggable]="!isSectionDragging"
+                        (dragstart)="onFieldDragStart($event, sectionIndex, element.id)"
+                        (dragover)="onFieldDragOver($event, sectionIndex, element.id, fieldIndex)"
+                        (drop)="onFieldDrop($event)" (dragend)="onFieldDragEnd($event)"
+                        [class.dragging]="onDraggingFieldId === element.id">
+                        <div class="top-grip-section">
+                          <div class="m-2">
+                            <div class="d-flex justify-content-center">
+                              <i class="fas fa-grip"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-8">
+                              <div class="form-group">
+                                <div class="row">
+                                  <ng-container
+                                    *ngFor="let radioButton of element.radioButtonGroupComponent.radioButtons">
+                                    <div class="col-sm-12 col-md-3 col-lg-3">
+                                      <div class="form-group">
+                                        <input type="radio" name="{{element.radioButtonGroupComponent.name}}"
+                                          id="{{element.radioButtonGroupComponent.id}}" [checked]="radioButton.checked"
+                                          value="{{radioButton.value}}">
+                                        <span class="ms-1">{{radioButton.text}}</span>
+                                      </div>
+                                    </div>
+                                  </ng-container>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-4">
+                              <div class="d-flex align-items-end" style="height: 100%;">
+                                <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
+                                  (click)="viewRadioButtonGroupPropertiesSidePanel(section.id, element.radioButtonGroupComponent.id)"><i
+                                    class="fas fa-sliders"></i></button>
+                                <button title="Remove" class="btn btn-outline-danger btn-sm"
+                                  (click)="removeField(element.type, section.id, element.radioButtonGroupComponent.id)"><i
+                                    class="fas fa-trash"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="element.type === fields[6] && element.imageBoxComponent">
+                      <div class="card m-1 field" [draggable]="!isSectionDragging"
+                        (dragstart)="onFieldDragStart($event, sectionIndex, element.id)"
+                        (dragover)="onFieldDragOver($event, sectionIndex, element.id, fieldIndex)"
+                        (drop)="onFieldDrop($event)" (dragend)="onFieldDragEnd($event)"
+                        [class.dragging]="onDraggingFieldId === element.id">
+                        <div class="top-grip-section">
+                          <div class="m-2">
+                            <div class="d-flex justify-content-center">
+                              <i class="fas fa-grip"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-8">
+                              <ng-container *ngIf="element.imageBoxComponent.alignment === alignments[0]">
+                                <div class="text-left">
+                                  <img src="{{element.imageBoxComponent.url}}" alt="{{element.imageBoxComponent.alt}}"
+                                    height="{{element.imageBoxComponent.height}}"
+                                    width="{{element.imageBoxComponent.width}}"
+                                    class="{{element.imageBoxComponent.class}}">
+                                </div>
+                              </ng-container>
+
+                              <ng-container *ngIf="element.imageBoxComponent.alignment === alignments[1]">
+                                <div class="text-end">
+                                  <img src="{{element.imageBoxComponent.url}}" alt="{{element.imageBoxComponent.alt}}"
+                                    height="{{element.imageBoxComponent.height}}"
+                                    width="{{element.imageBoxComponent.width}}"
+                                    class="{{element.imageBoxComponent.class}}">
+                                </div>
+                              </ng-container>
+
+                              <ng-container *ngIf="element.imageBoxComponent.alignment === alignments[2]">
+                                <div class="text-center">
+                                  <img src="{{element.imageBoxComponent.url}}" alt="{{element.imageBoxComponent.alt}}"
+                                    height="{{element.imageBoxComponent.height}}"
+                                    width="{{element.imageBoxComponent.width}}"
+                                    class="{{element.imageBoxComponent.class}}">
+                                </div>
                               </ng-container>
                             </div>
-                          </div>
-                        </div>
 
-                        <div class="col-4">
-                          <div class="d-flex align-items-end" style="height: 100%;">
-                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
-                              (click)="viewRadioButtonGroupPropertiesSidePanel(section.id, element.radioButtonGroupComponent.id)"><i
-                                class="fas fa-sliders"></i></button>
-                            <button title="Remove" class="btn btn-outline-danger btn-sm"
-                              (click)="removeField(element.type, section.id, element.radioButtonGroupComponent.id)"><i
-                                class="fas fa-trash"></i></button>
+                            <div class="col-4">
+                              <div class="d-flex align-items-end" style="height: 100%;">
+                                <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
+                                  (click)="viewImageboxPropertiesSidePanel(section.id, element.imageBoxComponent.id)"><i
+                                    class="fas fa-sliders"></i></button>
+                                <button title="Remove" class="btn btn-outline-danger btn-sm"
+                                  (click)="removeField(element.type, section.id, element.imageBoxComponent.id)"><i
+                                    class="fas fa-trash"></i></button>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="element.type === fields[7] && element.textComponent">
+                      <div class="card m-1 field" [draggable]="!isSectionDragging"
+                        (dragstart)="onFieldDragStart($event, sectionIndex, element.id)"
+                        (dragover)="onFieldDragOver($event, sectionIndex, element.id, fieldIndex)"
+                        (drop)="onFieldDrop($event)" (dragend)="onFieldDragEnd($event)"
+                        [class.dragging]="onDraggingFieldId === element.id">
+                        <div class="top-grip-section">
+                          <div class="m-2">
+                            <div class="d-flex justify-content-center">
+                              <i class="fas fa-grip"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-8">
+                              <ng-container *ngIf="element.textComponent.alignment === alignments[0]">
+                                <div class="text-left">
+                                  <p class="{{element.textComponent.class}}">
+                                    {{element.textComponent.text}}
+                                  </p>
+                                </div>
+                              </ng-container>
+
+                              <ng-container *ngIf="element.textComponent.alignment === alignments[1]">
+                                <div class="text-end">
+                                  <p class="{{element.textComponent.class}}">
+                                    {{element.textComponent.text}}
+                                  </p>
+                                </div>
+                              </ng-container>
+
+                              <ng-container *ngIf="element.textComponent.alignment === alignments[2]">
+                                <div class="text-center">
+                                  <p class="{{element.textComponent.class}}">
+                                    {{element.textComponent.text}}
+                                  </p>
+                                </div>
+                              </ng-container>
+                            </div>
+
+                            <div class="col-4">
+                              <div class="d-flex align-items-end" style="height: 100%;">
+                                <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
+                                  (click)="viewTextPropertiesSidePanel(section.id, element.textComponent.id)"><i
+                                    class="fas fa-sliders"></i></button>
+                                <button title="Remove" class="btn btn-outline-danger btn-sm"
+                                  (click)="removeField(element.type, section.id, element.textComponent.id)"><i
+                                    class="fas fa-trash"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                  <ng-template #emptyFieldCard>
+                    <ng-container *ngIf="keepFieldSpaceIndex === fieldIndex">
+                      <div class="space field-space" (dragover)="onDragOverFieldSpace($event)"
+                        (drop)="onDropOverFieldSpace($event, sectionIndex)">
+                      </div>
+                    </ng-container>
+                  </ng-template>
                 </ng-container>
 
-                <ng-container *ngIf="element.type === fields[6] && element.imageBoxComponent">
-                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
-                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
-                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
-                    [class.dragging]="
-                      draggedField?.sectionIndex === sectionIndex &&
-                      draggedField?.fieldIndex === fieldIndex
-                    " [class.replace]="
-                      replaceField?.sectionIndex === sectionIndex &&
-                      replaceField?.fieldIndex === fieldIndex
-                    ">
-                    <div class="top-grip-section">
-                      <div class="m-2">
-                        <div class="d-flex justify-content-center">
-                          <i class="fas fa-grip"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-8">
-                          <ng-container *ngIf="element.imageBoxComponent.alignment === alignments[0]">
-                            <div class="text-left">
-                              <img src="{{element.imageBoxComponent.url}}" alt="{{element.imageBoxComponent.alt}}"
-                                height="{{element.imageBoxComponent.height}}"
-                                width="{{element.imageBoxComponent.width}}" class="{{element.imageBoxComponent.class}}">
-                            </div>
-                          </ng-container>
-
-                          <ng-container *ngIf="element.imageBoxComponent.alignment === alignments[1]">
-                            <div class="text-end">
-                              <img src="{{element.imageBoxComponent.url}}" alt="{{element.imageBoxComponent.alt}}"
-                                height="{{element.imageBoxComponent.height}}"
-                                width="{{element.imageBoxComponent.width}}" class="{{element.imageBoxComponent.class}}">
-                            </div>
-                          </ng-container>
-
-                          <ng-container *ngIf="element.imageBoxComponent.alignment === alignments[2]">
-                            <div class="text-center">
-                              <img src="{{element.imageBoxComponent.url}}" alt="{{element.imageBoxComponent.alt}}"
-                                height="{{element.imageBoxComponent.height}}"
-                                width="{{element.imageBoxComponent.width}}" class="{{element.imageBoxComponent.class}}">
-                            </div>
-                          </ng-container>
-                        </div>
-
-                        <div class="col-4">
-                          <div class="d-flex align-items-end" style="height: 100%;">
-                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
-                              (click)="viewImageboxPropertiesSidePanel(section.id, element.imageBoxComponent.id)"><i
-                                class="fas fa-sliders"></i></button>
-                            <button title="Remove" class="btn btn-outline-danger btn-sm"
-                              (click)="removeField(element.type, section.id, element.imageBoxComponent.id)"><i
-                                class="fas fa-trash"></i></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-container>
-
-                <ng-container *ngIf="element.type === fields[7] && element.textComponent">
-                  <div class="card m-1 field" draggable="true" (dragstart)="onFieldDragStart(sectionIndex, fieldIndex)"
-                    (dragover)="onFieldDragOver($event, sectionIndex, fieldIndex)"
-                    (drop)="onFieldDrop($event, sectionIndex, fieldIndex)" (dragend)="onFieldDragEnd()"
-                    [class.dragging]="
-                      draggedField?.sectionIndex === sectionIndex &&
-                      draggedField?.fieldIndex === fieldIndex
-                    " [class.replace]="
-                      replaceField?.sectionIndex === sectionIndex &&
-                      replaceField?.fieldIndex === fieldIndex
-                    ">
-                    <div class="top-grip-section">
-                      <div class="m-2">
-                        <div class="d-flex justify-content-center">
-                          <i class="fas fa-grip"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-8">
-                          <ng-container *ngIf="element.textComponent.alignment === alignments[0]">
-                            <div class="text-left">
-                              <p class="{{element.textComponent.class}}">
-                                {{element.textComponent.text}}
-                              </p>
-                            </div>
-                          </ng-container>
-
-                          <ng-container *ngIf="element.textComponent.alignment === alignments[1]">
-                            <div class="text-end">
-                              <p class="{{element.textComponent.class}}">
-                                {{element.textComponent.text}}
-                              </p>
-                            </div>
-                          </ng-container>
-
-                          <ng-container *ngIf="element.textComponent.alignment === alignments[2]">
-                            <div class="text-center">
-                              <p class="{{element.textComponent.class}}">
-                                {{element.textComponent.text}}
-                              </p>
-                            </div>
-                          </ng-container>
-                        </div>
-
-                        <div class="col-4">
-                          <div class="d-flex align-items-end" style="height: 100%;">
-                            <button title="Properties" class="btn btn-outline-dark btn-sm me-1"
-                              (click)="viewTextPropertiesSidePanel(section.id, element.textComponent.id)"><i
-                                class="fas fa-sliders"></i></button>
-                            <button title="Remove" class="btn btn-outline-danger btn-sm"
-                              (click)="removeField(element.type, section.id, element.textComponent.id)"><i
-                                class="fas fa-trash"></i></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </ng-container>
-              </ng-container>
-
-              <div class="m-3 d-flex justify-content-center">
-                <button title="Add New Field" class="btn btn-outline-dark btn-lg btn-block"
-                  (click)="viewFieldSelectionSidePanel(section.id)"><i class="fas fa-plus"></i></button>
+                <div class="m-3 d-flex justify-content-center">
+                  <button title="Add New Field" class="btn btn-success btn-lg btn-block"
+                    (click)="viewFieldSelectionSidePanel(section.id)"><i class="fas fa-plus"></i></button>
+                </div>
               </div>
             </div>
-          </div>
+          </ng-container>
+          <ng-template #emptySectionCard>
+            <ng-container *ngIf="keepSectionSpaceIndex === sectionIndex">
+              <div class="space section-space" (dragover)="onDragOverSectionSpace($event)"
+                (drop)="onDropOverSectionSpace($event)">
+              </div>
+            </ng-container>
+          </ng-template>
+
         </div>
       </ng-container>
 
@@ -641,46 +638,48 @@
   </div>
 </div>
 
-<app-field-selection-sidepanel *ngIf="isFieldSelectionSidePanelOpen" (hidePanelEvent)="hideFieldSelectionSidePanel()"
-  (selectedTypeEvent)="addField($event)"></app-field-selection-sidepanel>
+<div class="sidebar-overlay">
+  <app-field-selection-sidepanel *ngIf="isFieldSelectionSidePanelOpen" (hidePanelEvent)="hideFieldSelectionSidePanel()"
+    (selectedTypeEvent)="addField($event)"></app-field-selection-sidepanel>
 
-<app-section-properties-sidepanel *ngIf="isSectionPropertiesSidePanelOpen"
-  [sectionProperties]="selectedForSectionPropertiesUpdate" (hidePanelEvent)="hideSectionPropertiesSidePanel()"
-  (saveChangesEvent)="saveSectionProperties($event)"></app-section-properties-sidepanel>
+  <app-section-properties-sidepanel *ngIf="isSectionPropertiesSidePanelOpen"
+    [sectionProperties]="selectedForSectionPropertiesUpdate" (hidePanelEvent)="hideSectionPropertiesSidePanel()"
+    (saveChangesEvent)="saveSectionProperties($event)"></app-section-properties-sidepanel>
 
-<app-textbox-properties-sidepanel *ngIf="isTextBoxPropertiesSidePanelOpen" [horizontalForm]="horizontalForm"
-  [textboxProperties]="selectedForTextboxPropertiesUpdate" (hidePanelEvent)="hideTextBoxPropertiesSidePanel()"
-  (saveChangesEvent)="saveTextboxProperties($event)"></app-textbox-properties-sidepanel>
+  <app-textbox-properties-sidepanel *ngIf="isTextBoxPropertiesSidePanelOpen" [horizontalForm]="horizontalForm"
+    [textboxProperties]="selectedForTextboxPropertiesUpdate" (hidePanelEvent)="hideTextBoxPropertiesSidePanel()"
+    (saveChangesEvent)="saveTextboxProperties($event)"></app-textbox-properties-sidepanel>
 
-<app-textarea-properties-sidepanel *ngIf="isTextAreaPropertiesSidePanelOpen"
-  [textareaProperties]="selectedForTextareaPropertiesUpdate" (hidePanelEvent)="hideTextAreaPropertiesSidePanel()"
-  (saveChangesEvent)="saveTextareaProperties($event)"></app-textarea-properties-sidepanel>
+  <app-textarea-properties-sidepanel *ngIf="isTextAreaPropertiesSidePanelOpen"
+    [textareaProperties]="selectedForTextareaPropertiesUpdate" (hidePanelEvent)="hideTextAreaPropertiesSidePanel()"
+    (saveChangesEvent)="saveTextareaProperties($event)"></app-textarea-properties-sidepanel>
 
-<app-filefield-properties-sidepanel *ngIf="isFileFieldPropertiesSidePanelOpen"
-  [fileFieldProperties]="selectedForFileFieldPropertiesUpdate" (hidePanelEvent)="hideFileFieldPropertiesSidePanel()"
-  (saveChangesEvent)="saveFileFieldProperties($event)"></app-filefield-properties-sidepanel>
+  <app-filefield-properties-sidepanel *ngIf="isFileFieldPropertiesSidePanelOpen"
+    [fileFieldProperties]="selectedForFileFieldPropertiesUpdate" (hidePanelEvent)="hideFileFieldPropertiesSidePanel()"
+    (saveChangesEvent)="saveFileFieldProperties($event)"></app-filefield-properties-sidepanel>
 
-<app-selectbox-properties-sidepanel *ngIf="isSelectboxPropertiesSidePanelOpen"
-  [selectBoxProperties]="selectedForSelectboxPropertiesUpdate" (hidePanelEvent)="hideSelectboxPropertiesSidePanel()"
-  (saveChangesEvent)="saveSelectboxProperties($event)"></app-selectbox-properties-sidepanel>
+  <app-selectbox-properties-sidepanel *ngIf="isSelectboxPropertiesSidePanelOpen"
+    [selectBoxProperties]="selectedForSelectboxPropertiesUpdate" (hidePanelEvent)="hideSelectboxPropertiesSidePanel()"
+    (saveChangesEvent)="saveSelectboxProperties($event)"></app-selectbox-properties-sidepanel>
 
-<app-checkbox-properties-sidepanel *ngIf="isCheckboxPropertiesSidePanelOpen"
-  [checkboxProperties]="selectedForCheckboxPropertiesUpdate" (hidePanelEvent)="hideCheckboxPropertiesSidePanel()"
-  (saveChangesEvent)="saveCheckboxProperties($event)"></app-checkbox-properties-sidepanel>
+  <app-checkbox-properties-sidepanel *ngIf="isCheckboxPropertiesSidePanelOpen"
+    [checkboxProperties]="selectedForCheckboxPropertiesUpdate" (hidePanelEvent)="hideCheckboxPropertiesSidePanel()"
+    (saveChangesEvent)="saveCheckboxProperties($event)"></app-checkbox-properties-sidepanel>
 
-<app-radio-button-group-properties-sidepanel *ngIf="isRadioButtonGroupPropertiesSidePanelOpen"
-  [radioButtonGroupProperties]="selectedForRadioButtonGroupPropertiesUpdate"
-  (hidePanelEvent)="hideRadioButtonGroupPropertiesSidePanel()"
-  (saveChangesEvent)="saveRadioButtonGroupProperties($event)"></app-radio-button-group-properties-sidepanel>
+  <app-radio-button-group-properties-sidepanel *ngIf="isRadioButtonGroupPropertiesSidePanelOpen"
+    [radioButtonGroupProperties]="selectedForRadioButtonGroupPropertiesUpdate"
+    (hidePanelEvent)="hideRadioButtonGroupPropertiesSidePanel()"
+    (saveChangesEvent)="saveRadioButtonGroupProperties($event)"></app-radio-button-group-properties-sidepanel>
 
-<app-imagebox-properties-sidepanel *ngIf="isImageboxPropertiesSidePanelOpen"
-  [imageboxProperties]="selectedForImageboxPropertiesUpdate" (hidePanelEvent)="hideImageboxPropertiesSidePanel()"
-  (saveChangesEvent)="saveImageboxProperties($event)"></app-imagebox-properties-sidepanel>
+  <app-imagebox-properties-sidepanel *ngIf="isImageboxPropertiesSidePanelOpen"
+    [imageboxProperties]="selectedForImageboxPropertiesUpdate" (hidePanelEvent)="hideImageboxPropertiesSidePanel()"
+    (saveChangesEvent)="saveImageboxProperties($event)"></app-imagebox-properties-sidepanel>
 
-<app-text-properties-sidepanel *ngIf="isTextPropertiesSidePanelOpen" [textProperties]="selectedForTextPropertiesUpdate"
-  (hidePanelEvent)="hideTextPropertiesSidePanel()"
-  (saveChangesEvent)="saveTextProperties($event)"></app-text-properties-sidepanel>
+  <app-text-properties-sidepanel *ngIf="isTextPropertiesSidePanelOpen"
+    [textProperties]="selectedForTextPropertiesUpdate" (hidePanelEvent)="hideTextPropertiesSidePanel()"
+    (saveChangesEvent)="saveTextProperties($event)"></app-text-properties-sidepanel>
 
-<app-form-properties-sidepanel *ngIf="isFormPropertiesSidePanelOpen" [formProperties]="horizontalForm"
-  (hidePanelEvent)="hideFormPropertiesSidePanel()"
-  (saveChangesEvent)="saveFormProperties($event)"></app-form-properties-sidepanel>
+  <app-form-properties-sidepanel *ngIf="isFormPropertiesSidePanelOpen" [formProperties]="horizontalForm"
+    (hidePanelEvent)="hideFormPropertiesSidePanel()"
+    (saveChangesEvent)="saveFormProperties($event)"></app-form-properties-sidepanel>
+</div>

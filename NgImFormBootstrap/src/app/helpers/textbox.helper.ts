@@ -46,6 +46,7 @@ function addTextbox(
   };
 
   toModifySection.elements.push({
+    id: generatedId,
     type: FIELDS[0],
     textBoxComponent: toAddTextBox,
   });
