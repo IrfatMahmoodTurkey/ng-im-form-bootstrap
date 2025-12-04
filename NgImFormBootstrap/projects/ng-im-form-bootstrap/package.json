@@ -1,14 +1,27 @@
 {
   "name": "ng-im-form-bootstrap",
   "version": "1.0.1",
+  "description": "A flexible and elegant Angular UI library for building submittable dynamic forms — powered by Bootstrap.",
   "author": {
-    "name": "Irfat Mahmood Turkey"
+    "name": "Irfat Mahmood Turkey",
+    "email": "developerirfat88550@gmail.com"
   },
   "homepage": "https://irfatmahmoodturkey.github.io/ng-im-form-bootstrap-official-website/",
   "repository": {
     "type": "github",
     "url": "https://github.com/IrfatMahmoodTurkey/ng-im-form-bootstrap"
   },
+  "keywords": [
+    "angular",
+    "form-builder",
+    "custom-form-builder",
+    "dynamic-form-generator",
+    "survery-form-generator",
+    "ui-library",
+    "typescript",
+    "frontend"
+  ],
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^18.2.0",
     "@angular/core": "^18.2.0",
