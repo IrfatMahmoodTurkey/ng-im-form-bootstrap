@@ -88,7 +88,7 @@ If you see Bootstrap styling and Font Awesome icons properly rendered, your setu
 
 ---
 
-## Current Version: 1.0.2
+## Current Version: 1.1.0
 
 - Enhanced section and field ordering with intuitive drag‑and‑drop functionality.
 - Refined field selection UI for a smoother, more user‑friendly experience.
