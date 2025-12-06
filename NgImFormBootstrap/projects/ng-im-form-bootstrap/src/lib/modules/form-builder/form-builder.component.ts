@@ -861,8 +861,6 @@ export class FormBuilderComponent implements OnInit {
   private dragable(event: DragEvent, checkAlias: string): boolean {
     const target: HTMLElement = event.target as HTMLElement;
     const className: string = target.className;
-
-    console.log(className);
     return className.endsWith(checkAlias);
   }
 

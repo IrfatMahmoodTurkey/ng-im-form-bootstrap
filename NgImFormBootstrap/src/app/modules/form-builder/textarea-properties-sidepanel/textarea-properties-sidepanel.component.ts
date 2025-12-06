@@ -218,10 +218,12 @@ export class TextareaPropertiesSidepanelComponent implements OnInit {
         isRequired,
         requiredMessage,
         validations: validations,
-        regexValidation: {
-          expression: regex,
-          message: regexMessage,
-        },
+        regexValidation: regex
+          ? {
+              expression: regex,
+              message: regexMessage,
+            }
+          : null,
       },
     });
 

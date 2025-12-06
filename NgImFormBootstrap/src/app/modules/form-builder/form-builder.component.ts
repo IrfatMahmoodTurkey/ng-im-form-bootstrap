@@ -858,7 +858,6 @@ export class FormBuilderComponent implements OnInit {
     const target: HTMLElement = event.target as HTMLElement;
     const className: string = target.className;
 
-    console.log(className);
     return className.endsWith(checkAlias);
   }
 

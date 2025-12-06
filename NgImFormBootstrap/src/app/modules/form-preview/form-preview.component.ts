@@ -325,7 +325,6 @@ export class FormPreviewComponent implements OnInit {
 
       if (textbox.regexValidation) {
         const { expression } = textbox.regexValidation;
-
         validators.push(Validators.pattern(expression));
       }
     }
@@ -358,7 +357,6 @@ export class FormPreviewComponent implements OnInit {
 
       if (textarea.regexValidation) {
         const { expression } = textarea.regexValidation;
-
         validators.push(Validators.pattern(expression));
       }
     }

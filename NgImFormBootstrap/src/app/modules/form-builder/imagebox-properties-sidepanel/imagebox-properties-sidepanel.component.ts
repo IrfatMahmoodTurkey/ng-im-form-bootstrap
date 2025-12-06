@@ -33,16 +33,8 @@ export class ImageboxPropertiesSidepanelComponent implements OnInit {
   }
 
   private initializeForm(): void {
-    this.form.addControl(
-      'order',
-      new FormControl(1, [Validators.required, Validators.min(1)])
-    );
     this.form.addControl('name', new FormControl('', [Validators.required]));
     this.form.addControl('class', new FormControl(''));
-    this.form.addControl(
-      'userDefinedId',
-      new FormControl('', [Validators.required])
-    );
     this.form.addControl('url', new FormControl('', [Validators.required]));
     this.form.addControl('alt', new FormControl(''));
     this.form.addControl(
@@ -65,10 +57,8 @@ export class ImageboxPropertiesSidepanelComponent implements OnInit {
     const properties: INgImFormImageBoxModel =
       this.imageboxProperties.properties;
 
-    this.form.controls['order'].setValue(properties.order);
     this.form.controls['name'].setValue(properties.name);
     this.form.controls['class'].setValue(properties.class);
-    this.form.controls['userDefinedId'].setValue(properties.userDefinedId);
     this.form.controls['url'].setValue(properties.url);
     this.form.controls['alt'].setValue(properties.alt);
     this.form.controls['height'].setValue(properties.height);
@@ -87,21 +77,9 @@ export class ImageboxPropertiesSidepanelComponent implements OnInit {
       return;
     }
 
-    const [
-      order,
-      name,
-      className,
-      userDefinedId,
-      url,
-      alt,
-      height,
-      width,
-      alignment,
-    ] = [
-      this.form.controls['order'].value,
+    const [name, className, url, alt, height, width, alignment] = [
       this.form.controls['name'].value,
       this.form.controls['class'].value,
-      this.form.controls['userDefinedId'].value,
       this.form.controls['url'].value,
       this.form.controls['alt'].value,
       this.form.controls['height'].value,
@@ -114,10 +92,8 @@ export class ImageboxPropertiesSidepanelComponent implements OnInit {
       imageBoxId: this.imageboxProperties.imageBoxId,
       properties: {
         id: this.imageboxProperties.imageBoxId,
-        order: order,
         name,
         class: className,
-        userDefinedId,
         url,
         alt,
         height,
