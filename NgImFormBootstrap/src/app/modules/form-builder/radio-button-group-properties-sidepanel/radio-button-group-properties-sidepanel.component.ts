@@ -33,7 +33,7 @@ export class RadioButtonGroupPropertiesSidepanelComponent implements OnInit {
       name: ['', [Validators.required]],
       label: ['', [Validators.required]],
       class: [''],
-      validationErrorClass: ['', [Validators.required]],
+      validationErrorClass: [''],
       isReadOnly: [false],
       isHidden: [false],
       isRequired: [false],

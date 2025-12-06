@@ -82,6 +82,12 @@
                                                         class="text-danger">{{tbValidation.message}}</small>
                                                 </ng-container>
                                             </ng-container>
+
+                                            <ng-container *ngIf="element.textBoxComponent.regexValidation">
+                                                <small
+                                                    *ngIf="isSubmitClicked && form.controls[element.textBoxComponent.name]?.errors && form.controls[element.textBoxComponent.name]?.errors?.['pattern']"
+                                                    class="text-danger">{{element.textBoxComponent.regexValidation.message}}</small>
+                                            </ng-container>
                                         </div>
                                     </ng-container>
 
@@ -118,6 +124,12 @@
                                                         *ngIf="isSubmitClicked && form.controls[element.textAreaComponent.name]?.errors && form.controls[element.textAreaComponent.name]?.errors?.['maxlength']"
                                                         class="text-danger">{{tbValidation.message}}</small>
                                                 </ng-container>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="element.textAreaComponent.regexValidation">
+                                                <small
+                                                    *ngIf="isSubmitClicked && form.controls[element.textAreaComponent.name]?.errors && form.controls[element.textAreaComponent.name]?.errors?.['pattern']"
+                                                    class="text-danger">{{element.textAreaComponent.regexValidation.message}}</small>
                                             </ng-container>
                                         </div>
                                     </ng-container>

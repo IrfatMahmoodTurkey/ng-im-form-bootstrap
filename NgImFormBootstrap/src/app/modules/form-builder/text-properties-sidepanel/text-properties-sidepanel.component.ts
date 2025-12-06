@@ -33,16 +33,8 @@ export class TextPropertiesSidepanelComponent implements OnInit {
   }
 
   private initializeForm(): void {
-    this.form.addControl(
-      'order',
-      new FormControl(1, [Validators.required, Validators.min(1)])
-    );
     this.form.addControl('name', new FormControl('', [Validators.required]));
     this.form.addControl('class', new FormControl(''));
-    this.form.addControl(
-      'userDefinedId',
-      new FormControl('', [Validators.required])
-    );
     this.form.addControl('text', new FormControl('', [Validators.required]));
     this.form.addControl('alignment', new FormControl(this.alignments[0]));
 
@@ -52,10 +44,8 @@ export class TextPropertiesSidepanelComponent implements OnInit {
 
     const properties: INgImFormTextModel = this.textProperties.properties;
 
-    this.form.controls['order'].setValue(properties.order);
     this.form.controls['name'].setValue(properties.name);
     this.form.controls['class'].setValue(properties.class);
-    this.form.controls['userDefinedId'].setValue(properties.userDefinedId);
     this.form.controls['text'].setValue(properties.text);
     this.form.controls['alignment'].setValue(properties.alignment);
   }
@@ -71,11 +61,9 @@ export class TextPropertiesSidepanelComponent implements OnInit {
       return;
     }
 
-    const [order, name, className, userDefinedId, text, alignment] = [
-      this.form.controls['order'].value,
+    const [name, className, text, alignment] = [
       this.form.controls['name'].value,
       this.form.controls['class'].value,
-      this.form.controls['userDefinedId'].value,
       this.form.controls['text'].value,
       this.form.controls['alignment'].value,
     ];
@@ -85,10 +73,8 @@ export class TextPropertiesSidepanelComponent implements OnInit {
       textId: this.textProperties.textId,
       properties: {
         id: this.textProperties.textId,
-        order: order,
         name,
         class: className,
-        userDefinedId,
         text,
         alignment,
       },

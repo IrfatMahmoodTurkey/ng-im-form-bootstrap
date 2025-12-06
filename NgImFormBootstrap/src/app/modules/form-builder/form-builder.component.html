@@ -120,6 +120,16 @@
                                       <ng-template #tbNotRequired>
                                         <span class="badge bg-danger">Not Required</span>
                                       </ng-template>
+
+                                      <span class="ms-1"></span>
+
+                                      <ng-container
+                                        *ngIf="element.textBoxComponent.regexValidation; else tbNoRegexValidation">
+                                        <span class="badge bg-success">Check Regex Validation</span>
+                                      </ng-container>
+                                      <ng-template #tbNoRegexValidation>
+                                        <span class="badge bg-danger">No Regex Validation</span>
+                                      </ng-template>
                                     </div>
                                   </div>
                                 </div>
@@ -192,6 +202,16 @@
                                       </ng-container>
                                       <ng-template #taNotRequired>
                                         <span class="badge bg-danger">Not Required</span>
+                                      </ng-template>
+
+                                      <span class="ms-1"></span>
+
+                                      <ng-container
+                                        *ngIf="element.textAreaComponent.regexValidation; else taNoRegexValidation">
+                                        <span class="badge bg-success">Check Regex Validation</span>
+                                      </ng-container>
+                                      <ng-template #taNoRegexValidation>
+                                        <span class="badge bg-danger">No Regex Validation</span>
                                       </ng-template>
                                     </div>
                                   </div>
