@@ -384,10 +384,8 @@ export interface INgImFormRadioButtonGroupModel {
 ```
 export interface INgImFormImageBoxModel {
   id: string;
-  order: number;
   name: string;
   class: string;
-  userDefinedId: string;
   url: string;
   alt: string;
   height: number;
@@ -401,10 +399,8 @@ export interface INgImFormImageBoxModel {
 ```
 export interface INgImFormTextModel {
   id: string;
-  order: number;
   name: string;
   class: string;
-  userDefinedId: string;
   text: string;
   alignment: string;
 }
