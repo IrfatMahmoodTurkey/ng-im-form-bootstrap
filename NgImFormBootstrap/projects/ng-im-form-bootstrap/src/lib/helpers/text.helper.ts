@@ -31,10 +31,8 @@ function addText(
 
   const toText: INgImFormTextModel = {
     id: generatedId,
-    order: order + 1,
     name: generatedId,
     class: '',
-    userDefinedId: generatedId,
     text: 'Text',
     alignment: ALIGNMENTS[0],
   };

@@ -31,10 +31,8 @@ function addImageBoxGroup(
 
   const toImageBox: INgImFormImageBoxModel = {
     id: generatedId,
-    order: order + 1,
     name: generatedId,
     class: '',
-    userDefinedId: generatedId,
     url: '',
     alt: '',
     height: 200,
