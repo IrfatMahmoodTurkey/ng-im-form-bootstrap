@@ -68,7 +68,12 @@ export class FormPreviewComponent implements OnInit {
 
   response: {
     isViewAlert: boolean;
-    successMessage: string | undefined;
+    successMessage:
+      | {
+          message: string | undefined;
+          details: string | undefined;
+        }
+      | undefined;
     failedMessage:
       | {
           message: string | undefined;
@@ -114,6 +119,8 @@ export class FormPreviewComponent implements OnInit {
         successMessage: undefined,
         failedMessage: undefined,
       };
+
+      window.location.reload();
     }, 5000);
   }
 
@@ -228,6 +235,13 @@ export class FormPreviewComponent implements OnInit {
         object,
         method
       );
+    } else if (sendBodyAs === SendBodyTypesEnum.JSON_STRING) {
+      observer = this.apiCallService.sendJSONasString(
+        submitAPIUrl,
+        this.queryParams,
+        object,
+        method
+      );
     } else {
       this.isSubmitProcessing = false;
       return;
@@ -237,12 +251,14 @@ export class FormPreviewComponent implements OnInit {
       this.isSubmitProcessing = false;
       return;
     }
-
     this.formSubscription = observer.subscribe({
       next: (response: string) => {
         this.response = {
           isViewAlert: true,
-          successMessage: `${responseMessages.onSuccess.title}. ${responseMessages.onSuccess.subTitle}`,
+          successMessage: {
+            message: responseMessages.onSuccess.title,
+            details: responseMessages.onSuccess.subTitle,
+          },
           failedMessage: undefined,
         };
 
@@ -253,6 +269,24 @@ export class FormPreviewComponent implements OnInit {
         this.onSubmitSuccess.emit(object);
       },
       error: (error: HttpErrorResponse) => {
+        if (error.name.toString() === 'TimeoutError') {
+          this.response = {
+            isViewAlert: true,
+            successMessage: undefined,
+            failedMessage: {
+              message: `Request Timeout!`,
+              details: error.message,
+            },
+          };
+
+          this.scrollToTop();
+          this.disapperResponseAlert();
+
+          this.isSubmitProcessing = false;
+          this.onSubmitError.emit(error);
+          return;
+        }
+
         this.response = {
           isViewAlert: true,
           successMessage: undefined,

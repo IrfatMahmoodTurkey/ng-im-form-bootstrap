@@ -76,4 +76,35 @@ export class APICallService {
       return this.http.patch<string>(url, formData, { params: httpParams });
     }
   }
+
+  sendJSONasString(
+    url: string,
+    queryParamsMap: Map<string, string> | null | undefined,
+    jsonObject: any,
+    method: APIMethodsEnum
+  ): Observable<string> {
+    let httpParams: HttpParams = new HttpParams();
+
+    if (queryParamsMap) {
+      for (const pair of queryParamsMap) {
+        const [key, value] = pair;
+
+        httpParams = httpParams.append(key, value);
+      }
+    }
+
+    if (method === APIMethodsEnum.POST) {
+      return this.http.post<string>(url, JSON.stringify(jsonObject), {
+        params: httpParams,
+      });
+    } else if (method === APIMethodsEnum.PATCH) {
+      return this.http.patch<string>(url, JSON.stringify(jsonObject), {
+        params: httpParams,
+      });
+    } else {
+      return this.http.put<string>(url, JSON.stringify(jsonObject), {
+        params: httpParams,
+      });
+    }
+  }
 }

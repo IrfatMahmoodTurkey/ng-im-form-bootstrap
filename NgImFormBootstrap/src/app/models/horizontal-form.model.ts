@@ -3,7 +3,6 @@ import { SendBodyTypesEnum } from '../enums/send-body-types.enum';
 
 export interface INgImHorizontalFormModel {
   checkValidations: boolean;
-  isResetButtonAvailable: boolean;
   submitAPIUrl: string;
   method: APIMethodsEnum;
   sendBodyAs: SendBodyTypesEnum;

@@ -19,6 +19,7 @@ export class FormPropertiesSidepanelComponent implements OnInit {
   sendBodyTypes: string[] = [
     SendBodyTypesEnum.JSON,
     SendBodyTypesEnum.FORM_DATA,
+    SendBodyTypesEnum.JSON_STRING,
   ];
 
   @Input() formProperties: INgImHorizontalFormModel | undefined;
@@ -69,9 +70,6 @@ export class FormPropertiesSidepanelComponent implements OnInit {
 
     this.form.controls['checkValidations'].setValue(
       properties.checkValidations
-    );
-    this.form.controls['isResetButtonAvailable'].setValue(
-      properties.isResetButtonAvailable
     );
     this.form.controls['submitAPIUrl'].setValue(properties.submitAPIUrl);
     this.form.controls['method'].setValue(properties.method);
@@ -125,7 +123,6 @@ export class FormPropertiesSidepanelComponent implements OnInit {
 
     this.saveChangesEvent.emit({
       checkValidations,
-      isResetButtonAvailable,
       submitAPIUrl,
       method,
       sendBodyAs,

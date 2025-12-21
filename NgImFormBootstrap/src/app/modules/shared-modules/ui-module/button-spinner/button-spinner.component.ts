@@ -5,6 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   template: `<button
     class="btn btn-primary"
     [ngClass]="isLargeButton ? 'btn-lg' : ''"
+    [style.width]="isBlockButton ? '100%!important' : ''"
     type="button"
     disabled
   >
@@ -18,6 +19,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ButtonSpinnerComponent implements OnInit {
   @Input() isLargeButton: boolean = false;
+  @Input() isBlockButton: boolean = false;
 
   constructor() {}
 

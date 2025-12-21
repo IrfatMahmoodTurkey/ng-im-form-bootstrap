@@ -44,7 +44,6 @@ export class FormBuilderComponent implements OnInit {
 
   horizontalForm: INgImHorizontalFormModel = {
     checkValidations: true,
-    isResetButtonAvailable: true,
     submitAPIUrl: '',
     method: APIMethodsEnum.POST,
     sendBodyAs: SendBodyTypesEnum.JSON,
