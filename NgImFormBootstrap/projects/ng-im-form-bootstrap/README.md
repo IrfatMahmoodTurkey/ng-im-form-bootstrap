@@ -88,6 +88,9 @@ If you see Bootstrap styling and Font Awesome icons properly rendered, your setu
 
 ---
 
-## Current Version: 1.1.1
+## Current Version: 1.1.2
 
 - Some bugs and issues have been fixed.
+- Added 'JSON as string' type to the form body type selection.
+- Added 60 seconds timeout functionality to the Form Preview HTTP request.
+- Changed Form Preview module's response UI.

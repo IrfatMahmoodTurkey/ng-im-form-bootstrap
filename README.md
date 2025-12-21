@@ -172,7 +172,6 @@ Below are the interface definitions used by the **Form Builder Module**.
 ```
 export interface INgImHorizontalFormModel {
   checkValidations: boolean;
-  isResetButtonAvailable: boolean;
   submitAPIUrl: string;
   method: APIMethodsEnum;
   sendBodyAs: SendBodyTypesEnum;
